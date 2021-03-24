@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/note.dart';
-import 'package:flutter_app/utils/database_helper.dart';
-import 'package:flutter_app/screens/note_detail.dart';
+import 'package:helth_care_mania_prottype/models/note.dart';
+import 'package:helth_care_mania_prottype/utils/database_helper.dart';
+import 'package:helth_care_mania_prottype/screens/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
 

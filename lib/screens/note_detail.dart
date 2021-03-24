@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/note.dart';
-import 'package:flutter_app/utils/database_helper.dart';
+import 'package:helth_care_mania_prottype/models/note.dart';
+import 'package:helth_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
@@ -20,7 +20,7 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['High', 'Low'];
+  static var _priorities = ['定期健康診断', '人間ドック'];
 
   DatabaseHelper helper = DatabaseHelper();
 

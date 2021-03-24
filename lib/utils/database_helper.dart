@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_app/models/note.dart';
+import 'package:helth_care_mania_prottype/models/note.dart';
 
 class DatabaseHelper {
 

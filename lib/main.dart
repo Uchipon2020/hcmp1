@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/note_list.dart';
-import 'package:flutter_app/screens/note_detail.dart';
+import 'package:helth_care_mania_prottype/screens/note_list.dart';
+import 'package:helth_care_mania_prottype/screens/note_detail.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'NoteKeeper',
+      title: 'HelthcareMania',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.deepPurple
