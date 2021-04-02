@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:helth_care_mania_prottype/models/note.dart';
+import 'package:health_care_mania_prottype/models/note.dart';
 
 class DatabaseHelper {
 
@@ -11,8 +11,13 @@ class DatabaseHelper {
 
   String noteTable = 'note_table';
   String colId = 'id';
-  String colTitle = 'title';
-  String colDescription = 'description';
+  String colHeight = 'height';
+  String colWeight = 'weight';
+  String colR_Eye  ='right_eye';
+  String colL_Eye = 'left_eye';
+  String colL_Bp = 'low_blood_pressure';
+  String colH_Bp = 'high_blood_pressure';
+  String colOn_the_day ='on_the_day';
   String colPriority = 'priority';
   String colDate = 'date';
 
@@ -46,8 +51,9 @@ class DatabaseHelper {
 
   void _createDb(Database db, int newVersion) async {
 
-    await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-        '$colDescription TEXT, $colPriority INTEGER, $colDate TEXT)');
+    await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colHeight TEXT, '
+        ' $colWeight TEXT, $colR_Eye TEXT, $colL_Eye TEXT, $colL_Bp TEXT, $colH_Bp TEXT, '
+        ' $colOn_the_day TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 
   // Fetch Operation: Get all note objects from database
@@ -94,7 +100,8 @@ class DatabaseHelper {
     var noteMapList = await getNoteMapList(); // Get 'Map List' from database
     int count = noteMapList.length;         // Count the number of map entries in db table
 
-    List<Note> noteList = List<Note>();
+    // ignore: deprecated_member_use
+    List<Note> noteList = <Note>[];
     // For loop to create a 'Note List' from a 'Map List'
     for (int i = 0; i < count; i++) {
       noteList.add(Note.fromMapObject(noteMapList[i]));

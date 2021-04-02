@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helth_care_mania_prottype/screens/note_list.dart';
-import 'package:helth_care_mania_prottype/screens/note_detail.dart';
+import 'package:health_care_mania_prottype/screens/note_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'HelthcareMania',
+      title: 'Health Care Mania',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.deepPurple
