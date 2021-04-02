@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:helth_care_mania_prottype/models/note.dart';
-import 'package:helth_care_mania_prottype/utils/database_helper.dart';
+import 'package:health_care_mania_prottype/models/note.dart';
+import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
@@ -9,7 +9,7 @@ class NoteDetail extends StatefulWidget {
   final String appBarTitle;
   final Note note;
 
-  NoteDetail(this. note, this.appBarTitle);
+  NoteDetail(this.note, this.appBarTitle);
 
   @override
   State<StatefulWidget> createState() {
@@ -27,18 +27,28 @@ class NoteDetailState extends State<NoteDetail> {
   String appBarTitle;
   Note note;
 
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController rEyeController = TextEditingController();
+  TextEditingController lEyeController = TextEditingController();
+  TextEditingController lBpController = TextEditingController();
+  TextEditingController hBpController = TextEditingController();
+  TextEditingController onTheDayController = TextEditingController();
 
   NoteDetailState(this.note, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
 
-    TextStyle textStyle = Theme.of(context).textTheme.title;
+    TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
-    titleController.text = note.title;
-    descriptionController.text = note.description;
+    heightController.text = note.height;
+    weightController.text = note.weight;
+    rEyeController.text = note.right_eye;
+    lEyeController.text = note.left_eye;
+    lBpController.text = note.low_blood_pressure;
+    hBpController.text = note.high_blood_pressure;
+    onTheDayController.text = note.on_the_day;
 
     return WillPopScope(
 
@@ -64,7 +74,7 @@ class NoteDetailState extends State<NoteDetail> {
             child: ListView(
               children: <Widget>[
 
-                // First element
+                // First element　定期健康診断か人間ドックかプルダウンで選ぶ
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
@@ -87,38 +97,18 @@ class NoteDetailState extends State<NoteDetail> {
                   ),
                 ),
 
-                // Second Element
+                // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: TextField(
-                    controller: titleController,
-                    style: textStyle,
-                    onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateTitle();
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Title',
-                        labelStyle: textStyle,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)
-                        )
-                    ),
-                  ),
-                ),
-
-                // Third Element
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                  child: TextField(
-                    controller: descriptionController,
+                    controller: onTheDayController,
                     style: textStyle,
                     onChanged: (value) {
                       debugPrint('Something changed in Description Text Field');
-                      updateDescription();
+                      updateOTD();
                     },
                     decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: '受診日',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
@@ -127,12 +117,161 @@ class NoteDetailState extends State<NoteDetail> {
                   ),
                 ),
 
-                // Fourth Element
+                // Second Element　身長入力
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: TextField(
+                    controller: heightController,
+                    style: textStyle,
+                    keyboardType:TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint('Something changed in Title Text Field');
+                      updateHeight();
+                    },
+                    decoration: InputDecoration(
+                        labelText: '身長',
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
+                  ),
+                ),
+
+                // Third Element　体重入力
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: TextField(
+                    controller: weightController,
+                    style: textStyle,
+                    keyboardType:TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint('Something changed in Description Text Field');
+                      updateWeight();
+                    },
+                    decoration: InputDecoration(
+                        labelText: '体重',
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
+                  ),
+                ),
+
+
+              //視力横並び表示-------------------
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
+                        // 3 Element　（右）視力入力
+                        child: TextField(
+                          controller: rEyeController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateREye();
+                            },
+
+                          decoration: InputDecoration(
+                            labelText: '右視力',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                          ),
+                        ),
+                      ),
+                    ),
+                      Container(width: 5.0,),
+
+                      Expanded(
+                // 5 Element　（左）視力入力
+                      child: TextField(
+                        controller: lEyeController,
+                        style: textStyle,
+                        keyboardType:TextInputType.number,
+                        onChanged: (value) {
+                          debugPrint('Something changed in Description Text Field');
+                          updateLEye();
+                          },
+                        decoration: InputDecoration(
+                          labelText: '左視力',
+                          labelStyle: textStyle,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                                ),
+                            ),
+                          ),
+                      ),
+
+                    ],
+                  ),),
+
+
+                //血圧横並び表示----------------
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          // 6 Element　血圧（LOW）
+                        child: TextField(
+                        controller: lBpController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                          debugPrint('Something changed in Description Text Field');
+                          updateLBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: '血圧Low',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                    ),
+
+                        Container(width: 5.0,),
+
+                        Expanded(
+                          // 7 Element　血圧（High）
+                            child: TextField(
+                              controller: hBpController,
+                              style: textStyle,
+                              keyboardType:TextInputType.number,
+                              onChanged: (value) {
+                                debugPrint('Something changed in Description Text Field');
+                                updateHBp();
+                                },
+                              decoration: InputDecoration(
+                                  labelText: '血圧High',
+                                  labelStyle: textStyle,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0)
+                                  )
+                              ),
+                            ),
+                          ),
+                      ],
+                  ),
+                ),
+
+
+
+
+
+                // 5 Element　保存と削除　横並び表示
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // ignore: deprecated_member_use
                         child: RaisedButton(
                           color: Theme.of(context).primaryColorDark,
                           textColor: Theme.of(context).primaryColorLight,
@@ -152,6 +291,7 @@ class NoteDetailState extends State<NoteDetail> {
                       Container(width: 5.0,),
 
                       Expanded(
+                        // ignore: deprecated_member_use
                         child: RaisedButton(
                           color: Theme.of(context).primaryColorDark,
                           textColor: Theme.of(context).primaryColorLight,
@@ -186,10 +326,10 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case 'High':
+      case '定期健康診断':
         note.priority = 1;
         break;
-      case 'Low':
+      case '人間ドック':
         note.priority = 2;
         break;
     }
@@ -210,13 +350,40 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the title of Note object
-  void updateTitle(){
-    note.title = titleController.text;
+  void updateHeight(){
+    note.height = heightController.text;
   }
 
-  // Update the description of Note object
-  void updateDescription() {
-    note.description = descriptionController.text;
+
+  // Update the title of Note object
+  void updateWeight(){
+    note.weight = weightController.text;
+  }
+
+
+  // Update the right_eyes of Note object
+  void updateREye() {
+    note.right_eye = rEyeController.text;
+  }
+
+  // Update the left_eyes of Note object
+  void updateLEye() {
+    note.left_eye = lEyeController.text;
+  }
+
+  // Update the low_blood_pressure of Note object
+  void updateLBp() {
+    note.low_blood_pressuer = lBpController.text;
+  }
+
+  // Update the high_blood_pressure of Note object
+  void updateHBp() {
+    note.high_blood_pressuer = hBpController.text;
+  }
+
+  // Update the on_the_day of Note object
+  void updateOTD() {
+    note.on_the_day = onTheDayController.text;
   }
 
   // Save data to database

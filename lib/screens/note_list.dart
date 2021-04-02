@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:helth_care_mania_prottype/models/note.dart';
-import 'package:helth_care_mania_prottype/utils/database_helper.dart';
-import 'package:helth_care_mania_prottype/screens/note_detail.dart';
+import 'package:health_care_mania_prottype/models/note.dart';
+import 'package:health_care_mania_prottype/utils/database_helper.dart';
+import 'package:health_care_mania_prottype/screens/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -25,7 +25,7 @@ class NoteListState extends State<NoteList> {
   Widget build(BuildContext context) {
 
     if (noteList == null) {
-      noteList = List<Note>();
+      noteList = <Note>[];
       updateListView();
     }
 
@@ -40,10 +40,10 @@ class NoteListState extends State<NoteList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note('', '', 2), 'Add Note');
+          navigateToDetail(Note(2,''), '新規登録');
         },
 
-        tooltip: 'Add Note',
+        tooltip: '新規登録',
 
         child: Icon(Icons.add),
 
@@ -53,7 +53,8 @@ class NoteListState extends State<NoteList> {
 
   ListView getNoteListView() {
 
-    TextStyle titleStyle = Theme.of(context).textTheme.subhead;
+    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    //String type;
 
     return ListView.builder(
       itemCount: count,
@@ -68,9 +69,9 @@ class NoteListState extends State<NoteList> {
               child: getPriorityIcon(this.noteList[position].priority),
             ),
 
-            title: Text(this.noteList[position].title, style: titleStyle,),
+            title: Text('受診日 : ' + this.noteList[position].on_the_day),
 
-            subtitle: Text(this.noteList[position].date),
+            subtitle: Text('更新日' + this.noteList[position].date),
 
             trailing: GestureDetector(
               child: Icon(Icons.delete, color: Colors.grey,),
@@ -95,9 +96,11 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
+        //type = "定期健康診断";
         return Colors.red;
         break;
       case 2:
+        //type = "人間ドック";
         return Colors.yellow;
         break;
 
@@ -136,9 +139,9 @@ class NoteListState extends State<NoteList> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void navigateToDetail(Note note, String title) async {
+  void navigateToDetail(Note note, String height) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return NoteDetail(note, title);
+      return NoteDetail(note, height);
     }));
 
     if (result == true) {
