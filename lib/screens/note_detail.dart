@@ -128,12 +128,12 @@ class NoteDetailState extends State<NoteDetail> {
                       debugPrint('Something changed in Title Text Field');
                       updateHeight();
                     },
-                    decoration: InputDecoration(
+                    /*decoration: InputDecoration(
                         labelText: '身長',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
-                        )
+                        )*/
                     ),
                   ),
                 ),
