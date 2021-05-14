@@ -32,7 +32,7 @@ class NoteListState extends State<NoteList> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('Notes'),
+        title: Text('ヘルスケア　マニア'),
       ),
 
       body: getNoteListView(),
@@ -83,7 +83,7 @@ class NoteListState extends State<NoteList> {
 
             onTap: () {
               debugPrint("ListTile Tapped");
-              navigateToDetail(this.noteList[position],'Edit Note');
+              navigateToDetail(this.noteList[position],'既存データ更新');
             },
 
           ),
@@ -128,7 +128,7 @@ class NoteListState extends State<NoteList> {
 
     int result = await databaseHelper.deleteNote(note.id);
     if (result != 0) {
-      _showSnackBar(context, 'Note Deleted Successfully');
+      _showSnackBar(context, '削除完了');
       updateListView();
     }
   }

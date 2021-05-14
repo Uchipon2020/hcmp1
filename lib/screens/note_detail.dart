@@ -128,15 +128,16 @@ class NoteDetailState extends State<NoteDetail> {
                       debugPrint('Something changed in Title Text Field');
                       updateHeight();
                     },
-                    /*decoration: InputDecoration(
+                    decoration: InputDecoration(
                         labelText: '身長',
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
-                        )*/
+                        )
                     ),
                   ),
                 ),
+
 
                 // Third Element　体重入力
                 Padding(
@@ -400,9 +401,9 @@ class NoteDetailState extends State<NoteDetail> {
     }
 
     if (result != 0) {  // Success
-      _showAlertDialog('Status', 'Note Saved Successfully');
+      _showAlertDialog('状況', '保存完了！！');
     } else {  // Failure
-      _showAlertDialog('Status', 'Problem Saving Note');
+      _showAlertDialog('状況', '問題発生・保存されませんでした');
     }
 
   }
@@ -414,16 +415,16 @@ class NoteDetailState extends State<NoteDetail> {
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
     // the detail page by pressing the FAB of NoteList page.
     if (note.id == null) {
-      _showAlertDialog('Status', 'No Note was deleted');
+      _showAlertDialog('状況', '削除データなし');
       return;
     }
 
     // Case 2: User is trying to delete the old note that already has a valid ID.
     int result = await helper.deleteNote(note.id);
     if (result != 0) {
-      _showAlertDialog('Status', 'Note Deleted Successfully');
+      _showAlertDialog('状況', 'データ削除完了');
     } else {
-      _showAlertDialog('Status', 'Error Occured while Deleting Note');
+      _showAlertDialog('状況', '問題発生・データ削除不可');
     }
   }
 
