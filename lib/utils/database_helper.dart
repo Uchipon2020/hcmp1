@@ -13,10 +13,27 @@ class DatabaseHelper {
   String colId = 'id';
   String colHeight = 'height';
   String colWeight = 'weight';
+  String colWaist = 'waist';
   String colR_Eye  ='right_eye';
   String colL_Eye = 'left_eye';
+  String colHearing_right_1000 = 'hearing_right_1000';
+  String colHearing_left_1000 = 'hearing_left_1000';
+  String colHearing_right_4000 = 'hearing_right_4000';
+  String colHearing_left_4000 = 'hearing_left_4000';
+  String colX_ray = 'x_ray';
   String colL_Bp = 'low_blood_pressure';
   String colH_Bp = 'high_blood_pressure';
+  String colRed_blood = 'red_blood';
+  String colHemoglobin = 'hemoglobin';
+  String colGot = 'got';
+  String colGpt = 'gpt';
+  String colGtp = 'gtp';
+  String colLdl = 'ldl';
+  String colHdl = 'hdl';
+  String colNeutral_fat = 'neutral_fat';
+  String colBlood_glucose = 'blood_glucose';
+  String colHA1c = 'hA1c';
+  String colEcg = 'ecg';
   String colOn_the_day ='on_the_day';
   String colPriority = 'priority';
   String colDate = 'date';
@@ -52,7 +69,11 @@ class DatabaseHelper {
   void _createDb(Database db, int newVersion) async {
 
     await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colHeight TEXT, '
-        ' $colWeight TEXT, $colR_Eye TEXT, $colL_Eye TEXT, $colL_Bp TEXT, $colH_Bp TEXT, '
+        ' $colWeight TEXT, $colR_Eye TEXT, $colL_Eye TEXT, $colHearing_right_1000 TExt, $colHearing_left_1000 Text,'
+        ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT, $colX_ray TEXT, '
+        ' $colL_Bp TEXT, $colH_Bp TEXT, $colRed_blood TEXT, $colHemoglobin TEXT,'
+        ' $colGot TEXT, $colGpt TEXT, $colGtp TEXT, $colLdl TEXT, $colHdl TEXT, $colNeutral_fat TEXT, '
+        ' $colBlood_glucose TEXT, $colHA1c TEXT, $colEcg TEXT, '
         ' $colOn_the_day TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 
