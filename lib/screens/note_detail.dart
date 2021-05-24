@@ -490,7 +490,7 @@ class NoteDetailState extends State<NoteDetail> {
                             updateHBp();
                           },
                           decoration: InputDecoration(
-                              labelText: '血圧High',
+                              labelText: '血色素量',
                               labelStyle: textStyle,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
