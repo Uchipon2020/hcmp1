@@ -254,10 +254,10 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hR1000Controller,
                           style: textStyle,
-                          keyboardType:TextInputType.number,
+                          //keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateREye();
+                            updateHearing_r_1000();
                           },
 
                           decoration: InputDecoration(
@@ -276,10 +276,10 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hL1000Controller,
                           style: textStyle,
-                          keyboardType:TextInputType.number,
+                         // keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLEye();
+                            updateHearing_l_1000();
                           },
                           decoration: InputDecoration(
                             labelText: '左聴力1000',
@@ -305,10 +305,10 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hR4000Controller,
                           style: textStyle,
-                          keyboardType:TextInputType.number,
+                          //keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateREye();
+                            updateHearing_r_4000();
                           },
 
                           decoration: InputDecoration(
@@ -327,10 +327,10 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hL4000Controller,
                           style: textStyle,
-                          keyboardType:TextInputType.number,
+                          //keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLEye();
+                            updateHearing_l_4000();
                           },
                           decoration: InputDecoration(
                             labelText: '左聴力4000',
@@ -404,10 +404,10 @@ class NoteDetailState extends State<NoteDetail> {
                   child: TextField(
                     controller: xRayController,
                     style: textStyle,
-                    keyboardType:TextInputType.number,
+                    //keyboardType:TextInputType.number,
                     onChanged: (value) {
                       debugPrint('Something changed in Title Text Field');
-                      updateHeight();
+                      updateXray();
                     },
                     decoration: InputDecoration(
                         labelText: 'レントゲン検査所見',
@@ -427,10 +427,10 @@ class NoteDetailState extends State<NoteDetail> {
                   child: TextField(
                     controller: eCgController,
                     style: textStyle,
-                    keyboardType:TextInputType.number,
+                    //keyboardType:TextInputType.number,
                     onChanged: (value) {
                       debugPrint('Something changed in Title Text Field');
-                      updateHeight();
+                      updateEcg();
                     },
                     decoration: InputDecoration(
                         labelText: '心電図検査所見',
@@ -465,7 +465,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLBp();
+                            updateRedblood();
                           },
                           decoration: InputDecoration(
                               labelText: '赤血球数',
@@ -487,7 +487,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateHBp();
+                            updateHemo();
                           },
                           decoration: InputDecoration(
                               labelText: '血色素量',
@@ -516,7 +516,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLBp();
+                            updateGot();
                           },
                           decoration: InputDecoration(
                               labelText: 'ＧＯＴ',
@@ -538,7 +538,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateHBp();
+                            updateGpt();
                           },
                           decoration: InputDecoration(
                               labelText: 'ＧＰＴ',
@@ -559,10 +559,10 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateHBp();
+                            updateGtp();
                           },
                           decoration: InputDecoration(
-                              labelText: 'γーＧＰＴ（ガンマ）',
+                              labelText: 'γ-GPT（ｶﾞﾝﾏ）',
                               labelStyle: textStyle,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
@@ -591,7 +591,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLBp();
+                            updateLdl();
                           },
                           decoration: InputDecoration(
                               labelText: 'ＬＤＬ',
@@ -613,7 +613,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateHBp();
+                            updateHdl();
                           },
                           decoration: InputDecoration(
                               labelText: 'ＨＤＬ',
@@ -635,7 +635,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateHBp();
+                            updateNeutralfat();
                           },
                           decoration: InputDecoration(
                               labelText: '中性脂肪',
@@ -669,7 +669,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateREye();
+                            updateBloodglucose();
                           },
 
                           decoration: InputDecoration(
@@ -691,7 +691,7 @@ class NoteDetailState extends State<NoteDetail> {
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
-                            updateLEye();
+                            updateHA1c();
                           },
                           decoration: InputDecoration(
                             labelText: 'hA1c',
@@ -823,6 +823,71 @@ class NoteDetailState extends State<NoteDetail> {
   void updateLEye() {
     note.left_eye = lEyeController.text;
   }
+
+  void updateHearing_r_1000(){
+    note.hearing_right_1000 = hR1000Controller.text;
+  }
+
+  void updateHearing_l_1000(){
+    note.hearing_left_1000 = hL1000Controller.text;
+  }
+
+  void updateHearing_r_4000(){
+    note.hearing_right_4000 = hR4000Controller.text;
+  }
+
+  void updateHearing_l_4000(){
+    note.hearing_left_4000 = hL4000Controller.text;
+  }
+
+  void updateXray(){
+    note.x_ray = xRayController.text;
+  }
+
+  void updateRedblood(){
+    note.red_blood = rBController.text;
+  }
+
+  void updateHemo(){
+    note.hemoglobin = hEmoController.text;
+  }
+
+  void updateGot(){
+    note.got = gOtController.text;
+  }
+
+  void updateGpt(){
+    note.gpt = gPtController.text;
+  }
+
+  void updateGtp(){
+    note.gtp = gTpController.text;
+  }
+
+  void updateLdl(){
+    note.ldl = lDlController.text;
+  }
+
+  void updateHdl(){
+    note.hdl = hDlController.text;
+  }
+
+  void updateNeutralfat(){
+    note.neutral_fat = nFatController.text;
+  }
+
+  void updateBloodglucose(){
+    note.blood_glucose = bGluController.text;
+  }
+
+  void updateHA1c(){
+    note.hA1c = hA1cController.text;
+  }
+
+  void updateEcg(){
+    note.ecg = eCgController.text;
+  }
+
 
   // Update the low_blood_pressure of Note object
   void updateLBp() {

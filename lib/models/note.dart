@@ -267,11 +267,11 @@ class Note {
     map['weight'] = _weight;
     map['right_eye'] = _right_eye;
     map['left_eye'] = _left_eye;
-    map['hearing_right_1000'] = hearing_right_1000;
-    map['hearing_left_1000'] = hearing_left_1000;
-    map['hearing_right_4000'] = hearing_right_4000;
-    map['hearing_left_4000'] = hearing_left_4000;
-    map['x_ray'] = x_ray;
+    map['hearing_right_1000'] = _hearing_right_1000;
+    map['hearing_left_1000'] = _hearing_left_1000;
+    map['hearing_right_4000'] = _hearing_right_4000;
+    map['hearing_left_4000'] = _hearing_left_4000;
+    map['x_ray'] = _x_ray;
     map['low_blood_pressure'] = _low_blood_pressure;
     map['high_blood_pressure'] = _high_blood_pressure;
     map['red_blood'] = _red_blood;
