@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Health Care Mania',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.deepPurple
+          primarySwatch: Colors.orange
       ),
       home: NoteList(),
     );
