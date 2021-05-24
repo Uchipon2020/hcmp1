@@ -398,10 +398,327 @@ class NoteDetailState extends State<NoteDetail> {
                 ),
 
 
+             // x線検査
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: TextField(
+                    controller: xRayController,
+                    style: textStyle,
+                    keyboardType:TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint('Something changed in Title Text Field');
+                      updateHeight();
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'レントゲン検査所見',
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
+                  ),
+                ),
+
+
+                // 心電図検査
+
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: TextField(
+                    controller: eCgController,
+                    style: textStyle,
+                    keyboardType:TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint('Something changed in Title Text Field');
+                      updateHeight();
+                    },
+                    decoration: InputDecoration(
+                        labelText: '心電図検査所見',
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
+                  ),
+                ),
 
 
 
-                // 5 Element　保存と削除　横並び表示
+
+
+
+
+
+
+
+
+                //赤血球数・血色素量----------------
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // 6 Element　赤血球数
+                        child: TextField(
+                          controller: rBController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateLBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: '赤血球数',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // 7 Element　血色素量
+                        child: TextField(
+                          controller: hEmoController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateHBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: '血圧High',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+
+                //肝機能検査　横並び３つ----------------
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // ＧＯＴ
+                        child: TextField(
+                          controller: gOtController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateLBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'ＧＯＴ',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // ＧＰＴ
+                        child: TextField(
+                          controller: gPtController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateHBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'ＧＰＴ',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // ガンマ
+                        child: TextField(
+                          controller: gTpController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateHBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'γーＧＰＴ（ガンマ）',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                ),
+
+
+
+                //ＬＤＬとＨＤＬ----------------
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // LDL
+                        child: TextField(
+                          controller: lDlController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateLBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'ＬＤＬ',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // ＨＤＬ
+                        child: TextField(
+                          controller: hDlController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateHBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: 'ＨＤＬ',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // 中性脂肪
+                        child: TextField(
+                          controller: nFatController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateHBp();
+                          },
+                          decoration: InputDecoration(
+                              labelText: '中性脂肪',
+                              labelStyle: textStyle,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
+                        ),
+                      ),
+
+
+
+                    ],
+                  ),
+                ),
+
+
+
+                //血糖検査
+
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // 空腹時血糖
+                        child: TextField(
+                          controller: bGluController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateREye();
+                          },
+
+                          decoration: InputDecoration(
+                            labelText: '空腹時血糖',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // A1c
+                        child: TextField(
+                          controller: hA1cController,
+                          style: textStyle,
+                          keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateLEye();
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'hA1c',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),),
+
+
+
+
+
+
+
+                /* 5 Element　保存と削除　横並び表示
+                *
+                *
+                *
+                *
+                *
+                * ---------------------------------------------- */
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: Row(
