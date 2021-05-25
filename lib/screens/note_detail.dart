@@ -49,6 +49,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
+  String _labelText;
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -107,7 +108,7 @@ class NoteDetailState extends State<NoteDetail> {
               children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-                ListTile(
+               /* ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
                         return DropdownMenuItem<String> (
@@ -128,6 +129,8 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
+                */
+
 
                 // 8 Element　受診日
                 Padding(
@@ -136,6 +139,8 @@ class NoteDetailState extends State<NoteDetail> {
                     controller: onTheDayController,
                     style: textStyle,
                     onChanged: (value) {
+                      _selectDate(context);
+                      onTheDayController.text = _labelText;
                       debugPrint('Something changed in Description Text Field');
                       updateOTD();
                     },
@@ -151,7 +156,7 @@ class NoteDetailState extends State<NoteDetail> {
 
                 // Second Element　身長入力
                 Padding(
-                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
                   child: TextField(
                     controller: heightController,
                     style: textStyle,
@@ -163,8 +168,10 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: '身長',
                         labelStyle: textStyle,
+                        suffix: Text('cm'),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
+
                         )
                     ),
                   ),
@@ -173,7 +180,7 @@ class NoteDetailState extends State<NoteDetail> {
 
                 // Third Element　体重入力
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 2.5, bottom: 15.0),
                   child: TextField(
                     controller: weightController,
                     style: textStyle,
@@ -185,6 +192,7 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: '体重',
                         labelStyle: textStyle,
+                        suffix: Text('kg'),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
                         )
@@ -246,7 +254,7 @@ class NoteDetailState extends State<NoteDetail> {
                 //聴力1000Hz
 
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -297,7 +305,7 @@ class NoteDetailState extends State<NoteDetail> {
                 //聴力4000Hz
 
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 2.5, bottom: 15.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -365,6 +373,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血圧Low',
                               labelStyle: textStyle,
+                              suffix: Text('mm Hg'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -387,6 +396,7 @@ class NoteDetailState extends State<NoteDetail> {
                               decoration: InputDecoration(
                                   labelText: '血圧High',
                                   labelStyle: textStyle,
+                                  suffix: Text('mm Hg'),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)
                                   )
@@ -441,20 +451,15 @@ class NoteDetailState extends State<NoteDetail> {
                     ),
                   ),
                 ),
-
-
-
-
-
-
-
-
-
-
-
+                /*
                 //赤血球数・血色素量----------------
+                /
+                /
+                /
+                /
+                 -------------------------------------- */
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -470,6 +475,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '赤血球数',
                               labelStyle: textStyle,
+                              suffix: Text('10^4/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -492,6 +498,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血色素量',
                               labelStyle: textStyle,
+                              suffix: Text('10^4/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -505,7 +512,7 @@ class NoteDetailState extends State<NoteDetail> {
 
                 //肝機能検査　横並び３つ----------------
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -521,6 +528,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＧＯＴ',
                               labelStyle: textStyle,
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -543,6 +551,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＧＰＴ',
                               labelStyle: textStyle,
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -562,8 +571,9 @@ class NoteDetailState extends State<NoteDetail> {
                             updateGtp();
                           },
                           decoration: InputDecoration(
-                              labelText: 'γ-GPT（ｶﾞﾝﾏ）',
+                              labelText: 'ガンマGPT',
                               labelStyle: textStyle,
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -580,7 +590,7 @@ class NoteDetailState extends State<NoteDetail> {
 
                 //ＬＤＬとＨＤＬ----------------
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -596,6 +606,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＬＤＬ',
                               labelStyle: textStyle,
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -618,6 +629,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＨＤＬ',
                               labelStyle: textStyle,
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -640,20 +652,16 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '中性脂肪',
                               labelStyle: textStyle,
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
                           ),
                         ),
                       ),
-
-
-
                     ],
                   ),
                 ),
-
-
 
                 //血糖検査
 
@@ -675,6 +683,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '空腹時血糖',
                             labelStyle: textStyle,
+                            suffix: Text('mg/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -696,6 +705,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: 'hA1c',
                             labelStyle: textStyle,
+                            suffix:Text('%'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -903,6 +913,21 @@ class NoteDetailState extends State<NoteDetail> {
   void updateOTD() {
     note.on_the_day = onTheDayController.text;
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2015),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null) {
+      setState(() {
+        _labelText = (DateFormat.yMMMd()).format(selected);
+      });
+    }
+  }
+
 
   // Save data to database
   void _save() async {
