@@ -32,7 +32,7 @@ class NoteListState extends State<NoteList> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text('ヘルスケア　マニア'),
+        title: Text('MY HEALTHCARE DATA'),
       ),
 
       body: getNoteListView(),
@@ -83,7 +83,7 @@ class NoteListState extends State<NoteList> {
 
             onTap: () {
               debugPrint("ListTile Tapped");
-              navigateToDetail(this.noteList[position],'既存データ更新');
+              navigateToDetail(this.noteList[position],'参照・訂正');
             },
 
           ),

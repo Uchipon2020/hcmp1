@@ -14,15 +14,25 @@ class DatabaseHelper {
   String colHeight = 'height';
   String colWeight = 'weight';
   String colWaist = 'waist';
+  // ignore: non_constant_identifier_names
   String colR_Eye  ='right_eye';
+  // ignore: non_constant_identifier_names
   String colL_Eye = 'left_eye';
+  // ignore: non_constant_identifier_names
   String colHearing_right_1000 = 'hearing_right_1000';
+  // ignore: non_constant_identifier_names
   String colHearing_left_1000 = 'hearing_left_1000';
+  // ignore: non_constant_identifier_names
   String colHearing_right_4000 = 'hearing_right_4000';
+  // ignore: non_constant_identifier_names
   String colHearing_left_4000 = 'hearing_left_4000';
+  // ignore: non_constant_identifier_names
   String colX_ray = 'x_ray';
+  // ignore: non_constant_identifier_names
   String colL_Bp = 'low_blood_pressure';
+  // ignore: non_constant_identifier_names
   String colH_Bp = 'high_blood_pressure';
+  // ignore: non_constant_identifier_names
   String colRed_blood = 'red_blood';
   String colHemoglobin = 'hemoglobin';
   String colGot = 'got';
@@ -30,10 +40,13 @@ class DatabaseHelper {
   String colGtp = 'gtp';
   String colLdl = 'ldl';
   String colHdl = 'hdl';
+  // ignore: non_constant_identifier_names
   String colNeutral_fat = 'neutral_fat';
+  // ignore: non_constant_identifier_names
   String colBlood_glucose = 'blood_glucose';
   String colHA1c = 'hA1c';
   String colEcg = 'ecg';
+  // ignore: non_constant_identifier_names
   String colOn_the_day ='on_the_day';
   String colPriority = 'priority';
   String colDate = 'date';

@@ -212,31 +212,31 @@ class Note {
 
   set hdl(String newHdl){
     if (newHdl.length <= 255){
-      this.hdl = newHdl;
+      this._hdl = newHdl;
     }
   }
 
   set neutral_fat(String newNeutral_fat){
     if (newNeutral_fat.length <= 255){
-      this.neutral_fat = newNeutral_fat;
+      this._neutral_fat = newNeutral_fat;
     }
   }
 
   set blood_glucose(String newBlood_glucose){
     if (newBlood_glucose.length <= 255){
-      this.blood_glucose = newBlood_glucose;
+      this._blood_glucose = newBlood_glucose;
     }
   }
 
   set hA1c(String newHA1c){
     if (newHA1c.length <= 255){
-      this.hA1c = newHA1c;
+      this._hA1c = newHA1c;
     }
   }
 
   set ecg(String newEcg){
     if (newEcg.length <= 255){
-      this.ecg = newEcg;
+      this._ecg = newEcg;
     }
   }
 
@@ -267,11 +267,11 @@ class Note {
     map['weight'] = _weight;
     map['right_eye'] = _right_eye;
     map['left_eye'] = _left_eye;
-    map['hearing_right_1000'] = hearing_right_1000;
-    map['hearing_left_1000'] = hearing_left_1000;
-    map['hearing_right_4000'] = hearing_right_4000;
-    map['hearing_left_4000'] = hearing_left_4000;
-    map['x_ray'] = x_ray;
+    map['hearing_right_1000'] = _hearing_right_1000;
+    map['hearing_left_1000'] = _hearing_left_1000;
+    map['hearing_right_4000'] = _hearing_right_4000;
+    map['hearing_left_4000'] = _hearing_left_4000;
+    map['x_ray'] = _x_ray;
     map['low_blood_pressure'] = _low_blood_pressure;
     map['high_blood_pressure'] = _high_blood_pressure;
     map['red_blood'] = _red_blood;
