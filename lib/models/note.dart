@@ -212,31 +212,31 @@ class Note {
 
   set hdl(String newHdl){
     if (newHdl.length <= 255){
-      this.hdl = newHdl;
+      this._hdl = newHdl;
     }
   }
 
   set neutral_fat(String newNeutral_fat){
     if (newNeutral_fat.length <= 255){
-      this.neutral_fat = newNeutral_fat;
+      this._neutral_fat = newNeutral_fat;
     }
   }
 
   set blood_glucose(String newBlood_glucose){
     if (newBlood_glucose.length <= 255){
-      this.blood_glucose = newBlood_glucose;
+      this._blood_glucose = newBlood_glucose;
     }
   }
 
   set hA1c(String newHA1c){
     if (newHA1c.length <= 255){
-      this.hA1c = newHA1c;
+      this._hA1c = newHA1c;
     }
   }
 
   set ecg(String newEcg){
     if (newEcg.length <= 255){
-      this.ecg = newEcg;
+      this._ecg = newEcg;
     }
   }
 
