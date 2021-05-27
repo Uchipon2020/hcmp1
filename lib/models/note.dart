@@ -206,7 +206,7 @@ class Note {
 
   set ldl(String newLdl){
     if(newLdl.length <= 255){
-      this._gtp = newLdl;
+      this._ldl = newLdl;
     }
   }
 

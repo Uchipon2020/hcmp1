@@ -135,12 +135,11 @@ class NoteDetailState extends State<NoteDetail> {
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-                  child: TextField(
+                  child:
+                  TextField(
                     controller: onTheDayController,
-                    //onTap: () => _selectDate(context)
-                    style: textStyle,
+                    //style: textStyle,
                     onChanged: (value) {
-                      //onTap: (value){
                       //_selectDate(context);
                       //onTheDayController.text = _labelText;
                       debugPrint('Something changed in Description Text Field');
@@ -148,16 +147,13 @@ class NoteDetailState extends State<NoteDetail> {
                     },
                     decoration: InputDecoration(
                         labelText: '受診日',
-                        labelStyle: textStyle,
-                        //hintText: '実際の受診日',
+                        hintText:'実際に健診を受けた日',
                         icon: Icon(Icons.calendar_today_outlined),
-                        //onTap: () => _selectDate(context),
+                        labelStyle: textStyle,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
-                        ),
+                        )
                     ),
-                    //autocorrect: true,
-                    autofocus: true,
                   ),
                 ),
 
@@ -167,7 +163,6 @@ class NoteDetailState extends State<NoteDetail> {
                   child: TextField(
                     controller: heightController,
                     style: textStyle,
-                    textAlign: TextAlign.right,
                     keyboardType:TextInputType.number,
                     onChanged: (value) {
                       debugPrint('Something changed in Title Text Field');
@@ -176,7 +171,7 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: '身長',
                         labelStyle: textStyle,
-                        suffix: Text(' cm'),
+                        suffix: Text('cm'),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
 
@@ -192,7 +187,6 @@ class NoteDetailState extends State<NoteDetail> {
                   child: TextField(
                     controller: weightController,
                     style: textStyle,
-                    textAlign: TextAlign.right,
                     keyboardType:TextInputType.number,
                     onChanged: (value) {
                       debugPrint('Something changed in Description Text Field');
@@ -201,7 +195,7 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: '体重',
                         labelStyle: textStyle,
-                        suffix: Text(' kg'),
+                        suffix: Text('kg'),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
                         )
@@ -374,7 +368,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                         controller: lBpController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                           debugPrint('Something changed in Description Text Field');
@@ -383,7 +376,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血圧Low',
                               labelStyle: textStyle,
-                              suffix: Text(' mmHg'),
+                              suffix: Text('mm Hg'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -398,7 +391,6 @@ class NoteDetailState extends State<NoteDetail> {
                             child: TextField(
                               controller: hBpController,
                               style: textStyle,
-                              textAlign: TextAlign.right,
                               keyboardType:TextInputType.number,
                               onChanged: (value) {
                                 debugPrint('Something changed in Description Text Field');
@@ -407,7 +399,7 @@ class NoteDetailState extends State<NoteDetail> {
                               decoration: InputDecoration(
                                   labelText: '血圧High',
                                   labelStyle: textStyle,
-                                  suffix: Text(' mmHg'),
+                                  suffix: Text('mm Hg'),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)
                                   )
@@ -478,7 +470,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: rBController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -487,7 +478,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '赤血球数',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text('10^4/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -502,7 +493,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hEmoController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -511,7 +501,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血色素量',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text('10^4/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -533,7 +523,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: gOtController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -542,7 +531,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＧＯＴ',
                               labelStyle: textStyle,
-                              suffix: Text(' U/L'),
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -557,7 +546,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: gPtController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -566,7 +554,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＧＰＴ',
                               labelStyle: textStyle,
-                              suffix: Text(' U/L'),
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -580,7 +568,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: gTpController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -589,7 +576,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ガンマGPT',
                               labelStyle: textStyle,
-                              suffix: Text(' U/L'),
+                              suffix: Text('U/L'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -614,7 +601,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: lDlController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -623,7 +609,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＬＤＬ',
                               labelStyle: textStyle,
-                              suffix: Text(' mg/dL'),
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -638,7 +624,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hDlController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -647,7 +632,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: 'ＨＤＬ',
                               labelStyle: textStyle,
-                              suffix: Text(' mg/dL'),
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -662,7 +647,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: nFatController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -671,7 +655,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '中性脂肪',
                               labelStyle: textStyle,
-                              suffix: Text(' mg/dL'),
+                              suffix: Text('mg/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -693,7 +677,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: bGluController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -703,7 +686,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '空腹時血糖',
                             labelStyle: textStyle,
-                            suffix: Text(' mg/dL'),
+                            suffix: Text('mg/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -717,7 +700,6 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: hA1cController,
                           style: textStyle,
-                          textAlign: TextAlign.right,
                           keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint('Something changed in Description Text Field');
@@ -726,7 +708,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: 'hA1c',
                             labelStyle: textStyle,
-                            suffix:Text(' %'),
+                            suffix:Text('%'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
