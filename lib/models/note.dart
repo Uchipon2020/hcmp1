@@ -181,7 +181,7 @@ class Note {
   }
 
   set hemoglobin(String newHemoglobin){
-    if(newHemoglobin.length >= 255){
+    if(newHemoglobin.length <= 255){
       this._hemoglobin = newHemoglobin;
     }
   }
