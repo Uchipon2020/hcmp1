@@ -40,7 +40,7 @@ if (keystorePropertiesFile.exists()) {
 
         defaultConfig {
             // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-            applicationId "com.example.helth_care_mania_prottype"
+            applicationId "com.mine.helth_care_mania_prottype"
             minSdkVersion 16
             targetSdkVersion 30
             versionCode flutterVersionCode.toInteger()

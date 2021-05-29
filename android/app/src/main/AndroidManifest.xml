@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.helth_care_mania_prottype">
+    package="com.mine.helth_care_mania_prottype">
    <application
         android:label="helth_care_mania_prottype"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name="com.example.health_care_mania_prottype.MainActivity"
+            android:name="com.mine.health_care_mania_prottype.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
