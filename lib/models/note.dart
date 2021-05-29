@@ -2,32 +2,32 @@
 class Note {
 //OK
   int _id;
-  String _height;//身長 *
-  String _weight;//体重 *
-  String _waist;//腹囲 *
-  String _right_eye;//右視力 *
-  String _left_eye;//左視力 *
+  String _height;    //身長 *
+  String _weight;    //体重 *
+  String _waist;      //腹囲 *
+  String _right_eye;  //右視力 *
+  String _left_eye;   //左視力 *
   String _hearing_right_1000;//聴力右1000Hz *
   String _hearing_left_1000;  // *
   String _hearing_right_4000; //*
   String _hearing_left_4000; //*
-  String _x_ray;//レントゲン
+  String _x_ray;        //レントゲン
   String _low_blood_pressure;//下血圧 *
   String _high_blood_pressure;//上血圧 *
-  String _red_blood;//貧血検査・赤血球数 *
-  String _hemoglobin;//貧血検査・血色素量 *
-  String _got;//肝機能検査 *
-  String _gpt;//肝機能検査 *
-  String _gtp;//ガンマ  *
-  String _ldl;//血中資質検査 *
-  String _hdl; //*
-  String _neutral_fat;//中性脂肪 *
+  String _red_blood;    //貧血検査・赤血球数 *
+  String _hemoglobin;   //貧血検査・血色素量 *
+  String _got;          //肝機能検査 *
+  String _gpt;          //肝機能検査 *
+  String _gtp;          //ガンマ  *
+  String _ldl;          //血中資質検査 *
+  String _hdl;          //*
+  String _neutral_fat;  //中性脂肪 *
   String _blood_glucose;//血統空腹時
-  String _hA1c;//血統A1c
-  String _ecg;//心電図
-  String _on_the_day;//受診日
-  String _date;//更新日
-  int _priority;//定期・ドッグフラグ
+  String _hA1c;         //血統A1c
+  String _ecg;          //心電図
+  String _on_the_day;   //受診日
+  String _date;         //更新日
+  int _priority;        //定期・ドッグフラグ
 
   Note(this._priority, [this._height, this._weight, this._waist,
     this._right_eye, this._left_eye,

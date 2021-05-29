@@ -135,31 +135,29 @@ class NoteDetailState extends State<NoteDetail> {
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-                  child: TextField(
-                    controller: onTheDayController,
-                    //onTap: () => _selectDate(context)
-                    style: textStyle,
-                    onChanged: (value) {
-                      //onTap: (value){
-                      //_selectDate(context);
-                      //onTheDayController.text = _labelText;
-                      debugPrint('Something changed in Description Text Field');
-                      updateOTD();
-                    },
-                    decoration: InputDecoration(
-                        labelText: '受診日',
-                        labelStyle: textStyle,
-                        //hintText: '実際の受診日',
-                        icon: Icon(Icons.calendar_today_outlined),
-                        //onTap: () => _selectDate(context),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)
-                        ),
-                    ),
-                    //autocorrect: true,
-                    autofocus: true,
-                  ),
-                ),
+
+                          child: TextField(
+                            controller: onTheDayController,
+                            // style: textStyle,
+                            onChanged: (value) {
+                            debugPrint('Something changed in Description Text Field');
+                            updateOTD();
+                            },
+
+                            decoration: InputDecoration(
+                              labelText: '受診日',
+                              labelStyle: textStyle,
+                              //hintText: '実際の受診日',
+                              icon: Icon(Icons.calendar_today_outlined),
+
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0)
+                                ),
+                            ),
+                            autocorrect: true,
+                            autofocus: true,
+                          ),
+                      ),
 
                 // Second Element　身長入力
                 Padding(
