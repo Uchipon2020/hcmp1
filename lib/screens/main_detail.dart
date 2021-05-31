@@ -172,6 +172,7 @@ class NoteDetailState extends State<NoteDetail> {
                         labelText: '身長',
                         labelStyle: textStyle,
                         suffix: Text('cm'),
+                        icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
 
@@ -196,6 +197,7 @@ class NoteDetailState extends State<NoteDetail> {
                         labelText: '体重',
                         labelStyle: textStyle,
                         suffix: Text('kg'),
+                        icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
                         )
@@ -223,6 +225,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '右視力',
                             labelStyle: textStyle,
+                            icon:Icon(Icons.remove_red_eye_outlined),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                           ),
@@ -274,6 +277,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '右聴力1000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -325,6 +329,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '右聴力4000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -377,6 +382,7 @@ class NoteDetailState extends State<NoteDetail> {
                               labelText: '血圧Low',
                               labelStyle: textStyle,
                               suffix: Text('mm Hg'),
+                              icon: Icon(Icons.arrow_downward),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -400,6 +406,7 @@ class NoteDetailState extends State<NoteDetail> {
                                   labelText: '血圧High',
                                   labelStyle: textStyle,
                                   suffix: Text('mm Hg'),
+                                  icon: Icon(Icons.arrow_upward),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)
                                   )
@@ -425,6 +432,7 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: 'レントゲン検査所見',
                         labelStyle: textStyle,
+                        icon: Icon(Icons.content_paste),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
                         )
@@ -448,6 +456,7 @@ class NoteDetailState extends State<NoteDetail> {
                     decoration: InputDecoration(
                         labelText: '心電図検査所見',
                         labelStyle: textStyle,
+                        icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
                         )
