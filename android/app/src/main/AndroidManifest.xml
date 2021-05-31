@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mine.helth_care_mania_prottype">
    <application
-        android:label="helth_care_mania_prottype"
+        android:label="HEALTH CARE DATA"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name="com.mine.health_care_mania_prottype.MainActivity"
