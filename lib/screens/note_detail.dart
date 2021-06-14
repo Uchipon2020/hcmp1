@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/src/material/icon_button.dart';
 
 class NoteDetail extends StatefulWidget {
 
@@ -115,7 +116,7 @@ class NoteDetailState extends State<NoteDetail> {
                     children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-               /* ListTile(
+              /* ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
                         return DropdownMenuItem<String> (
@@ -136,7 +137,7 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
-                */
+*/
 
 
                 // 8 Element　受診日
@@ -146,17 +147,19 @@ class NoteDetailState extends State<NoteDetail> {
                           child: TextField(
                             controller: onTheDayController,
                             // style: textStyle,
-                            onChanged: (value) {
+                            onTap: () {
+                              _selectDate(context);
+                              onTheDayController.text =  _labelText;
                             debugPrint('Something changed in Description Text Field');
                             updateOTD();
                             },
 
+
                             decoration: InputDecoration(
                               labelText: '受診日',
-                              labelStyle: textStyle,
+                              //labelStyle: textStyle,
                               //hintText: '実際の受診日',
                               icon: Icon(Icons.calendar_today_outlined),
-
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0)
                                 ),
