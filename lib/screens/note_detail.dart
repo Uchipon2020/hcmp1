@@ -102,10 +102,17 @@ class NoteDetailState extends State<NoteDetail> {
             ),
           ),
 
-          body: Padding(
-            padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
-            child: ListView(
-              children: <Widget>[
+          body: GestureDetector(
+            onTap: () {
+              final FocusScopeNode currentScope = FocusScope.of(context);
+              if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+                FocusManager.instance.primaryFocus.unfocus();
+              }
+            },
+            child: Padding(
+               padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
+               child: ListView(
+                    children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
                /* ListTile(
@@ -807,7 +814,9 @@ class NoteDetailState extends State<NoteDetail> {
             ),
           ),
 
-        ));
+        ),
+        ),
+    );
   }
 
   void moveToLastScreen() {
