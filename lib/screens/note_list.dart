@@ -73,20 +73,22 @@ class NoteListState extends State<NoteList> {
 
             subtitle: Text('更新日' + this.noteList[position].date),
 
-           /* trailing: GestureDetector(
-              child: Icon(Icons.delete, color: Colors.grey,),
+           trailing: GestureDetector(
+              child: Icon(Icons.auto_stories, color: Colors.grey,),
               onTap: () {
-                _delete(context, noteList[position]);
+                //_delete(context, noteList[position]);
+                debugPrint("ListTile Tapped");
+                navigateToDetail(this.noteList[position],'参照・訂正');
               },
             ),
 
-            */
+            
 
 
-            onTap: () {
+           /* onTap: () {
               debugPrint("ListTile Tapped");
               navigateToDetail(this.noteList[position],'参照・訂正');
-            },
+            },*/
 
           ),
         );

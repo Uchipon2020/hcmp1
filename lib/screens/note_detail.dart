@@ -86,10 +86,11 @@ class NoteDetailState extends State<NoteDetail> {
 
     return WillPopScope(
 
-        onWillPop: () {
+       /* onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
-        },
+        },*/
+      //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
 
         child: Scaffold(
           appBar: AppBar(
@@ -110,13 +111,14 @@ class NoteDetailState extends State<NoteDetail> {
                 FocusManager.instance.primaryFocus.unfocus();
               }
             },
+
             child: Padding(
                padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
                child: ListView(
                     children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-              /* ListTile(
+                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
                         return DropdownMenuItem<String> (
@@ -137,7 +139,7 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
-*/
+
 
 
                 // 8 Element　受診日
@@ -816,6 +818,7 @@ class NoteDetailState extends State<NoteDetail> {
               ],
             ),
           ),
+
 
         ),
         ),
