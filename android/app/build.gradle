@@ -21,12 +21,11 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-
     def flutterVersionName = localProperties.getProperty('flutter.versionName')
     if (flutterVersionName == null) {
         flutterVersionName = '1.0'
-    }
 
+}
     apply plugin: 'com.android.application'
     apply plugin: 'kotlin-android'
     apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -38,7 +37,9 @@ if (keystorePropertiesFile.exists()) {
             main.java.srcDirs += 'src/main/kotlin'
         }
 
-        defaultConfig {
+       // ndkVersion  "22.1.7171670"
+
+                defaultConfig {
             // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
             applicationId "com.mine.helth_care_mania_prottype"
             minSdkVersion 16
@@ -58,7 +59,10 @@ if (keystorePropertiesFile.exists()) {
 
         buildTypes {
             release {
-                signingConfig signingConfigs.release
+              signingConfig signingConfigs.release
+               //ndk{
+                 //  debugSymblLevel 'SYMBOL_TABLE'
+               // }
             }
         }
 
@@ -70,5 +74,6 @@ if (keystorePropertiesFile.exists()) {
 
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        //implementation 'com.google.android.material:material:<version>'
     }
 }
