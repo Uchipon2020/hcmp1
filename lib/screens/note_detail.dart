@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+// ignore: implementation_imports
+import 'package:flutter/src/material/icon_button.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/src/material/icon_button.dart';
 
 class NoteDetail extends StatefulWidget {
 
@@ -20,7 +21,7 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['定期健康診断', '人間ドック'];
+  //static var _priorities = ['定期健康診断', '人間ドック'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -51,7 +52,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
-  String _labelText;
+
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -84,7 +85,6 @@ class NoteDetailState extends State<NoteDetail> {
     hA1cController.text = note.hA1c;
     eCgController.text = note.ecg;
 
-
     return Listener(
       onPointerDown: (_) {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -93,9 +93,7 @@ class NoteDetailState extends State<NoteDetail> {
         }
       },
 
-      //GestureDetector(
-
-
+    //GestureDetector(
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
@@ -151,16 +149,16 @@ class NoteDetailState extends State<NoteDetail> {
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
 
                   child: TextField(
+                    //enabled: false,
+                    focusNode:AlwaysDisabledFocusNode(),
                     controller: onTheDayController,
-
+                    autofocus: true,
                     // style: textStyle,
                     onTap: () {
                       _selectDate(context);
                       onTheDayController.text = ("${_datenow}");
-                      updateOTD();
+                      //updateOTD();
                     },
-
-
                     decoration: InputDecoration(
                       labelText: '受診日',
                       //labelStyle: textStyle,
@@ -170,8 +168,8 @@ class NoteDetailState extends State<NoteDetail> {
                           borderRadius: BorderRadius.circular(5.0)
                       ),
                     ),
-                    autocorrect: true,
-                    autofocus: true,
+                   // autocorrect: true,
+                    //autofocus: true,
                   ),
                 ),
 
@@ -324,6 +322,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力1000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -378,6 +377,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力4000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -496,9 +496,6 @@ class NoteDetailState extends State<NoteDetail> {
                 /*
                 //赤血球数・血色素量----------------
                 /
-                /
-                /
-                /
                  -------------------------------------- */
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
@@ -519,7 +516,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '赤血球数',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' 万/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -544,7 +541,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血色素量',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' g/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -865,7 +862,7 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Convert int priority to String priority and display it to user in DropDown
-  String getPriorityAsString(int value) {
+ /* String getPriorityAsString(int value) {
     String priority;
     switch (value) {
       case 1:
@@ -876,7 +873,7 @@ class NoteDetailState extends State<NoteDetail> {
         break;
     }
     return priority;
-  }
+  }*/
 
   // Update the title of Note object
   void updateHeight(){
@@ -976,9 +973,10 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the on_the_day of Note object
-  void updateOTD() {
+ /* void updateOTD() {
     note.on_the_day = onTheDayController.text;
-  }
+    //note.on_the_day = onTheDayController.text;
+  }*/
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime selected = await showDatePicker(
@@ -987,8 +985,8 @@ class NoteDetailState extends State<NoteDetail> {
       firstDate: DateTime(2015),
       lastDate: new DateTime.now().add(new Duration(days:720)));
     if (selected != null) {
-      setState(() =>
-        _datenow = selected );
+      setState(() => _datenow = selected);
+      note.on_the_day = onTheDayController.text;
     }
   }
 
@@ -1046,4 +1044,10 @@ class NoteDetailState extends State<NoteDetail> {
     );
   }
 
+
+
+}
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
