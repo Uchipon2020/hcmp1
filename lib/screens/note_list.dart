@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
-import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:health_care_mania_prottype/screens/note_detail.dart';
+import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -61,7 +62,7 @@ class NoteListState extends State<NoteList> {
       itemBuilder: (BuildContext context, int position) {
         return Card(
           color: Colors.white,
-          elevation: 2.0,
+          elevation: 5.0,
           child: ListTile(
 
             leading: CircleAvatar(

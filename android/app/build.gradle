@@ -59,7 +59,7 @@ if (keystorePropertiesFile.exists()) {
 
         buildTypes {
             release {
-              signingConfig signingConfigs.release
+              signingConfig signingConfigs.debug
                //ndk{
                  //  debugSymblLevel 'SYMBOL_TABLE'
                // }
