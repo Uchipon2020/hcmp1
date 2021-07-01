@@ -54,8 +54,8 @@ class NoteListState extends State<NoteList> {
 
   ListView getNoteListView() {
 
-    //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    //String type;
+    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    String type;
 
     return ListView.builder(
       itemCount: count,

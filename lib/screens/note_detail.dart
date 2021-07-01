@@ -150,42 +150,19 @@ class NoteDetailState extends State<NoteDetail> {
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-
                   child: Row(
-                    children: <Widget>[
-                      Center(child:(Text('$datenow')),
-                    /*
-                    focusNode:AlwaysDisabledFocusNode(),
-                    controller: onTheDayController,
-                    autofocus: true,
-                    style: textStyle,
-                    onTap: () {
-                      _selectDate(context);
-                      onTheDayController.text = _datenow;
-                     },
-                    onChanged: (value){
-                    updateOTD();
-                    },
-    */
-                    //decoration: InputDecoration(
-                      //labelText: '受診日',
-                      //labelStyle: textStyle,
-                      //hintText: '実際の受診日',
-                      //icon: IconButton(onPressed: () {
-                        new IconButton(onPressed:() => _selectDate(context), child:new Icon(Icons.calendar_today_outlined),),),],
-                        //onTheDayController.text=(datenow);
-                        //updateOTD();
-                        //AlwaysDisabledFocusNode();
-                        // icon: Icon(Icons.calendar_today_outlined),
-                      )
-                      //border: OutlineInputBorder(
-                         // borderRadius: BorderRadius.circular(5.0)
-                      ),
-                    )]
-                   // autocorrect: true,
-                    //autofocus: true,
+                      children: <Widget>[
+                          IconButton(onPressed: (){
+                            _selectDate(context);
+                            onTheDayController.text = datenow;
+                            updateOTD();
+                            }, icon: Icon(Icons.calendar_today_outlined),),
+                        Text(datenow.toString(),
+                        ),
+                      ],
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
