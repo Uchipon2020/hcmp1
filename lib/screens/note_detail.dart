@@ -158,6 +158,8 @@ class NoteDetailState extends State<NoteDetail> {
                             updateOTD();
                             }, icon: Icon(Icons.calendar_today_outlined),),
                         Text(datenow.toString(),
+                          style: textStyle,
+                          textAlign: TextAlign.center,
                         ),
                       ],
                   ),
