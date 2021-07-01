@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/material/icon_button.dart';
+import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
@@ -21,13 +24,13 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  //static var _priorities = ['定期健康診断', '人間ドック'];
+  static var _priorities = ['定期', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
   Note note;
-  DateTime _datenow = new DateTime.now();
+  dynamic datenow =  '';
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -119,7 +122,7 @@ class NoteDetailState extends State<NoteDetail> {
               children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-                /*
+
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
@@ -141,33 +144,44 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
-                */
+
 
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
 
-                  child: TextField(
-                    //enabled: false,
+                  child: Row(
+                    children: <Widget>[
+                      Center(child:(Text('$datenow')),
+                    /*
                     focusNode:AlwaysDisabledFocusNode(),
                     controller: onTheDayController,
                     autofocus: true,
-                    // style: textStyle,
+                    style: textStyle,
                     onTap: () {
                       _selectDate(context);
-                      onTheDayController.text = ("${_datenow}");
-                      //updateOTD();
+                      onTheDayController.text = _datenow;
+                     },
+                    onChanged: (value){
+                    updateOTD();
                     },
-                    decoration: InputDecoration(
-                      labelText: '受診日',
+    */
+                    //decoration: InputDecoration(
+                      //labelText: '受診日',
                       //labelStyle: textStyle,
                       //hintText: '実際の受診日',
-                      icon: Icon(Icons.calendar_today_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)
+                      //icon: IconButton(onPressed: () {
+                        new IconButton(onPressed:() => _selectDate(context), child:new Icon(Icons.calendar_today_outlined),),),],
+                        //onTheDayController.text=(datenow);
+                        //updateOTD();
+                        //AlwaysDisabledFocusNode();
+                        // icon: Icon(Icons.calendar_today_outlined),
+                      )
+                      //border: OutlineInputBorder(
+                         // borderRadius: BorderRadius.circular(5.0)
                       ),
-                    ),
+                    )]
                    // autocorrect: true,
                     //autofocus: true,
                   ),
@@ -384,7 +398,6 @@ class NoteDetailState extends State<NoteDetail> {
                           ),
                         ),
                       ),
-
                     ],
                   ),),
 
@@ -852,17 +865,17 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case '定期健康診断':
+      case '定期':
         note.priority = 1;
         break;
-      case '人間ドック':
+      case 'その他':
         note.priority = 2;
         break;
     }
   }
 
   // Convert int priority to String priority and display it to user in DropDown
- /* String getPriorityAsString(int value) {
+  String getPriorityAsString(int value) {
     String priority;
     switch (value) {
       case 1:
@@ -873,7 +886,7 @@ class NoteDetailState extends State<NoteDetail> {
         break;
     }
     return priority;
-  }*/
+  }
 
   // Update the title of Note object
   void updateHeight(){
@@ -973,10 +986,9 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the on_the_day of Note object
- /* void updateOTD() {
+ void updateOTD() {
     note.on_the_day = onTheDayController.text;
-    //note.on_the_day = onTheDayController.text;
-  }*/
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime selected = await showDatePicker(
@@ -985,8 +997,10 @@ class NoteDetailState extends State<NoteDetail> {
       firstDate: DateTime(2015),
       lastDate: new DateTime.now().add(new Duration(days:720)));
     if (selected != null) {
-      setState(() => _datenow = selected);
-      note.on_the_day = onTheDayController.text;
+      setState(() => this.datenow = selected);
+      debugPrint(
+          '$datenow');
+      //note.on_the_day = onTheDayController.text;
     }
   }
 

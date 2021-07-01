@@ -41,7 +41,7 @@ class NoteListState extends State<NoteList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note(2,''), '新規登録');
+          navigateToDetail(Note(1,''), '新規登録');
         },
 
         tooltip: '新規登録',
@@ -54,7 +54,7 @@ class NoteListState extends State<NoteList> {
 
   ListView getNoteListView() {
 
-    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
     //String type;
 
     return ListView.builder(
@@ -101,11 +101,11 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
-        //type = "定期健康診断";
+        //type = "定期";
         return Colors.red;
         break;
       case 2:
-        //type = "人間ドック";
+        //type = "その他";
         return Colors.yellow;
         break;
 
