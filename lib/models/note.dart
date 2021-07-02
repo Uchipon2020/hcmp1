@@ -241,12 +241,7 @@ class Note {
   }
 
   set on_the_day(String newOTD) {
-    if (newOTD.length <= 255) {
-      if(newOTD.length >= 13){
-        newOTD = newOTD.substring(0,12);
-      }
       this._on_the_day = newOTD;
-    }
   }
 
   set priority(int newPriority) {
