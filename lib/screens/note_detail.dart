@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 // ignore: implementation_imports
 import 'package:flutter/src/material/icon_button.dart';
 import 'package:flutter/widgets.dart';
@@ -140,19 +139,39 @@ class NoteDetailState extends State<NoteDetail> {
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                   child: Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          _selectDate(context);
-                          setState((){
-                            updateOTD();
-                          });
-                        },
-                        icon: Icon(Icons.calendar_today_outlined),
-                      ),
-                      Text('$datenow',
-                        style: textStyle,
-                        textAlign: TextAlign.center,
-                      ),
+                      Center(
+                        child: (Text('$datenow')),
+                        /*
+                    focusNode:AlwaysDisabledFocusNode(),
+                    controller: onTheDayController,
+                    autofocus: true,
+                    style: textStyle,
+                    onTap: () {
+                      _selectDate(context);
+                      onTheDayController.text = _datenow;
+                     },
+                    onChanged: (value){
+                    updateOTD();
+                    },
+    */
+                        //decoration: InputDecoration(
+                        //labelText: '受診日',
+                        //labelStyle: textStyle,
+                        //hintText: '実際の受診日',
+                        //icon: IconButton(onPressed: () {
+
+                        //onTheDayController.text=(datenow);
+                        //updateOTD();
+                        //AlwaysDisabledFocusNode();
+                        // icon: Icon(Icons.calendar_today_outlined),
+                      )
+                      //border: OutlineInputBorder(
+                      // borderRadius: BorderRadius.circular(5.0)
+
+                      //Text('$datenow',
+                      //style: textStyle,
+                      //textAlign: TextAlign.center,
+                      //),
                     ],
                   ),
                 ),
