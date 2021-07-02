@@ -7,11 +7,13 @@ import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class NoteDetail extends StatefulWidget {
 
   final String appBarTitle;
   final Note note;
+  String formatted;
 
   NoteDetail(this.note, this.appBarTitle);
 
@@ -30,7 +32,6 @@ class NoteDetailState extends State<NoteDetail> {
 
   String appBarTitle;
   Note note;
-  dynamic datenow =  '';
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -152,12 +153,29 @@ class NoteDetailState extends State<NoteDetail> {
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                   child: Row(
                       children: <Widget>[
-                          IconButton(onPressed: (){
+                        Expanded(
+                          child:IconButton(onPressed: (){
                             _selectDate(context);
-                            onTheDayController.text = datenow;
+                            }, icon: Icon(Icons.calendar_today_outlined),
+                          ),
+                        ),
+
+
+                        Expanded(child:TextField(
+                          controller: onTheDayController,
+                          style: textStyle,
+                          onChanged: (value){
+                            debugPrint('calender_push');
                             updateOTD();
-                            }, icon: Icon(Icons.calendar_today_outlined),),
-                        Text(datenow.toString(),
+                          },
+                          decoration: InputDecoration(
+                            labelText: '受診日',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                            )
+                          ),
+                        ),
                         ),
                       ],
                   ),
@@ -265,7 +283,6 @@ class NoteDetailState extends State<NoteDetail> {
                           ),
                         ),
                       ),
-
                     ],
                   ),),
 
@@ -974,12 +991,23 @@ class NoteDetailState extends State<NoteDetail> {
       firstDate: DateTime(2015),
       lastDate: new DateTime.now().add(new Duration(days:720)));
     if (selected != null) {
-      setState(() => this.datenow = selected);
+      note.on_the_day = DateFormat.yMMMd().format(selected);
+      setState(() => onTheDayController.text = note.on_the_day);
       debugPrint(
-          '$datenow');
+          '$onTheDayController.text');
       //note.on_the_day = onTheDayController.text;
     }
   }
+
+  /*dateFormat(DateTime datetime){
+    initializeDateFormatting("ja_JP");
+    var formatter = new DateFormat('yyyy/MM/dd(E)',"jp_JP");
+    var formatted = formatter.format(datetime);
+    setState(() {
+      note.on_the_day = formatted;
+    });
+    return;
+  }*/
 
 
   // Save data to database
