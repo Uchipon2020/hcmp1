@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+// ignore: implementation_imports
+import 'package:flutter/src/material/icon_button.dart';
+import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/src/material/icon_button.dart';
 
 class NoteDetail extends StatefulWidget {
 
@@ -20,13 +24,13 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['定期健康診断', '人間ドック'];
+  static var _priorities = ['定期', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
   Note note;
-  DateTime _datenow = new DateTime.now();
+  dynamic datenow =  '';
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -51,7 +55,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
-  String _labelText;
+
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -84,7 +88,6 @@ class NoteDetailState extends State<NoteDetail> {
     hA1cController.text = note.hA1c;
     eCgController.text = note.ecg;
 
-
     return Listener(
       onPointerDown: (_) {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -93,9 +96,7 @@ class NoteDetailState extends State<NoteDetail> {
         }
       },
 
-      //GestureDetector(
-
-
+    //GestureDetector(
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
@@ -121,7 +122,7 @@ class NoteDetailState extends State<NoteDetail> {
               children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-                /*
+
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
@@ -143,37 +144,25 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
-                */
+
 
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-
-                  child: TextField(
-                    controller: onTheDayController,
-
-                    // style: textStyle,
-                    onTap: () {
-                      _selectDate(context);
-                      onTheDayController.text = ("${_datenow}");
-                      updateOTD();
-                    },
-
-
-                    decoration: InputDecoration(
-                      labelText: '受診日',
-                      //labelStyle: textStyle,
-                      //hintText: '実際の受診日',
-                      icon: Icon(Icons.calendar_today_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)
-                      ),
-                    ),
-                    autocorrect: true,
-                    autofocus: true,
+                  child: Row(
+                      children: <Widget>[
+                          IconButton(onPressed: (){
+                            _selectDate(context);
+                            onTheDayController.text = datenow;
+                            updateOTD();
+                            }, icon: Icon(Icons.calendar_today_outlined),),
+                        Text(datenow.toString(),
+                        ),
+                      ],
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
@@ -324,6 +313,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力1000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -378,13 +368,13 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力4000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),),
 
@@ -496,9 +486,6 @@ class NoteDetailState extends State<NoteDetail> {
                 /*
                 //赤血球数・血色素量----------------
                 /
-                /
-                /
-                /
                  -------------------------------------- */
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
@@ -519,7 +506,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '赤血球数',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' 万/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -544,7 +531,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血色素量',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' g/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -855,10 +842,10 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case '定期健康診断':
+      case '定期':
         note.priority = 1;
         break;
-      case '人間ドック':
+      case 'その他':
         note.priority = 2;
         break;
     }
@@ -976,7 +963,7 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the on_the_day of Note object
-  void updateOTD() {
+ void updateOTD() {
     note.on_the_day = onTheDayController.text;
   }
 
@@ -987,8 +974,10 @@ class NoteDetailState extends State<NoteDetail> {
       firstDate: DateTime(2015),
       lastDate: new DateTime.now().add(new Duration(days:720)));
     if (selected != null) {
-      setState(() =>
-        _datenow = selected );
+      setState(() => this.datenow = selected);
+      debugPrint(
+          '$datenow');
+      //note.on_the_day = onTheDayController.text;
     }
   }
 
@@ -1046,4 +1035,10 @@ class NoteDetailState extends State<NoteDetail> {
     );
   }
 
+
+
+}
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
