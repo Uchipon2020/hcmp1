@@ -1,32 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+// ignore: implementation_imports
+import 'package:flutter/src/material/icon_button.dart';
+import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/src/material/icon_button.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class NoteDetail extends StatefulWidget {
 
   final String appBarTitle;
   final Note note;
+  String formatted;
 
   NoteDetail(this.note, this.appBarTitle);
 
   @override
   State<StatefulWidget> createState() {
-
     return NoteDetailState(this.note, this.appBarTitle);
   }
 }
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['定期健康診断', '人間ドック'];
+  static var _priorities = ['定期', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
   Note note;
-  DateTime _datenow = new DateTime.now();
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -51,14 +56,16 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
-  String _labelText;
+
 
   NoteDetailState(this.note, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
-
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
+    TextStyle textStyle = Theme
+        .of(context)
+        .textTheme
+        .subtitle1;
 
     heightController.text = note.height;
     weightController.text = note.weight;
@@ -84,18 +91,16 @@ class NoteDetailState extends State<NoteDetail> {
     hA1cController.text = note.hA1c;
     eCgController.text = note.ecg;
 
-
     return Listener(
-      onPointerDown: (_) {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      currentFocus.focusedChild.unfocus();
-        }
-      },
+        onPointerDown: (_) {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            currentFocus.focusedChild.unfocus();
+          }
+        },
 
-      //GestureDetector(
-
-
+        //GestureDetector(
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
@@ -103,7 +108,7 @@ class NoteDetailState extends State<NoteDetail> {
         },*/
         //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
 
-        child:Scaffold(
+        child: Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
             leading: IconButton(icon: Icon(
@@ -121,7 +126,7 @@ class NoteDetailState extends State<NoteDetail> {
               children: <Widget>[
 
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-                /*
+
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
@@ -143,37 +148,41 @@ class NoteDetailState extends State<NoteDetail> {
                       }
                   ),
                 ),
-                */
 
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-
-                  child: TextField(
-                    controller: onTheDayController,
-
-                    // style: textStyle,
-                    onTap: () {
-                      _selectDate(context);
-                      onTheDayController.text = ("${_datenow}");
-                      updateOTD();
-                    },
-
-
-                    decoration: InputDecoration(
-                      labelText: '受診日',
-                      //labelStyle: textStyle,
-                      //hintText: '実際の受診日',
-                      icon: Icon(Icons.calendar_today_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: IconButton(onPressed: () {
+                          _selectDate(context);
+                        }, icon: Icon(Icons.calendar_today_outlined),
+                        ),
                       ),
-                    ),
-                    autocorrect: true,
-                    autofocus: true,
+
+
+                      Expanded(child: TextField(
+                        controller: onTheDayController,
+                        style: textStyle,
+                        onChanged: (value) {
+                          debugPrint('calender_push');
+                          updateOTD();
+                        },
+                        decoration: InputDecoration(
+                            labelText: '受診日',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            )
+                        ),
+                      ),
+                      ),
+                    ],
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
@@ -236,7 +245,13 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: rEyeController,
                           style: textStyle,
-                          keyboardType: TextInputType.number,
+                          onTap: () {
+                            FocusScope.of(context).requestFocus(
+                                new FocusNode());
+                            showPicer();
+                          },
+
+                          //keyboardType: TextInputType.number,
                           onChanged: (value) {
                             debugPrint(
                                 'Something changed in Description Text Field');
@@ -276,7 +291,6 @@ class NoteDetailState extends State<NoteDetail> {
                           ),
                         ),
                       ),
-
                     ],
                   ),),
 
@@ -324,6 +338,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力1000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
@@ -378,13 +393,13 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '左聴力4000',
                             labelStyle: textStyle,
+                            icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),),
 
@@ -496,9 +511,6 @@ class NoteDetailState extends State<NoteDetail> {
                 /*
                 //赤血球数・血色素量----------------
                 /
-                /
-                /
-                /
                  -------------------------------------- */
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
@@ -519,7 +531,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '赤血球数',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' 万/μL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -544,7 +556,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                               labelText: '血色素量',
                               labelStyle: textStyle,
-                              suffix: Text(' 10^4/μL'),
+                              suffix: Text(' g/dL'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5.0)
                               )
@@ -632,8 +644,6 @@ class NoteDetailState extends State<NoteDetail> {
                           ),
                         ),
                       ),
-
-
                     ],
                   ),
                 ),
@@ -834,216 +844,270 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
-
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
-
-    )
-
+        )
     );
   }
 
-  void moveToLastScreen() {
-    Navigator.pop(context, true);
+  void showPicer() {
+    final list = [
+      '2.0',
+      '1.5',
+      '1.0',
+      '0.9',
+      '0.8',
+      '0.7',
+      '0.6',
+      '0.5',
+      '0.4',
+      '0.3',
+      '0.2',
+      '0.1',
+      '0.1以下'
+    ];
+    final _pickerItems = list.map((item) => Text(item)).toList();
+    var selectedIndex = 5;
+
+    showCupertinoModalPopup<void>(context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 216,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 32,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                selectedIndex = index;
+              },
+            ),
+          ),
+        );
+      },
+    ).then((_){
+      if(selectedIndex != null){
+        rEyeController.value = TextEditingValue(text: list[selectedIndex]);
+      }
+    });
   }
 
-  // Convert the String priority in the form of integer before saving it to Database
-  void updatePriorityAsInt(String value) {
-    switch (value) {
-      case '定期健康診断':
-        note.priority = 1;
-        break;
-      case '人間ドック':
-        note.priority = 2;
-        break;
+
+    void moveToLastScreen() {
+      Navigator.pop(context, true);
+    }
+
+    // Convert the String priority in the form of integer before saving it to Database
+    void updatePriorityAsInt(String value) {
+      switch (value) {
+        case '定期':
+          note.priority = 1;
+          break;
+        case 'その他':
+          note.priority = 2;
+          break;
+      }
+    }
+
+    // Convert int priority to String priority and display it to user in DropDown
+    String getPriorityAsString(int value) {
+      String priority;
+      switch (value) {
+        case 1:
+          priority = _priorities[0]; // 'High'
+          break;
+        case 2:
+          priority = _priorities[1]; // 'Low'
+          break;
+      }
+      return priority;
+    }
+
+    // Update the title of Note object
+    void updateHeight() {
+      note.height = heightController.text;
+    }
+
+
+    // Update the title of Note object
+    void updateWeight() {
+      note.weight = weightController.text;
+    }
+
+
+    // Update the right_eyes of Note object
+    void updateREye() {
+      note.right_eye = rEyeController.text;
+    }
+
+    // Update the left_eyes of Note object
+    void updateLEye() {
+      note.left_eye = lEyeController.text;
+    }
+
+    void updateHearing_r_1000() {
+      note.hearing_right_1000 = hR1000Controller.text;
+    }
+
+    void updateHearing_l_1000() {
+      note.hearing_left_1000 = hL1000Controller.text;
+    }
+
+    void updateHearing_r_4000() {
+      note.hearing_right_4000 = hR4000Controller.text;
+    }
+
+    void updateHearing_l_4000() {
+      note.hearing_left_4000 = hL4000Controller.text;
+    }
+
+    void updateXray() {
+      note.x_ray = xRayController.text;
+    }
+
+    void updateRedblood() {
+      note.red_blood = rBController.text;
+    }
+
+    void updateHemo() {
+      note.hemoglobin = hEmoController.text;
+    }
+
+    void updateGot() {
+      note.got = gOtController.text;
+    }
+
+    void updateGpt() {
+      note.gpt = gPtController.text;
+    }
+
+    void updateGtp() {
+      note.gtp = gTpController.text;
+    }
+
+    void updateLdl() {
+      note.ldl = lDlController.text;
+    }
+
+    void updateHdl() {
+      note.hdl = hDlController.text;
+    }
+
+    void updateNeutralfat() {
+      note.neutral_fat = nFatController.text;
+    }
+
+    void updateBloodglucose() {
+      note.blood_glucose = bGluController.text;
+    }
+
+    void updateHA1c() {
+      note.hA1c = hA1cController.text;
+    }
+
+    void updateEcg() {
+      note.ecg = eCgController.text;
+    }
+
+
+    // Update the low_blood_pressure of Note object
+    void updateLBp() {
+      note.low_blood_pressuer = lBpController.text;
+    }
+
+    // Update the high_blood_pressure of Note object
+    void updateHBp() {
+      note.high_blood_pressuer = hBpController.text;
+    }
+
+    // Update the on_the_day of Note object
+    void updateOTD() {
+      note.on_the_day = onTheDayController.text;
+    }
+
+    Future<void> _selectDate(BuildContext context) async {
+      final DateTime selected = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2015),
+          lastDate: new DateTime.now().add(new Duration(days: 720)));
+      if (selected != null) {
+        note.on_the_day = DateFormat.yMMMd().format(selected);
+        setState(() => onTheDayController.text = note.on_the_day);
+        debugPrint(
+            '$onTheDayController.text');
+        //note.on_the_day = onTheDayController.text;
+      }
+    }
+
+    /*dateFormat(DateTime datetime){
+    initializeDateFormatting("ja_JP");
+    var formatter = new DateFormat('yyyy/MM/dd(E)',"jp_JP");
+    var formatted = formatter.format(datetime);
+    setState(() {
+      note.on_the_day = formatted;
+    });
+    return;
+  }*/
+
+
+    // Save data to database
+    void _save() async {
+      moveToLastScreen();
+
+      note.date = DateFormat.yMMMd().format(DateTime.now());
+      int result;
+      if (note.id != null) { // Case 1: Update operation
+        result = await helper.updateNote(note);
+      } else { // Case 2: Insert Operation
+        result = await helper.insertNote(note);
+      }
+
+      if (result != 0) { // Success
+        _showAlertDialog('状況', '保存完了！！');
+      } else { // Failure
+        _showAlertDialog('状況', '問題発生・保存されませんでした');
+      }
+    }
+
+    void _delete() async {
+      moveToLastScreen();
+
+      // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
+      // the detail page by pressing the FAB of NoteList page.
+      if (note.id == null) {
+        _showAlertDialog('状況', '削除データなし');
+        return;
+      }
+
+      // Case 2: User is trying to delete the old note that already has a valid ID.
+      int result = await helper.deleteNote(note.id);
+      if (result != 0) {
+        _showAlertDialog('状況', 'データ削除完了');
+      } else {
+        _showAlertDialog('状況', '問題発生・データ削除不可');
+      }
+    }
+
+    void _showAlertDialog(String title, String message) {
+      AlertDialog alertDialog = AlertDialog(
+        title: Text(title),
+        content: Text(message),
+      );
+      showDialog(
+          context: context,
+          builder: (_) => alertDialog
+      );
     }
   }
 
-  // Convert int priority to String priority and display it to user in DropDown
-  String getPriorityAsString(int value) {
-    String priority;
-    switch (value) {
-      case 1:
-        priority = _priorities[0];  // 'High'
-        break;
-      case 2:
-        priority = _priorities[1];  // 'Low'
-        break;
-    }
-    return priority;
+  class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
   }
-
-  // Update the title of Note object
-  void updateHeight(){
-    note.height = heightController.text;
-  }
-
-
-  // Update the title of Note object
-  void updateWeight(){
-    note.weight = weightController.text;
-  }
-
-
-  // Update the right_eyes of Note object
-  void updateREye() {
-    note.right_eye = rEyeController.text;
-  }
-
-  // Update the left_eyes of Note object
-  void updateLEye() {
-    note.left_eye = lEyeController.text;
-  }
-
-  void updateHearing_r_1000(){
-    note.hearing_right_1000 = hR1000Controller.text;
-  }
-
-  void updateHearing_l_1000(){
-    note.hearing_left_1000 = hL1000Controller.text;
-  }
-
-  void updateHearing_r_4000(){
-    note.hearing_right_4000 = hR4000Controller.text;
-  }
-
-  void updateHearing_l_4000(){
-    note.hearing_left_4000 = hL4000Controller.text;
-  }
-
-  void updateXray(){
-    note.x_ray = xRayController.text;
-  }
-
-  void updateRedblood(){
-    note.red_blood = rBController.text;
-  }
-
-  void updateHemo(){
-    note.hemoglobin = hEmoController.text;
-  }
-
-  void updateGot(){
-    note.got = gOtController.text;
-  }
-
-  void updateGpt(){
-    note.gpt = gPtController.text;
-  }
-
-  void updateGtp(){
-    note.gtp = gTpController.text;
-  }
-
-  void updateLdl(){
-    note.ldl = lDlController.text;
-  }
-
-  void updateHdl(){
-    note.hdl = hDlController.text;
-  }
-
-  void updateNeutralfat(){
-    note.neutral_fat = nFatController.text;
-  }
-
-  void updateBloodglucose(){
-    note.blood_glucose = bGluController.text;
-  }
-
-  void updateHA1c(){
-    note.hA1c = hA1cController.text;
-  }
-
-  void updateEcg(){
-    note.ecg = eCgController.text;
-  }
-
-
-  // Update the low_blood_pressure of Note object
-  void updateLBp() {
-    note.low_blood_pressuer = lBpController.text;
-  }
-
-  // Update the high_blood_pressure of Note object
-  void updateHBp() {
-    note.high_blood_pressuer = hBpController.text;
-  }
-
-  // Update the on_the_day of Note object
-  void updateOTD() {
-    note.on_the_day = onTheDayController.text;
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2015),
-      lastDate: new DateTime.now().add(new Duration(days:720)));
-    if (selected != null) {
-      setState(() =>
-        _datenow = selected );
-    }
-  }
-
-
-  // Save data to database
-  void _save() async {
-
-    moveToLastScreen();
-
-    note.date = DateFormat.yMMMd().format(DateTime.now());
-    int result;
-    if (note.id != null) {  // Case 1: Update operation
-      result = await helper.updateNote(note);
-    } else { // Case 2: Insert Operation
-      result = await helper.insertNote(note);
-    }
-
-    if (result != 0) {  // Success
-      _showAlertDialog('状況', '保存完了！！');
-    } else {  // Failure
-      _showAlertDialog('状況', '問題発生・保存されませんでした');
-    }
-
-  }
-
-  void _delete() async {
-
-    moveToLastScreen();
-
-    // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
-    // the detail page by pressing the FAB of NoteList page.
-    if (note.id == null) {
-      _showAlertDialog('状況', '削除データなし');
-      return;
-    }
-
-    // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteNote(note.id);
-    if (result != 0) {
-      _showAlertDialog('状況', 'データ削除完了');
-    } else {
-      _showAlertDialog('状況', '問題発生・データ削除不可');
-    }
-  }
-
-  void _showAlertDialog(String title, String message) {
-
-    AlertDialog alertDialog = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-    );
-    showDialog(
-        context: context,
-        builder: (_) => alertDialog
-    );
-  }
-
-}
