@@ -40,7 +40,7 @@ class NoteListState extends State<NoteList> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note(2,''), '新規登録');
+          navigateToDetail(Note(1,''), '新規登録');
         },
 
         tooltip: '新規登録',

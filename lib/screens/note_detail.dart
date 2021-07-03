@@ -248,7 +248,38 @@ class NoteDetailState extends State<NoteDetail> {
                           onTap: () {
                             FocusScope.of(context).requestFocus(
                                 new FocusNode());
-                            showPicer();
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context){
+                              return Container(
+                                height: MediaQuery.of(context).size.height /3,
+                                child:CupertinoPicker(
+                                  itemExtent:30,
+                                  children: [Text('2.0'),
+                                    Text('1.5'),
+                                    Text('1.0'),
+                                    Text('0.9'),
+                                    Text('0.8'),
+                                    Text('0.7'),
+                                    Text('0.6'),
+                                    Text('0.5'),
+                                    Text('0.4'),
+                                    Text('0.3'),
+                                    Text('0.2'),
+                                    Text('0.1'),
+                                    Text('0.1以下'),
+                                    Text('A'),
+                                    Text('B'),
+                                    Text('C'),
+                                        Text('D')],
+
+                                  scrollController: FixedExtentScrollController(
+                                    initialItem:5,
+                                  ),
+                                )
+                              );
+                            });
+                            //showPicer();
                           },
 
                           //keyboardType: TextInputType.number,
@@ -854,6 +885,7 @@ class NoteDetailState extends State<NoteDetail> {
     );
   }
 
+  /*
   void showPicer() {
     final list = [
       '2.0',
@@ -869,9 +901,14 @@ class NoteDetailState extends State<NoteDetail> {
       '0.2',
       '0.1',
       '0.1以下'
+      'A'
+      'B'
+      'C'
+      'D'
     ];
     final _pickerItems = list.map((item) => Text(item)).toList();
-    var selectedIndex = 5;
+    var selectedIndex = 1;
+    scrollController: FixedExtentScrollController(initialItem:5,);
 
     showCupertinoModalPopup<void>(context: context,
       builder: (BuildContext context) {
@@ -897,6 +934,7 @@ class NoteDetailState extends State<NoteDetail> {
       }
     });
   }
+  */
 
 
     void moveToLastScreen() {
