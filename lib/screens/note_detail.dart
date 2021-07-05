@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class NoteDetail extends StatefulWidget {
 
@@ -26,7 +25,7 @@ class NoteDetail extends StatefulWidget {
 
 class NoteDetailState extends State<NoteDetail> {
 
-  static var _priorities = ['定期', 'その他'];
+  static var _priorities = ['定期健康診断', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -515,6 +514,27 @@ class NoteDetailState extends State<NoteDetail> {
                 /
                  -------------------------------------- */
                 Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom:2.5),
+                  child: Row(
+                    children:<Widget>[
+                      Text('血液検査'),
+
+                      Expanded(
+                        child: Divider(
+                          height: 40,
+                          thickness: 3,
+                          color: Colors.black,
+                          indent: 16,
+                          endIndent: 16,
+                        ),
+                      )
+                    ]
+                  )
+
+                ),
+
+
+                Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
                   child: Row(
                     children: <Widget>[
@@ -871,7 +891,9 @@ class NoteDetailState extends State<NoteDetail> {
               Navigator.pop(context);
             },
             child: CupertinoPicker(
-              itemExtent: 32,
+              itemExtent: 32,scrollController: FixedExtentScrollController(
+              initialItem: 5,),
+
               backgroundColor: Colors.white,
               children: _pickerItems,
               onSelectedItemChanged: (int index) {
@@ -901,9 +923,12 @@ class NoteDetailState extends State<NoteDetail> {
           child: GestureDetector(
             onTap: () {
               Navigator.pop(context);
+
             },
             child: CupertinoPicker(
               itemExtent: 32,
+            scrollController: FixedExtentScrollController(
+        initialItem: 5,),
               backgroundColor: Colors.white,
               children: _pickerItems,
               onSelectedItemChanged: (int index) {
