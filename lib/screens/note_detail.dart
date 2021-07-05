@@ -155,15 +155,14 @@ class NoteDetailState extends State<NoteDetail> {
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                   child: Row(
                     children: <Widget>[
-                      Expanded(
-                        child: IconButton(onPressed: () {
+                      IconButton(onPressed: () {
                           _selectDate(context);
-                        }, icon: Icon(Icons.calendar_today_outlined),
+                        },
+                          icon: Icon(Icons.calendar_today_outlined),
                         ),
-                      ),
 
-
-                      Expanded(child: TextField(
+                      Expanded(
+                        child: TextField(
                         controller: onTheDayController,
                         style: textStyle,
                         onChanged: (value) {
@@ -203,7 +202,6 @@ class NoteDetailState extends State<NoteDetail> {
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0)
-
                         )
                     ),
                   ),
@@ -248,38 +246,7 @@ class NoteDetailState extends State<NoteDetail> {
                           onTap: () {
                             FocusScope.of(context).requestFocus(
                                 new FocusNode());
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context){
-                              return Container(
-                                height: MediaQuery.of(context).size.height /3,
-                                child:CupertinoPicker(
-                                  itemExtent:30,
-                                  children: [Text('2.0'),
-                                    Text('1.5'),
-                                    Text('1.0'),
-                                    Text('0.9'),
-                                    Text('0.8'),
-                                    Text('0.7'),
-                                    Text('0.6'),
-                                    Text('0.5'),
-                                    Text('0.4'),
-                                    Text('0.3'),
-                                    Text('0.2'),
-                                    Text('0.1'),
-                                    Text('0.1以下'),
-                                    Text('A'),
-                                    Text('B'),
-                                    Text('C'),
-                                        Text('D')],
-
-                                  scrollController: FixedExtentScrollController(
-                                    initialItem:5,
-                                  ),
-                                )
-                              );
-                            });
-                            //showPicer();
+                            showPicker0();
                           },
 
                           //keyboardType: TextInputType.number,
@@ -306,7 +273,11 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: lEyeController,
                           style: textStyle,
-                          keyboardType: TextInputType.number,
+                          onTap:(){
+                            FocusScope.of(context).requestFocus(
+                                new FocusNode());
+                            showPicker1();
+                            },
                           onChanged: (value) {
                             debugPrint(
                                 'Something changed in Description Text Field');
@@ -885,30 +856,11 @@ class NoteDetailState extends State<NoteDetail> {
     );
   }
 
-  /*
-  void showPicer() {
-    final list = [
-      '2.0',
-      '1.5',
-      '1.0',
-      '0.9',
-      '0.8',
-      '0.7',
-      '0.6',
-      '0.5',
-      '0.4',
-      '0.3',
-      '0.2',
-      '0.1',
-      '0.1以下'
-      'A'
-      'B'
-      'C'
-      'D'
-    ];
+  void showPicker0() {
+    final list = ['2.0', '1.5', '1.0', '0.9', '0.8', '0.7', '0.6',
+      '0.5', '0.4', '0.3', '0.2', '0.1', '0.1以下', 'A', 'B', 'C', 'D'];
     final _pickerItems = list.map((item) => Text(item)).toList();
-    var selectedIndex = 1;
-    scrollController: FixedExtentScrollController(initialItem:5,);
+    var selectedIndex = 5;
 
     showCupertinoModalPopup<void>(context: context,
       builder: (BuildContext context) {
@@ -920,6 +872,7 @@ class NoteDetailState extends State<NoteDetail> {
             },
             child: CupertinoPicker(
               itemExtent: 32,
+              backgroundColor: Colors.white,
               children: _pickerItems,
               onSelectedItemChanged: (int index) {
                 selectedIndex = index;
@@ -934,10 +887,41 @@ class NoteDetailState extends State<NoteDetail> {
       }
     });
   }
-  */
+
+  void showPicker1() {
+    final list = ['2.0', '1.5', '1.0', '0.9', '0.8', '0.7', '0.6',
+      '0.5', '0.4', '0.3', '0.2', '0.1', '0.1以下', 'A', 'B', 'C', 'D'];
+    final _pickerItems = list.map((item) => Text(item)).toList();
+    var selectedIndex = 5;
+
+    showCupertinoModalPopup<void>(context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 216,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 32,
+              backgroundColor: Colors.white,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                selectedIndex = index;
+              },
+            ),
+          ),
+        );
+      },
+    ).then((_){
+      if(selectedIndex != null){
+        lEyeController.value = TextEditingValue(text: list[selectedIndex]);
+      }
+    });
+  }
 
 
-    void moveToLastScreen() {
+  void moveToLastScreen() {
       Navigator.pop(context, true);
     }
 
@@ -1083,17 +1067,6 @@ class NoteDetailState extends State<NoteDetail> {
         //note.on_the_day = onTheDayController.text;
       }
     }
-
-    /*dateFormat(DateTime datetime){
-    initializeDateFormatting("ja_JP");
-    var formatter = new DateFormat('yyyy/MM/dd(E)',"jp_JP");
-    var formatted = formatter.format(datetime);
-    setState(() {
-      note.on_the_day = formatted;
-    });
-    return;
-  }*/
-
 
     // Save data to database
     void _save() async {

@@ -82,14 +82,10 @@ class NoteListState extends State<NoteList> {
               },
             ),
 
-            
-
-
-           /* onTap: () {
+           onTap: () {
               debugPrint("ListTile Tapped");
-              navigateToDetail(this.noteList[position],'参照・訂正');
-            },*/
-
+              navigateToDetail(this.noteList[position],'参照');
+            },
           ),
         );
       },
