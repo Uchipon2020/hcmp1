@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 // ignore: implementation_imports
 import 'package:flutter/src/material/icon_button.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +10,7 @@ import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
+
   final String appBarTitle;
   final Note note;
   String formatted;
@@ -22,7 +24,8 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
-  static var _priorities = ['定期', 'その他'];
+
+  static var _priorities = ['定期健康診断', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -53,11 +56,15 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
 
+
   NoteDetailState(this.note, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
+    TextStyle textStyle = Theme
+        .of(context)
+        .textTheme
+        .subtitle1;
 
     heightController.text = note.height;
     weightController.text = note.weight;
@@ -103,17 +110,20 @@ class NoteDetailState extends State<NoteDetail> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+            leading: IconButton(icon: Icon(
+                Icons.arrow_back),
                 onPressed: () {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
-                }),
+                }
+            ),
           ),
+
           body: Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
             child: ListView(
               children: <Widget>[
+
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
 
                 ListTile(
@@ -124,45 +134,53 @@ class NoteDetailState extends State<NoteDetail> {
                           child: Text(dropDownStringItem),
                         );
                       }).toList(),
+
                       style: textStyle,
+
                       value: getPriorityAsString(note.priority),
+
                       onChanged: (valueSelectedByUser) {
                         setState(() {
                           debugPrint('User selected $valueSelectedByUser');
                           updatePriorityAsInt(valueSelectedByUser);
                         });
-                      }),
+                      }
+                  ),
                 ),
+
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                   child: Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {
+                      IconButton(onPressed: () {
                           _selectDate(context);
                         },
-                        icon: Icon(Icons.calendar_today_outlined),
-                      ),
+                          icon: Icon(Icons.calendar_today_outlined),
+                        ),
+
                       Expanded(
                         child: TextField(
-                          controller: onTheDayController,
-                          style: textStyle,
-                          onChanged: (value) {
-                            debugPrint('calender_push');
-                            updateOTD();
-                          },
-                          decoration: InputDecoration(
-                              labelText: '受診日',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                        controller: onTheDayController,
+                        style: textStyle,
+                        onChanged: (value) {
+                          debugPrint('calender_push');
+                          updateOTD();
+                        },
+                        decoration: InputDecoration(
+                            labelText: '受診日',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            )
                         ),
+                      ),
                       ),
                     ],
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
@@ -182,9 +200,12 @@ class NoteDetailState extends State<NoteDetail> {
                         suffix: Text(' cm'),
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
+
 
                 // Third Element　体重入力
                 Padding(
@@ -204,9 +225,12 @@ class NoteDetailState extends State<NoteDetail> {
                         suffix: Text(' kg'),
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
+
 
                 //視力横並び表示-------------------
                 Padding(
@@ -219,43 +243,9 @@ class NoteDetailState extends State<NoteDetail> {
                           controller: rEyeController,
                           style: textStyle,
                           onTap: () {
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
-                                      child: CupertinoPicker(
-                                        itemExtent: 30,
-                                        children: [
-                                          Text('2.0'),
-                                          Text('1.5'),
-                                          Text('1.0'),
-                                          Text('0.9'),
-                                          Text('0.8'),
-                                          Text('0.7'),
-                                          Text('0.6'),
-                                          Text('0.5'),
-                                          Text('0.4'),
-                                          Text('0.3'),
-                                          Text('0.2'),
-                                          Text('0.1'),
-                                          Text('0.1以下'),
-                                          Text('A'),
-                                          Text('B'),
-                                          Text('C'),
-                                          Text('D')
-                                        ],
-                                        scrollController:
-                                            FixedExtentScrollController(
-                                          initialItem: 5,
-                                        ),
-                                      ));
-                                });
-                            //showPicer();
+                            FocusScope.of(context).requestFocus(
+                                new FocusNode());
+                            showPicker0();
                           },
 
                           //keyboardType: TextInputType.number,
@@ -270,19 +260,23 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.remove_red_eye),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　（左）視力入力
                         child: TextField(
                           controller: lEyeController,
                           style: textStyle,
-                          keyboardType: TextInputType.number,
+                          onTap:(){
+                            FocusScope.of(context).requestFocus(
+                                new FocusNode());
+                            showPicker1();
+                            },
                           onChanged: (value) {
                             debugPrint(
                                 'Something changed in Description Text Field');
@@ -293,13 +287,13 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.remove_red_eye),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  ),
-                ),
+                  ),),
 
                 //聴力1000Hz
 
@@ -324,13 +318,13 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　聴力1000　左
                         child: TextField(
@@ -347,13 +341,14 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
 
                 //聴力4000Hz
 
@@ -378,13 +373,13 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.hearing),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　聴力4000　左
                         child: TextField(
@@ -401,13 +396,14 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  ),
-                ),
+                  ),),
+
 
                 //血圧横並び表示----------------
                 Padding(
@@ -432,12 +428,14 @@ class NoteDetailState extends State<NoteDetail> {
                               suffix: Text(' mmHg'),
                               icon: Icon(Icons.arrow_downward),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 7 Element　血圧（High）
                         child: TextField(
@@ -456,12 +454,15 @@ class NoteDetailState extends State<NoteDetail> {
                               suffix: Text(' mmHg'),
                               icon: Icon(Icons.arrow_upward),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
 
                 // x線検査
                 Padding(
@@ -479,9 +480,12 @@ class NoteDetailState extends State<NoteDetail> {
                         icon: Icon(Icons.content_paste),
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
+
 
                 // 心電図検査
 
@@ -500,13 +504,36 @@ class NoteDetailState extends State<NoteDetail> {
                         labelStyle: textStyle,
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
                 /*
                 //赤血球数・血色素量----------------
                 /
                  -------------------------------------- */
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, bottom:2.5),
+                  child: Row(
+                    children:<Widget>[
+                      Text('血液検査'),
+
+                      Expanded(
+                        child: Divider(
+                          height: 40,
+                          thickness: 3,
+                          color: Colors.black,
+                          indent: 16,
+                          endIndent: 16,
+                        ),
+                      )
+                    ]
+                  )
+
+                ),
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
                   child: Row(
@@ -528,12 +555,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' 万/μL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 7 Element　血色素量
                         child: TextField(
@@ -551,12 +580,15 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' g/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
 
                 //肝機能検査　横並び３つ----------------
                 Padding(
@@ -580,12 +612,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ＧＰＴ
                         child: TextField(
@@ -603,12 +637,13 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ガンマ
                         child: TextField(
@@ -626,12 +661,15 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
 
                 //ＬＤＬとＨＤＬ----------------
                 Padding(
@@ -655,12 +693,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ＨＤＬ
                         child: TextField(
@@ -678,12 +718,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 中性脂肪
                         child: TextField(
@@ -701,7 +743,9 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
@@ -726,18 +770,19 @@ class NoteDetailState extends State<NoteDetail> {
                                 'Something changed in Description Text Field');
                             updateBloodglucose();
                           },
+
                           decoration: InputDecoration(
                             labelText: '空腹時血糖',
                             labelStyle: textStyle,
                             suffix: Text(' mg/dL'),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // A1c
                         child: TextField(
@@ -755,13 +800,15 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             suffix: Text(' %'),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
+
 
                 /* 5 Element　保存と削除　横並び表示
                 *
@@ -777,8 +824,12 @@ class NoteDetailState extends State<NoteDetail> {
                       Expanded(
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
+                          textColor: Theme
+                              .of(context)
+                              .primaryColorLight,
                           child: Text(
                             'Save',
                             textScaleFactor: 1.5,
@@ -791,14 +842,18 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
+                          textColor: Theme
+                              .of(context)
+                              .primaryColorLight,
                           child: Text(
                             'Delete',
                             textScaleFactor: 1.5,
@@ -817,33 +872,15 @@ class NoteDetailState extends State<NoteDetail> {
               ],
             ),
           ),
-        ));
+        )
+    );
   }
 
-  /*
-  void showPicer() {
-    final list = [
-      '2.0',
-      '1.5',
-      '1.0',
-      '0.9',
-      '0.8',
-      '0.7',
-      '0.6',
-      '0.5',
-      '0.4',
-      '0.3',
-      '0.2',
-      '0.1',
-      '0.1以下'
-      'A'
-      'B'
-      'C'
-      'D'
-    ];
+  void showPicker0() {
+    final list = ['2.0', '1.5', '1.0', '0.9', '0.8', '0.7', '0.6',
+      '0.5', '0.4', '0.3', '0.2', '0.1', '0.1以下', 'A', 'B', 'C', 'D'];
     final _pickerItems = list.map((item) => Text(item)).toList();
-    var selectedIndex = 1;
-    scrollController: FixedExtentScrollController(initialItem:5,);
+    var selectedIndex = 5;
 
     showCupertinoModalPopup<void>(context: context,
       builder: (BuildContext context) {
@@ -854,7 +891,10 @@ class NoteDetailState extends State<NoteDetail> {
               Navigator.pop(context);
             },
             child: CupertinoPicker(
-              itemExtent: 32,
+              itemExtent: 32,scrollController: FixedExtentScrollController(
+              initialItem: 5,),
+
+              backgroundColor: Colors.white,
               children: _pickerItems,
               onSelectedItemChanged: (int index) {
                 selectedIndex = index;
@@ -869,213 +909,241 @@ class NoteDetailState extends State<NoteDetail> {
       }
     });
   }
-  */
+
+  void showPicker1() {
+    final list = ['2.0', '1.5', '1.0', '0.9', '0.8', '0.7', '0.6',
+      '0.5', '0.4', '0.3', '0.2', '0.1', '0.1以下', 'A', 'B', 'C', 'D'];
+    final _pickerItems = list.map((item) => Text(item)).toList();
+    var selectedIndex = 5;
+
+    showCupertinoModalPopup<void>(context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 216,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+
+            },
+            child: CupertinoPicker(
+              itemExtent: 32,
+            scrollController: FixedExtentScrollController(
+        initialItem: 5,),
+              backgroundColor: Colors.white,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                selectedIndex = index;
+              },
+            ),
+          ),
+        );
+      },
+    ).then((_){
+      if(selectedIndex != null){
+        lEyeController.value = TextEditingValue(text: list[selectedIndex]);
+      }
+    });
+  }
+
 
   void moveToLastScreen() {
-    Navigator.pop(context, true);
-  }
+      Navigator.pop(context, true);
+    }
 
-  // Convert the String priority in the form of integer before saving it to Database
-  void updatePriorityAsInt(String value) {
-    switch (value) {
-      case '定期':
-        note.priority = 1;
-        break;
-      case 'その他':
-        note.priority = 2;
-        break;
+    // Convert the String priority in the form of integer before saving it to Database
+    void updatePriorityAsInt(String value) {
+      switch (value) {
+        case '定期':
+          note.priority = 1;
+          break;
+        case 'その他':
+          note.priority = 2;
+          break;
+      }
+    }
+
+    // Convert int priority to String priority and display it to user in DropDown
+    String getPriorityAsString(int value) {
+      String priority;
+      switch (value) {
+        case 1:
+          priority = _priorities[0]; // 'High'
+          break;
+        case 2:
+          priority = _priorities[1]; // 'Low'
+          break;
+      }
+      return priority;
+    }
+
+    // Update the title of Note object
+    void updateHeight() {
+      note.height = heightController.text;
+    }
+
+
+    // Update the title of Note object
+    void updateWeight() {
+      note.weight = weightController.text;
+    }
+
+
+    // Update the right_eyes of Note object
+    void updateREye() {
+      note.right_eye = rEyeController.text;
+    }
+
+    // Update the left_eyes of Note object
+    void updateLEye() {
+      note.left_eye = lEyeController.text;
+    }
+
+    void updateHearing_r_1000() {
+      note.hearing_right_1000 = hR1000Controller.text;
+    }
+
+    void updateHearing_l_1000() {
+      note.hearing_left_1000 = hL1000Controller.text;
+    }
+
+    void updateHearing_r_4000() {
+      note.hearing_right_4000 = hR4000Controller.text;
+    }
+
+    void updateHearing_l_4000() {
+      note.hearing_left_4000 = hL4000Controller.text;
+    }
+
+    void updateXray() {
+      note.x_ray = xRayController.text;
+    }
+
+    void updateRedblood() {
+      note.red_blood = rBController.text;
+    }
+
+    void updateHemo() {
+      note.hemoglobin = hEmoController.text;
+    }
+
+    void updateGot() {
+      note.got = gOtController.text;
+    }
+
+    void updateGpt() {
+      note.gpt = gPtController.text;
+    }
+
+    void updateGtp() {
+      note.gtp = gTpController.text;
+    }
+
+    void updateLdl() {
+      note.ldl = lDlController.text;
+    }
+
+    void updateHdl() {
+      note.hdl = hDlController.text;
+    }
+
+    void updateNeutralfat() {
+      note.neutral_fat = nFatController.text;
+    }
+
+    void updateBloodglucose() {
+      note.blood_glucose = bGluController.text;
+    }
+
+    void updateHA1c() {
+      note.hA1c = hA1cController.text;
+    }
+
+    void updateEcg() {
+      note.ecg = eCgController.text;
+    }
+
+
+    // Update the low_blood_pressure of Note object
+    void updateLBp() {
+      note.low_blood_pressuer = lBpController.text;
+    }
+
+    // Update the high_blood_pressure of Note object
+    void updateHBp() {
+      note.high_blood_pressuer = hBpController.text;
+    }
+
+    // Update the on_the_day of Note object
+    void updateOTD() {
+      note.on_the_day = onTheDayController.text;
+    }
+
+    Future<void> _selectDate(BuildContext context) async {
+      final DateTime selected = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2015),
+          lastDate: new DateTime.now().add(new Duration(days: 720)));
+      if (selected != null) {
+        note.on_the_day = DateFormat.yMMMd().format(selected);
+        setState(() => onTheDayController.text = note.on_the_day);
+        debugPrint(
+            '$onTheDayController.text');
+        //note.on_the_day = onTheDayController.text;
+      }
+    }
+
+    // Save data to database
+    void _save() async {
+      moveToLastScreen();
+
+      note.date = DateFormat.yMMMd().format(DateTime.now());
+      int result;
+      if (note.id != null) { // Case 1: Update operation
+        result = await helper.updateNote(note);
+      } else { // Case 2: Insert Operation
+        result = await helper.insertNote(note);
+      }
+
+      if (result != 0) { // Success
+        _showAlertDialog('状況', '保存完了！！');
+      } else { // Failure
+        _showAlertDialog('状況', '問題発生・保存されませんでした');
+      }
+    }
+
+    void _delete() async {
+      moveToLastScreen();
+
+      // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
+      // the detail page by pressing the FAB of NoteList page.
+      if (note.id == null) {
+        _showAlertDialog('状況', '削除データなし');
+        return;
+      }
+
+      // Case 2: User is trying to delete the old note that already has a valid ID.
+      int result = await helper.deleteNote(note.id);
+      if (result != 0) {
+        _showAlertDialog('状況', 'データ削除完了');
+      } else {
+        _showAlertDialog('状況', '問題発生・データ削除不可');
+      }
+    }
+
+    void _showAlertDialog(String title, String message) {
+      AlertDialog alertDialog = AlertDialog(
+        title: Text(title),
+        content: Text(message),
+      );
+      showDialog(
+          context: context,
+          builder: (_) => alertDialog
+      );
     }
   }
 
-  // Convert int priority to String priority and display it to user in DropDown
-  String getPriorityAsString(int value) {
-    String priority;
-    switch (value) {
-      case 1:
-        priority = _priorities[0]; // 'High'
-        break;
-      case 2:
-        priority = _priorities[1]; // 'Low'
-        break;
-    }
-    return priority;
-  }
-
-  // Update the title of Note object
-  void updateHeight() {
-    note.height = heightController.text;
-  }
-
-  // Update the title of Note object
-  void updateWeight() {
-    note.weight = weightController.text;
-  }
-
-  // Update the right_eyes of Note object
-  void updateREye() {
-    note.right_eye = rEyeController.text;
-  }
-
-  // Update the left_eyes of Note object
-  void updateLEye() {
-    note.left_eye = lEyeController.text;
-  }
-
-  void updateHearing_r_1000() {
-    note.hearing_right_1000 = hR1000Controller.text;
-  }
-
-  void updateHearing_l_1000() {
-    note.hearing_left_1000 = hL1000Controller.text;
-  }
-
-  void updateHearing_r_4000() {
-    note.hearing_right_4000 = hR4000Controller.text;
-  }
-
-  void updateHearing_l_4000() {
-    note.hearing_left_4000 = hL4000Controller.text;
-  }
-
-  void updateXray() {
-    note.x_ray = xRayController.text;
-  }
-
-  void updateRedblood() {
-    note.red_blood = rBController.text;
-  }
-
-  void updateHemo() {
-    note.hemoglobin = hEmoController.text;
-  }
-
-  void updateGot() {
-    note.got = gOtController.text;
-  }
-
-  void updateGpt() {
-    note.gpt = gPtController.text;
-  }
-
-  void updateGtp() {
-    note.gtp = gTpController.text;
-  }
-
-  void updateLdl() {
-    note.ldl = lDlController.text;
-  }
-
-  void updateHdl() {
-    note.hdl = hDlController.text;
-  }
-
-  void updateNeutralfat() {
-    note.neutral_fat = nFatController.text;
-  }
-
-  void updateBloodglucose() {
-    note.blood_glucose = bGluController.text;
-  }
-
-  void updateHA1c() {
-    note.hA1c = hA1cController.text;
-  }
-
-  void updateEcg() {
-    note.ecg = eCgController.text;
-  }
-
-  // Update the low_blood_pressure of Note object
-  void updateLBp() {
-    note.low_blood_pressuer = lBpController.text;
-  }
-
-  // Update the high_blood_pressure of Note object
-  void updateHBp() {
-    note.high_blood_pressuer = hBpController.text;
-  }
-
-  // Update the on_the_day of Note object
-  void updateOTD() {
-    note.on_the_day = onTheDayController.text;
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime selected = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015),
-        lastDate: new DateTime.now().add(new Duration(days: 720)));
-    if (selected != null) {
-      note.on_the_day = DateFormat.yMMMd().format(selected);
-      setState(() => onTheDayController.text = note.on_the_day);
-      debugPrint('$onTheDayController.text');
-      //note.on_the_day = onTheDayController.text;
-    }
-  }
-
-  /*dateFormat(DateTime datetime){
-    initializeDateFormatting("ja_JP");
-    var formatter = new DateFormat('yyyy/MM/dd(E)',"jp_JP");
-    var formatted = formatter.format(datetime);
-    setState(() {
-      note.on_the_day = formatted;
-    });
-    return;
-  }*/
-
-  // Save data to database
-  void _save() async {
-    moveToLastScreen();
-
-    note.date = DateFormat.yMMMd().format(DateTime.now());
-    int result;
-    if (note.id != null) {
-      // Case 1: Update operation
-      result = await helper.updateNote(note);
-    } else {
-      // Case 2: Insert Operation
-      result = await helper.insertNote(note);
-    }
-
-    if (result != 0) {
-      // Success
-      _showAlertDialog('状況', '保存完了！！');
-    } else {
-      // Failure
-      _showAlertDialog('状況', '問題発生・保存されませんでした');
-    }
-  }
-
-  void _delete() async {
-    moveToLastScreen();
-
-    // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
-    // the detail page by pressing the FAB of NoteList page.
-    if (note.id == null) {
-      _showAlertDialog('状況', '削除データなし');
-      return;
-    }
-
-    // Case 2: User is trying to delete the old note that already has a valid ID.
-    int result = await helper.deleteNote(note.id);
-    if (result != 0) {
-      _showAlertDialog('状況', 'データ削除完了');
-    } else {
-      _showAlertDialog('状況', '問題発生・データ削除不可');
-    }
-  }
-
-  void _showAlertDialog(String title, String message) {
-    AlertDialog alertDialog = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-    );
-    showDialog(context: context, builder: (_) => alertDialog);
-  }
-}
-
-class AlwaysDisabledFocusNode extends FocusNode {
+  class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;
-}
+  }
