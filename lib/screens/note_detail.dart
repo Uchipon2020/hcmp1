@@ -687,7 +687,7 @@ class NoteDetailState extends State<NoteDetail> {
                           controller: lDlController,
                           style: textStyle,
                           textAlign: TextAlign.right,
-                          keyboardType: TextInputType.number,
+                          keyboardType : TextInputType.numberWithOptions(),
                           onChanged: (value) {
                             debugPrint(
                                 'Something changed in Description Text Field');
@@ -845,7 +845,9 @@ class NoteDetailState extends State<NoteDetail> {
                         // 尿検査　蛋白　Urine
                         child: TextField(
                           controller: urineController,
+                          textAlign: TextAlign.right,
                           style: textStyle,
+
                           //keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint(
@@ -856,6 +858,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '尿蛋白',
                             labelStyle: textStyle,
+                            suffix: Text(' mg/dL'),
                             //icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
@@ -870,6 +873,7 @@ class NoteDetailState extends State<NoteDetail> {
                         child: TextField(
                           controller: sugarController,
                           style: textStyle,
+                          textAlign: TextAlign.right,
                           // keyboardType:TextInputType.number,
                           onChanged: (value) {
                             debugPrint(
@@ -879,6 +883,7 @@ class NoteDetailState extends State<NoteDetail> {
                           decoration: InputDecoration(
                             labelText: '尿糖',
                             labelStyle: textStyle,
+                            suffix: Text(' mg/dL'),
                             //icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)
@@ -893,9 +898,6 @@ class NoteDetailState extends State<NoteDetail> {
 
 
                 /* 5 Element　保存と削除　横並び表示
-                *
-                *
-                *
                 *
                 *
                 * ---------------------------------------------- */
