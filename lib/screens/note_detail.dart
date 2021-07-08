@@ -55,6 +55,8 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
+  TextEditingController urineController = TextEditingController();
+  TextEditingController sugarController = TextEditingController();
 
 
   NoteDetailState(this.note, this.appBarTitle);
@@ -89,6 +91,8 @@ class NoteDetailState extends State<NoteDetail> {
     bGluController.text = note.blood_glucose;
     hA1cController.text = note.hA1c;
     eCgController.text = note.ecg;
+    urineController.text = note.urine;
+    sugarController.text = note.sugar;
 
     return Listener(
         onPointerDown: (_) {
@@ -186,6 +190,7 @@ class NoteDetailState extends State<NoteDetail> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                   child: TextField(
+                    enabled: true,
                     controller: heightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
@@ -810,6 +815,83 @@ class NoteDetailState extends State<NoteDetail> {
                   ),),
 
 
+                Padding(
+                    padding: EdgeInsets.only(top: 15.0, bottom:2.5),
+                    child: Row(
+                        children:<Widget>[
+                          Text('尿検査'),
+                        Expanded(
+                            child: Divider(
+                              height: 40,
+                              thickness: 3,
+                              color: Colors.black,
+                              indent: 16,
+                              endIndent: 16,
+                            ),
+                          )
+                        ]
+                    )
+                ),
+
+
+
+
+                //尿検査
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        // 尿検査　蛋白　Urine
+                        child: TextField(
+                          controller: urineController,
+                          style: textStyle,
+                          //keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint(
+                                'Something changed in Description Text Field');
+                            updateUrine();
+                          },
+
+                          decoration: InputDecoration(
+                            labelText: '尿蛋白',
+                            labelStyle: textStyle,
+                            //icon: Icon(Icons.hearing),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(width: 5.0,),
+
+                      Expanded(
+                        // 尿検査　尿糖　sugar
+                        child: TextField(
+                          controller: sugarController,
+                          style: textStyle,
+                          // keyboardType:TextInputType.number,
+                          onChanged: (value) {
+                            debugPrint(
+                                'Something changed in Description Text Field');
+                            updateSugar();
+                          },
+                          decoration: InputDecoration(
+                            labelText: '尿糖',
+                            labelStyle: textStyle,
+                            //icon: Icon(Icons.hearing),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),),
+
+
+
                 /* 5 Element　保存と削除　横並び表示
                 *
                 *
@@ -1077,6 +1159,16 @@ class NoteDetailState extends State<NoteDetail> {
     void updateOTD() {
       note.on_the_day = onTheDayController.text;
     }
+
+    //update the urine
+  void updateUrine(){
+    note.urine = urineController.text;
+  }
+
+  //update the sugar
+  void updateSugar(){
+    note.sugar = sugarController.text;
+  }
 
     Future<void> _selectDate(BuildContext context) async {
       final DateTime selected = await showDatePicker(

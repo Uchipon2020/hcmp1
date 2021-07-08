@@ -45,6 +45,8 @@ class DatabaseHelper {
   // ignore: non_constant_identifier_names
   String colBlood_glucose = 'blood_glucose';
   String colHA1c = 'hA1c';
+  String colSugar = 'sugar';
+  String colUrine = 'urine';
   String colEcg = 'ecg';
   // ignore: non_constant_identifier_names
   String colOn_the_day ='on_the_day';
@@ -86,7 +88,7 @@ class DatabaseHelper {
         ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT, $colX_ray TEXT, '
         ' $colL_Bp TEXT, $colH_Bp TEXT, $colRed_blood TEXT, $colHemoglobin TEXT,'
         ' $colGot TEXT, $colGpt TEXT, $colGtp TEXT, $colLdl TEXT, $colHdl TEXT, $colNeutral_fat TEXT, '
-        ' $colBlood_glucose TEXT, $colHA1c TEXT, $colEcg TEXT, '
+        ' $colBlood_glucose TEXT, $colHA1c TEXT, $colSugar TEXT, $colSugar TEXT, $colEcg TEXT, '
         ' $colOn_the_day TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 

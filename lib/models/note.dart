@@ -27,7 +27,9 @@ class Note {
   String _ecg;          //心電図
   String _on_the_day;   //受診日
   String _date;         //更新日
-  int _priority;        //定期・ドッグフラグ
+  int _priority;        //定期・ドッグフラグUrine
+  String _urine; //尿蛋白
+  String _sugar; //尿糖
 
   Note(this._priority, [this._height, this._weight, this._waist,
     this._right_eye, this._left_eye,
@@ -36,7 +38,7 @@ class Note {
     this._x_ray,
     this._red_blood, this._hemoglobin,
     this._got, this._gpt, this._gtp, this._ldl, this._hdl, this._neutral_fat,
-    this._blood_glucose, this._hA1c,
+    this._blood_glucose, this._hA1c,this._urine,this._sugar,
     this._ecg,
     this._low_blood_pressure,this._high_blood_pressure,this._on_the_day]);
 
@@ -47,7 +49,7 @@ class Note {
     this._x_ray,
     this._red_blood, this._hemoglobin,
     this._got, this._gpt, this._gtp, this._ldl, this._hdl, this._neutral_fat,
-    this._blood_glucose, this._hA1c,
+    this._blood_glucose, this._hA1c,this._urine,this._sugar,
     this._ecg,
     this._low_blood_pressure,this._high_blood_pressure,this._on_the_day]);
 
@@ -92,6 +94,10 @@ class Note {
   String get blood_glucose => _blood_glucose;
 
   String get hA1c => _hA1c;
+
+  String get urine => _urine;
+
+  String get sugar => _sugar;
 
   String get ecg => _ecg;
 
@@ -234,6 +240,18 @@ class Note {
     }
   }
 
+  set urine(String newUrine){
+    if (newUrine.length <= 255){
+      this._urine = newUrine;
+    }
+  }
+
+  set sugar(String newSugar){
+    if(newSugar.length <= 255){
+      this._sugar = newSugar;
+    }
+  }
+
   set ecg(String newEcg){
     if (newEcg.length <= 255){
       this._ecg = newEcg;
@@ -288,6 +306,8 @@ class Note {
     map['blood_glucose'] = _blood_glucose;
     map['ecg'] = _ecg;
     map['hA1c'] = _hA1c;
+    map['urine'] = _urine;
+    map['sugar'] = _sugar;
     map['on_the_day'] = _on_the_day;
     map['priority'] = _priority;
     map['date'] = _date;
@@ -318,6 +338,8 @@ class Note {
     this._blood_glucose = map['blood_glucose'];
     this._ecg = map['ecg'];
     this._hA1c = map['hA1c'];
+    this._urine = map['urine'];
+    this._sugar = map['sugar'];
     this._low_blood_pressure = map['low_blood_pressure'];
     this._high_blood_pressure =  map['high_blood_pressure'];
     this._on_the_day = map['on_the_day'];
