@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-// ignore: implementation_imports
-import 'package:flutter/src/material/icon_button.dart';
-import 'package:flutter/widgets.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/src/material/icon_button.dart';
 
 class NoteDetail extends StatefulWidget {
   final String appBarTitle;
@@ -23,7 +19,8 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
-  static var _priorities = ['定期健康診断', 'その他'];
+
+  static var _priorities = ['定期健康診断', '人間ドック'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -53,8 +50,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
-  TextEditingController urineController = TextEditingController();
-  TextEditingController sugarController = TextEditingController();
+  String _labelText;
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -85,8 +81,7 @@ class NoteDetailState extends State<NoteDetail> {
     bGluController.text = note.blood_glucose;
     hA1cController.text = note.hA1c;
     eCgController.text = note.ecg;
-    urineController.text = note.urine;
-    sugarController.text = note.sugar;
+
 
     return Listener(
         onPointerDown: (_) {
@@ -97,7 +92,9 @@ class NoteDetailState extends State<NoteDetail> {
           }
         },
 
-        //GestureDetector(
+      //GestureDetector(
+
+
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
@@ -138,36 +135,38 @@ class NoteDetailState extends State<NoteDetail> {
                         });
                       }),
                 ),
+                */
+
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          _selectDate(context);
-                        },
-                        icon: Icon(Icons.calendar_today_outlined),
+
+                  child: TextField(
+                    controller: onTheDayController,
+
+                    // style: textStyle,
+                    onTap: () {
+                      _selectDate(context);
+                      onTheDayController.text = ("${_datenow}");
+                      updateOTD();
+                    },
+
+
+                    decoration: InputDecoration(
+                      labelText: '受診日',
+                      //labelStyle: textStyle,
+                      //hintText: '実際の受診日',
+                      icon: Icon(Icons.calendar_today_outlined),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)
                       ),
-                      Expanded(
-                        child: TextField(
-                          controller: onTheDayController,
-                          style: textStyle,
-                          onChanged: (value) {
-                            debugPrint('calender_push');
-                            updateOTD();
-                          },
-                          decoration: InputDecoration(
-                              labelText: '受診日',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
-                        ),
-                      ),
-                    ],
+                    ),
+                    autocorrect: true,
+                    autofocus: true,
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
@@ -269,13 +268,14 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.remove_red_eye),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
 
                 //聴力1000Hz
 
@@ -381,13 +381,15 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
+
 
                 //血圧横並び表示----------------
                 Padding(
@@ -1204,7 +1206,7 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the on_the_day of Note object
-  void updateOTD() {
+ void updateOTD() {
     note.on_the_day = onTheDayController.text;
   }
 
@@ -1215,12 +1217,11 @@ class NoteDetailState extends State<NoteDetail> {
         firstDate: DateTime(2015),
         lastDate: new DateTime.now().add(new Duration(days: 720)));
     if (selected != null) {
-      note.on_the_day = DateFormat.yMMMd().format(selected);
-      setState(() => onTheDayController.text = note.on_the_day);
-      debugPrint('$onTheDayController.text');
-      //note.on_the_day = onTheDayController.text;
+      setState(() =>
+        _datenow = selected );
     }
   }
+
 
   // Save data to database
   void _save() async {
@@ -1273,7 +1274,4 @@ class NoteDetailState extends State<NoteDetail> {
   }
 }
 
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
 }

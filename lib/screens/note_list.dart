@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:health_care_mania_prottype/models/note.dart';
-import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:health_care_mania_prottype/screens/note_detail.dart';
+import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 
@@ -54,14 +55,14 @@ class NoteListState extends State<NoteList> {
   ListView getNoteListView() {
 
     TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    //String type;
+    String type;
 
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int position) {
         return Card(
           color: Colors.white,
-          elevation: 2.0,
+          elevation: 5.0,
           child: ListTile(
 
             leading: CircleAvatar(
@@ -96,11 +97,11 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
-        //type = "定期健康診断";
+        //type = "定期";
         return Colors.red;
         break;
       case 2:
-        //type = "人間ドック";
+        //type = "その他";
         return Colors.yellow;
         break;
 
