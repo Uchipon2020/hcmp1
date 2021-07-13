@@ -176,7 +176,7 @@ class NoteDetailState extends State<NoteDetail> {
                 child: TextField(
                   style: textStyle,
                   controller: heightController,
-                  onChanged: (value) {
+                  onChanged: (String value) {
                     debugPrint('Something changed in Title Text Field');
                     updateHeight();
                   },
@@ -199,8 +199,7 @@ class NoteDetailState extends State<NoteDetail> {
                   style: textStyle,
                   controller: weightController,
                   textAlign: TextAlign.right,
-                  //keyboardType: TextInputType.number,
-                  onChanged: (value) {
+                  onChanged: (String value) {
                     debugPrint('Something changed in Description Text Field');
                     updateWeight();
                   },
@@ -283,7 +282,7 @@ class NoteDetailState extends State<NoteDetail> {
                       child: TextField(
                         controller: hR1000Controller,
                         style: textStyle,
-                        onChanged: (value) {
+                        onChanged: (String value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateHearing_r_1000();
@@ -305,7 +304,7 @@ class NoteDetailState extends State<NoteDetail> {
                       child: TextField(
                         controller: hL1000Controller,
                         style: textStyle,
-                        onChanged: (value) {
+                        onChanged: (String value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateHearing_l_1000();
