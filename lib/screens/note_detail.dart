@@ -145,7 +145,7 @@ class NoteDetailState extends State<NoteDetail> {
 
                 // save & delete
                 Padding(
-                  padding: EdgeInsets.only(top:top: 7.0, bottom: 7.0),
+                  padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -219,11 +219,10 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0]; // 'High'
+        priority = _priorities[0];
         break;
       case 2:
-        priority = _priorities[1]; // 'Low'
-        break;
+        priority = _priorities[1];
     }
     return priority;
   }
@@ -301,14 +300,13 @@ class NoteDetailState extends State<NoteDetail> {
         lastDate: DateTime(2040),
         builder: (BuildContext context, Widget child) {
           return Theme(
-            data: ThemeData.dark().copyWith(
+            data: ThemeData.light().copyWith(
               colorScheme: ColorScheme.dark(
-                primary: Colors.deepPurple,
-                onPrimary: Colors.white,
-                surface: Colors.blueGrey,
-                onSurface: Colors.yellow,
+                primary: Colors.orange,
+                onPrimary: Colors.black,
+                surface: Colors.orange,
+                onSurface: Colors.black,
               ),
-              //dialogBackgroudColor: Colors.blue[500],
             ),
             child: child,
           );
@@ -320,6 +318,7 @@ class NoteDetailState extends State<NoteDetail> {
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: onTheDayController.text.length,
             affinity: TextAffinity.upstream));
+      note.onTheDay = onTheDayController.text;
     }
   }
 }
