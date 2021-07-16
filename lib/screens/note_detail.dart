@@ -1,144 +1,164 @@
-import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/note.dart';
-import 'package:flutter_app/utils/database_helper.dart';
+import 'package:flutter/services.dart';
+import 'package:helth_care_mania_prottype/models/note.dart';
+import 'package:helth_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
-
   final String appBarTitle;
   final Note note;
 
-  NoteDetail(this. note, this.appBarTitle);
+  NoteDetail(this.note, this.appBarTitle);
 
   @override
   State<StatefulWidget> createState() {
-
     return NoteDetailState(this.note, this.appBarTitle);
   }
 }
 
 class NoteDetailState extends State<NoteDetail> {
-
-  static var _priorities = ['High', 'Low'];
+  static var _priorities = ['定期健康診断', '人間ドック'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
   Note note;
+  DateTime _selectedDate;
 
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  TextEditingController onTheDayController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
 
   NoteDetailState(this.note, this.appBarTitle);
 
   @override
   Widget build(BuildContext context) {
+    TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
-    TextStyle textStyle = Theme.of(context).textTheme.title;
-
-    titleController.text = note.title;
-    descriptionController.text = note.description;
+    onTheDayController.text = note.onTheDay;
+    heightController.text = note.height;
+    weightController.text = note.weight;
 
     return WillPopScope(
-
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
         },
-
         child: Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
-            leading: IconButton(icon: Icon(
-                Icons.arrow_back),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back),
                 onPressed: () {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
-                }
-            ),
+                }),
           ),
-
           body: Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
             child: ListView(
               children: <Widget>[
-
                 // First element
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
-                        return DropdownMenuItem<String> (
+                        return DropdownMenuItem<String>(
                           value: dropDownStringItem,
                           child: Text(dropDownStringItem),
                         );
                       }).toList(),
-
                       style: textStyle,
-
                       value: getPriorityAsString(note.priority),
-
                       onChanged: (valueSelectedByUser) {
                         setState(() {
                           debugPrint('User selected $valueSelectedByUser');
                           updatePriorityAsInt(valueSelectedByUser);
                         });
-                      }
-                  ),
+                      }),
                 ),
 
-                // Second Element
+                // 受診日
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                   child: TextField(
-                    controller: titleController,
+                    controller: onTheDayController,
+                    focusNode: AlwaysDisableFocusNode(),
                     style: textStyle,
+                    onTap: () {
+                      _selectDate(context);
+                    },
                     onChanged: (value) {
-                      debugPrint('Something changed in Title Text Field');
-                      updateTitle();
+                      debugPrint('Something changed in 受信日 Text Field');
+                      updateOnTheDay();
                     },
                     decoration: InputDecoration(
-                        labelText: 'Title',
+                        labelText: '受診日',
                         labelStyle: textStyle,
+                        icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)
-                        )
-                    ),
+                            borderRadius: BorderRadius.circular(5.0))),
                   ),
                 ),
 
-                // Third Element
+                // 身長
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
                   child: TextField(
-                    controller: descriptionController,
+                    controller: heightController,
+                    textAlign: TextAlign.right,
                     style: textStyle,
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
-                      debugPrint('Something changed in Description Text Field');
-                      updateDescription();
+                      debugPrint('Something changed in 身長 Text Field');
+                      updateHeight();
                     },
                     decoration: InputDecoration(
-                        labelText: 'Description',
+                        labelText: '身長',
+                        suffix: Text(' cm'),
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0)
-                        )
-                    ),
+                            borderRadius: BorderRadius.circular(5.0))),
                   ),
                 ),
 
-                // Fourth Element
+                // 体重
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                  padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
+                  child: TextField(
+                    controller: weightController,
+                    textAlign: TextAlign.right,
+                    style: textStyle,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint('Something changed in 身長 Text Field');
+                      updateWeight();
+                    },
+                    decoration: InputDecoration(
+                        labelText: '体重',
+                        suffix: Text(' kg'),
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0))),
+                  ),
+                ),
+
+                // save & delete
+                Padding(
+                  padding: EdgeInsets.only(top:top: 7.0, bottom: 7.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                        child: ElevatedButton(
                           child: Text(
-                            'Save',
-                            textScaleFactor: 1.5,
+                            "Save",
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColorLight,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColorDark,
+                            onPrimary: Colors.black,
                           ),
                           onPressed: () {
                             setState(() {
@@ -148,16 +168,18 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
-
-                      Container(width: 5.0,),
-
+                      Container(
+                        width: 5.0,
+                      ),
                       Expanded(
-                        child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                        child: ElevatedButton(
                           child: Text(
                             'Delete',
-                            textScaleFactor: 1.5,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorLight),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColorDark,
                           ),
                           onPressed: () {
                             setState(() {
@@ -167,15 +189,12 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
-
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
-
         ));
   }
 
@@ -186,10 +205,10 @@ class NoteDetailState extends State<NoteDetail> {
   // Convert the String priority in the form of integer before saving it to Database
   void updatePriorityAsInt(String value) {
     switch (value) {
-      case 'High':
+      case '定期健康診断':
         note.priority = 1;
         break;
-      case 'Low':
+      case '人間ドック':
         note.priority = 2;
         break;
     }
@@ -200,48 +219,54 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0];  // 'High'
+        priority = _priorities[0]; // 'High'
         break;
       case 2:
-        priority = _priorities[1];  // 'Low'
+        priority = _priorities[1]; // 'Low'
         break;
     }
     return priority;
   }
 
-  // Update the title of Note object
-  void updateTitle(){
-    note.title = titleController.text;
+  // Update the onTheDay of Note object
+  void updateOnTheDay() {
+    note.onTheDay = onTheDayController.text;
   }
 
-  // Update the description of Note object
-  void updateDescription() {
-    note.description = descriptionController.text;
+  // Update the height of Note object
+  void updateHeight() {
+    note.height = heightController.text;
+  }
+
+  //Update the Weight of Note object
+  void updateWeight() {
+    note.weight = weightController.text;
   }
 
   // Save data to database
   void _save() async {
-
     moveToLastScreen();
 
     note.date = DateFormat.yMMMd().format(DateTime.now());
     int result;
-    if (note.id != null) {  // Case 1: Update operation
+    if (note.id != null) {
+      // Case 1: Update operation
       result = await helper.updateNote(note);
-    } else { // Case 2: Insert Operation
+    } else {
+      // Case 2: Insert Operation
       result = await helper.insertNote(note);
     }
 
-    if (result != 0) {  // Success
-      _showAlertDialog('Status', 'Note Saved Successfully');
-    } else {  // Failure
-      _showAlertDialog('Status', 'Problem Saving Note');
+    if (result != 0) {
+      // Success
+      _showAlertDialog('Status', 'Successfully');
+    } else {
+      // Failure
+      _showAlertDialog('Status', 'Problem');
     }
-
   }
 
   void _delete() async {
-
     moveToLastScreen();
 
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
@@ -261,15 +286,45 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   void _showAlertDialog(String title, String message) {
-
     AlertDialog alertDialog = AlertDialog(
       title: Text(title),
       content: Text(message),
     );
-    showDialog(
-        context: context,
-        builder: (_) => alertDialog
-    );
+    showDialog(context: context, builder: (_) => alertDialog);
   }
 
+  _selectDate(BuildContext context) async {
+    DateTime newSelectedDate = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2040),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.dark(
+                primary: Colors.deepPurple,
+                onPrimary: Colors.white,
+                surface: Colors.blueGrey,
+                onSurface: Colors.yellow,
+              ),
+              //dialogBackgroudColor: Colors.blue[500],
+            ),
+            child: child,
+          );
+        });
+    if (newSelectedDate != null) {
+      _selectedDate = newSelectedDate;
+      onTheDayController
+        ..text = DateFormat.yMMMd().format(_selectedDate)
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: onTheDayController.text.length,
+            affinity: TextAffinity.upstream));
+    }
+  }
+}
+
+class AlwaysDisableFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
