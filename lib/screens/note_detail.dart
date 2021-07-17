@@ -22,13 +22,25 @@ class NoteDetailState extends State<NoteDetail> {
 
   DatabaseHelper helper = DatabaseHelper();
 
-  String appBarTitle;
+  String appBarTitle, bmi;
   Note note;
   DateTime _selectedDate;
 
   TextEditingController onTheDayController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController rightEyeController = TextEditingController();
+  TextEditingController leftEyeController = TextEditingController();
+  TextEditingController rightEar1Controller = TextEditingController();
+  TextEditingController leftEar1Controller = TextEditingController();
+  TextEditingController rightEar4Controller = TextEditingController();
+  TextEditingController leftEar4Controller = TextEditingController();
+  TextEditingController bloodLowController = TextEditingController();
+  TextEditingController bloodHighController = TextEditingController();
+  TextEditingController urineController = TextEditingController();
+  TextEditingController sugarController = TextEditingController();
+  TextEditingController ecgController = TextEditingController();
+  TextEditingController x_rayController = TextEditingController();
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -39,6 +51,8 @@ class NoteDetailState extends State<NoteDetail> {
     onTheDayController.text = note.onTheDay;
     heightController.text = note.height;
     weightController.text = note.weight;
+    rightEyeController.text = note.right_eyes;
+    leftEyeController.text = note.left_eyes;
 
     return WillPopScope(
         onWillPop: () {
@@ -141,6 +155,21 @@ class NoteDetailState extends State<NoteDetail> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0))),
                   ),
+                ),
+
+                Padding(padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: TextField(
+                          controller: rightEyeController,
+                          style: TextStyle(),
+                          key
+                        ))
+                  ]
+
+                )
+
                 ),
 
                 // save & delete

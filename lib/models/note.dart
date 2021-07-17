@@ -146,7 +146,7 @@ class Note {
 
   set urine(String newUrine) {
     if (newUrine.length <= 255) {
-      this._urie = newUrine;
+      this._urine = newUrine;
     }
   }
 

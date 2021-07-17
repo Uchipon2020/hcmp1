@@ -14,6 +14,19 @@ class DatabaseHelper {
   String colOnTheDay = 'onTheDay';
   String colHeight = 'height';
   String colWeight = 'weight';
+  String colBmi = 'bmi';
+  String colRight_eyes = 'right_eyes';
+  String colLeft_eyes = 'left_eyes';
+  String colRight_ear_1000 = 'right_ear_1000';
+  String colLeft_ear_1000 = 'left_ear_1000';
+  String colRight_ear_4000 = 'right_ear_4000';
+  String colLeft_ear_4000 = 'left_ear_4000';
+  String colBlood_low = 'blood_pressure_low';
+  String colBlood_high = 'blood_pressure_high';
+  String colUrine = 'urine';
+  String colSugar = 'sugar';
+  String colEcg = 'ecg';
+  String colX_ray = 'x_ray';
   String colPriority = 'priority';
   String colDate = 'date';
 
@@ -48,7 +61,22 @@ class DatabaseHelper {
   void _createDb(Database db, int newVersion) async {
     await db.execute(
         'CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colOnTheDay TEXT, '
-        '$colHeight TEXT, $colWeight TEXT, $colPriority INTEGER, $colDate TEXT)');
+        '$colHeight TEXT,'
+        ' $colWeight TEXT,'
+        ' $colRight_eyes TEXT,'
+        ' $colLeft_eyes TEXT,'
+        ' $colRight_ear_1000 TEXT,'
+        ' $colLeft_ear_1000 TEXT,'
+        ' $colRight_ear_4000 TEXT,'
+        ' $colLeft_ear_4000 TEXT,'
+        ' $colBlood_low TEXT,'
+        ' $colBlood_high TEXT,'
+        ' $colUrine TEXT,'
+        ' $colSugar TEXT,'
+        ' $colEcg TEXT,'
+        ' $colX_ray TEXT,'
+        ' $colPriority INTEGER,'
+        ' $colDate TEXT)');
   }
 
   // Fetch Operation: Get all note objects from database
