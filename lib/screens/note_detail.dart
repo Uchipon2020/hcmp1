@@ -157,20 +157,52 @@ class NoteDetailState extends State<NoteDetail> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
+                //視力
+                Padding(
+                    padding: EdgeInsets.only(top: 7.0, bottom: 7.0),
+                    child: Row(children: <Widget>[
+                      Expanded(
                         child: TextField(
+                          //enabled: false,
                           controller: rightEyeController,
                           style: TextStyle(),
-                          key
-                        ))
-                  ]
-
-                )
-
-                ),
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            showPicker1();
+                          },
+                          decoration: InputDecoration(
+                            labelText: '視力・右',
+                            icon: Icon(Icons.remove_red_eye),
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 15.0,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          //enabled: false,
+                          controller: leftEyeController,
+                          style: TextStyle(),
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            showPicker2();
+                          },
+                          decoration: InputDecoration(
+                            labelText: '視力・左',
+                            icon: Icon(Icons.remove_red_eye),
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                        ),
+                      ),
+                    ])),
 
                 // save & delete
                 Padding(
@@ -349,6 +381,80 @@ class NoteDetailState extends State<NoteDetail> {
             affinity: TextAffinity.upstream));
       note.onTheDay = onTheDayController.text;
     }
+  }
+
+  //showPicker1
+  void showPicker1() {
+    final List list = Note.eyesData;
+    final _pickerItems = list.map((item) => Text(item)).toList();
+    var selectedIndex = 5;
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 260,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 40,
+              scrollController: FixedExtentScrollController(
+                initialItem: 5,
+              ),
+              backgroundColor: Colors.white,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                selectedIndex = index;
+              },
+            ),
+          ),
+        );
+      },
+    ).then((_) {
+      if (selectedIndex != null) {
+        note.right_eyes = list[selectedIndex];
+        setState(() => rightEyeController.text = note.right_eyes);
+      }
+    });
+  }
+
+  //showPicker2
+  void showPicker2() {
+    final List list2 = Note.eyesData;
+    final _pickerItems = list2.map((item) => Text(item)).toList();
+    var selectedIndex = 5;
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 260,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 35,
+              scrollController: FixedExtentScrollController(
+                initialItem: 5,
+              ),
+              backgroundColor: Colors.white,
+              children: _pickerItems,
+              onSelectedItemChanged: (int index) {
+                selectedIndex = index;
+              },
+            ),
+          ),
+        );
+      },
+    ).then((_) {
+      if (selectedIndex != null) {
+        note.left_eyes = list2[selectedIndex];
+        setState(() => leftEyeController.text = note.left_eyes);
+      }
+    });
   }
 }
 
