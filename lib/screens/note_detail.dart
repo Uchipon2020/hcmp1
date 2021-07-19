@@ -22,7 +22,8 @@ class NoteDetailState extends State<NoteDetail> {
 
   DatabaseHelper helper = DatabaseHelper();
 
-  String appBarTitle, bmi;
+  String appBarTitle;
+  String bmi;
   Note note;
   DateTime _selectedDate;
 
@@ -49,10 +50,13 @@ class NoteDetailState extends State<NoteDetail> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
     onTheDayController.text = note.onTheDay;
+    onTheDay = note.onTheDay;
     heightController.text = note.height;
     weightController.text = note.weight;
-    rightEyeController.text = note.right_eyes;
-    leftEyeController.text = note.left_eyes;
+    rightEye = note.right_eyes;
+    leftEye = note.left_eyes;
+    //rightEyeController.text = note.right_eyes;
+    //leftEyeController.text = note.left_eyes;
 
     return WillPopScope(
         onWillPop: () {
@@ -102,7 +106,7 @@ class NoteDetailState extends State<NoteDetail> {
                     onTap: () {
                       _selectDate(context);
                     },
-                    onChanged: (value) {
+                    onChanged: (onTheDay) {
                       debugPrint('Something changed in 受信日 Text Field');
                       updateOnTheDay();
                     },
@@ -167,8 +171,10 @@ class NoteDetailState extends State<NoteDetail> {
                           controller: rightEyeController,
                           style: TextStyle(),
                           onTap: () {
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
+                            SystemChannels.textInput
+                                .invokeMethod('TextInput.hide');
+                            //FocusScope.of(context)
+                            // .requestFocus(new FocusNode());
                             showPicker1();
                           },
                           decoration: InputDecoration(
@@ -185,8 +191,9 @@ class NoteDetailState extends State<NoteDetail> {
                       ),
                       Expanded(
                         child: TextField(
+                          '${leftEye}',
                           //enabled: false,
-                          controller: leftEyeController,
+                          //controller: leftEyeController,
                           style: TextStyle(),
                           onTap: () {
                             FocusScope.of(context)
