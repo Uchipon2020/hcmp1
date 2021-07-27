@@ -13,7 +13,7 @@ class DatabaseHelper {
   String colId = 'id';
   String colHeight = 'height';
   String colWeight = 'weight';
-  String colWaist = 'waist';
+  //String colWaist = 'waist';
   // ignore: non_constant_identifier_names
   String colR_Eye = 'right_eye';
   // ignore: non_constant_identifier_names
@@ -82,11 +82,15 @@ class DatabaseHelper {
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute(
-        'CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colHeight TEXT, '
-        ' $colWeight TEXT, $colR_Eye TEXT, $colL_Eye TEXT, $colHearing_right_1000 TExt, $colHearing_left_1000 Text,'
-        ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT, $colX_ray TEXT, '
-        ' $colL_Bp TEXT, $colH_Bp TEXT, $colRed_blood TEXT, $colHemoglobin TEXT,'
+    await db.execute('CREATE TABLE $noteTable('
+        ' $colId INTEGER PRIMARY KEY AUTOINCREMENT, '
+        ' $colHeight TEXT, $colWeight TEXT,'
+        ' $colR_Eye TEXT, $colL_Eye TEXT,'
+        ' $colHearing_right_1000 TEXT, $colHearing_left_1000 TEXT,'
+        ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT,'
+        ' $colX_ray TEXT, '
+        ' $colL_Bp TEXT, $colH_Bp TEXT,'
+        ' $colRed_blood TEXT, $colHemoglobin TEXT,'
         ' $colGot TEXT, $colGpt TEXT, $colGtp TEXT, $colLdl TEXT, $colHdl TEXT, $colNeutral_fat TEXT, '
         ' $colBlood_glucose TEXT, $colHA1c TEXT, $colUrine TEXT, $colSugar TEXT, $colEcg TEXT, '
         ' $colOn_the_day TEXT, $colPriority INTEGER, $colDate TEXT)');

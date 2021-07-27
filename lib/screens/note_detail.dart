@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/icon_button.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/src/material/icon_button.dart' show IconButton;
 import 'package:health_care_mania_prottype/models/note.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
@@ -58,31 +59,31 @@ class NoteDetailState extends State<NoteDetail> {
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
-    heightController.text = note.height;
-    weightController.text = note.weight;
-    rEyeController.text = note.right_eye;
-    lEyeController.text = note.left_eye;
-    lBpController.text = note.low_blood_pressure;
-    hBpController.text = note.high_blood_pressure;
-    onTheDayController.text = note.on_the_day;
-    hR1000Controller.text = note.hearing_right_1000;
-    hL1000Controller.text = note.hearing_left_1000;
-    hR4000Controller.text = note.hearing_right_4000;
-    hL4000Controller.text = note.hearing_left_4000;
-    xRayController.text = note.x_ray;
-    rBController.text = note.red_blood;
-    hEmoController.text = note.hemoglobin;
-    gOtController.text = note.got;
-    gPtController.text = note.gpt;
-    gTpController.text = note.gpt;
-    lDlController.text = note.ldl;
-    hDlController.text = note.hdl;
-    nFatController.text = note.neutral_fat;
-    bGluController.text = note.blood_glucose;
-    hA1cController.text = note.hA1c;
-    eCgController.text = note.ecg;
-    urineController.text = note.urine;
-    sugarController.text = note.sugar;
+    heightController.text = note.height_1;
+    weightController.text = note.weight_2;
+    rEyeController.text = note.right_eye_4;
+    lEyeController.text = note.left_eye_5;
+    hR1000Controller.text = note.hearing_right_1000_6;
+    hL1000Controller.text = note.hearing_left_1000_7;
+    hR4000Controller.text = note.hearing_right_4000_8;
+    hL4000Controller.text = note.hearing_left_4000_9;
+    xRayController.text = note.x_ray_10;
+    lBpController.text = note.low_blood_pressure_11;
+    hBpController.text = note.high_blood_pressure_12;
+    rBController.text = note.red_blood_13;
+    hEmoController.text = note.hemoglobin_14;
+    gOtController.text = note.got_15;
+    gPtController.text = note.gpt_16;
+    gTpController.text = note.gtp_17;
+    lDlController.text = note.ldl_18;
+    hDlController.text = note.hdl_19;
+    nFatController.text = note.neutral_fat_20;
+    bGluController.text = note.blood_glucose_21;
+    hA1cController.text = note.hA1c_22;
+    eCgController.text = note.ecg_23;
+    onTheDayController.text = note.on_the_day_24;
+    urineController.text = note.urine_25;
+    sugarController.text = note.sugar_26;
 
     return Listener(
       onPointerDown: (_) {
@@ -92,20 +93,17 @@ class NoteDetailState extends State<NoteDetail> {
           currentFocus.focusedChild.unfocus();
         }
       },
+      child: Scaffold(
+        // GestureDetector(
 
-      // GestureDetector(
-
-      /*
-       WillPopScope(
+        /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
-        },
+        },*/
 
-        */
-      //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
+        //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
 
-      child: Scaffold(
         appBar: AppBar(
           title: Text(appBarTitle),
           leading: IconButton(
@@ -115,6 +113,7 @@ class NoteDetailState extends State<NoteDetail> {
                 moveToLastScreen();
               }),
         ),
+
         body: Padding(
           padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
           child: ListView(
@@ -157,7 +156,7 @@ class NoteDetailState extends State<NoteDetail> {
                         enabled: true,
                         onSubmitted: (value) {
                           debugPrint('calender_push');
-                          // updateOTD();
+                          updateOTD();
                         },
                         decoration: InputDecoration(
                             labelText: '受診日',
@@ -174,17 +173,16 @@ class NoteDetailState extends State<NoteDetail> {
               Padding(
                 padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                 child: TextField(
-                  style: textStyle,
+                  textAlign: TextAlign.right,
                   controller: heightController,
-                  onChanged: (String value) {
+                  onChanged: (value) {
                     debugPrint('Something changed in Title Text Field');
                     updateHeight();
                   },
                   //style: textStyle,
-                  textAlign: TextAlign.right,
+
                   decoration: InputDecoration(
                       labelText: '身長',
-                      labelStyle: textStyle,
                       suffix: Text(' cm'),
                       icon: Icon(Icons.accessibility),
                       border: OutlineInputBorder(
@@ -196,16 +194,14 @@ class NoteDetailState extends State<NoteDetail> {
               Padding(
                 padding: EdgeInsets.only(top: 2.5, bottom: 10.0),
                 child: TextField(
-                  style: textStyle,
                   controller: weightController,
                   textAlign: TextAlign.right,
-                  onChanged: (String value) {
+                  onChanged: (value) {
                     debugPrint('Something changed in Description Text Field');
                     updateWeight();
                   },
                   decoration: InputDecoration(
                       labelText: '体重',
-                      labelStyle: textStyle,
                       suffix: Text(' kg'),
                       icon: Icon(Icons.accessibility),
                       border: OutlineInputBorder(
@@ -222,13 +218,16 @@ class NoteDetailState extends State<NoteDetail> {
                       // 3 Element　（右）視力入力
                       child: TextField(
                         controller: rEyeController,
-                        style: textStyle,
-                        onTap: () {
+                        /*onTap: () {
                           debugPrint('EYES');
-                          FocusScope.of(context).requestFocus(new FocusNode());
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.focusedChild != null) {
+                            currentFocus.focusedChild.unfocus();
+                          }
                           showPicker0();
-                        },
-                        onChanged: (value) {
+                        },*/
+                        onSubmitted: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateREye();
@@ -236,7 +235,6 @@ class NoteDetailState extends State<NoteDetail> {
                         decoration: InputDecoration(
                           labelText: '右視力',
                           icon: Icon(Icons.remove_red_eye),
-                          labelStyle: textStyle,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                         ),
@@ -249,19 +247,21 @@ class NoteDetailState extends State<NoteDetail> {
                       // 5 Element　（左）視力入力
                       child: TextField(
                         controller: lEyeController,
-                        style: textStyle,
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(new FocusNode());
+                        /*onTap: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.focusedChild != null) {
+                            currentFocus.focusedChild.unfocus();
+                          }
                           showPicker1();
-                        },
-                        onChanged: (value) {
+                        },*/
+                        onSubmitted: (value) {
                           debugPrint('Something changed in 視力 Text Field');
                           updateLEye();
                         },
                         decoration: InputDecoration(
                           labelText: '左視力',
                           icon: Icon(Icons.remove_red_eye),
-                          labelStyle: textStyle,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                         ),
@@ -281,15 +281,13 @@ class NoteDetailState extends State<NoteDetail> {
                       // 3 Element　聴力1000Hz　右
                       child: TextField(
                         controller: hR1000Controller,
-                        style: textStyle,
-                        onChanged: (String value) {
+                        onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateHearing_r_1000();
                         },
                         decoration: InputDecoration(
                           labelText: '右聴力1000',
-                          labelStyle: textStyle,
                           icon: Icon(Icons.hearing),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -303,15 +301,14 @@ class NoteDetailState extends State<NoteDetail> {
                       // 5 Element　聴力1000　左
                       child: TextField(
                         controller: hL1000Controller,
-                        style: textStyle,
-                        onChanged: (String value) {
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateHearing_l_1000();
                         },
                         decoration: InputDecoration(
                           labelText: '左聴力1000',
-                          labelStyle: textStyle,
                           icon: Icon(Icons.hearing),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -332,7 +329,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 3 Element　聴力4000Hz　右
                       child: TextField(
                         controller: hR4000Controller,
-                        style: textStyle,
                         onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
@@ -341,7 +337,6 @@ class NoteDetailState extends State<NoteDetail> {
                         decoration: InputDecoration(
                           labelText: '右聴力4000',
                           icon: Icon(Icons.hearing),
-                          labelStyle: textStyle,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                         ),
@@ -354,7 +349,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 5 Element　聴力4000　左
                       child: TextField(
                         controller: hL4000Controller,
-                        style: textStyle,
                         onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
@@ -362,7 +356,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                           labelText: '左聴力4000',
-                          labelStyle: textStyle,
                           icon: Icon(Icons.hearing),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -382,8 +375,11 @@ class NoteDetailState extends State<NoteDetail> {
                       // 6 Element　血圧（LOW）
                       child: TextField(
                         controller: lBpController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
@@ -391,7 +387,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: '血圧Low',
-                            labelStyle: textStyle,
                             suffix: Text(' mmHg'),
                             icon: Icon(Icons.arrow_downward),
                             border: OutlineInputBorder(
@@ -405,7 +400,7 @@ class NoteDetailState extends State<NoteDetail> {
                       // 7 Element　血圧（High）
                       child: TextField(
                         controller: hBpController,
-                        style: textStyle,
+                        keyboardType: TextInputType.number,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -414,7 +409,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: '血圧High',
-                            labelStyle: textStyle,
                             suffix: Text(' mmHg'),
                             icon: Icon(Icons.arrow_upward),
                             border: OutlineInputBorder(
@@ -430,7 +424,6 @@ class NoteDetailState extends State<NoteDetail> {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: TextField(
                   controller: xRayController,
-                  style: textStyle,
                   onChanged: (value) {
                     debugPrint('Something changed in Title Text Field');
                     updateXray();
@@ -438,7 +431,6 @@ class NoteDetailState extends State<NoteDetail> {
                   decoration: InputDecoration(
                       labelText: 'レントゲン検査所見',
                       icon: Icon(Icons.content_paste),
-                      labelStyle: textStyle,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0))),
                 ),
@@ -450,7 +442,6 @@ class NoteDetailState extends State<NoteDetail> {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: TextField(
                   controller: eCgController,
-                  style: textStyle,
                   onChanged: (value) {
                     debugPrint('Something changed in Title Text Field');
                     updateEcg();
@@ -491,7 +482,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 6 Element　赤血球数
                       child: TextField(
                         controller: rBController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -500,7 +490,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: '赤血球数',
-                            labelStyle: textStyle,
                             suffix: Text(' 万/μL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -513,7 +502,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 7 Element　血色素量
                       child: TextField(
                         controller: hEmoController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -522,7 +510,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: '血色素量',
-                            labelStyle: textStyle,
                             suffix: Text(' g/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -541,7 +528,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // ＧＯＴ
                       child: TextField(
                         controller: gOtController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -550,7 +536,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: 'ＧＯＴ',
-                            labelStyle: textStyle,
                             suffix: Text(' U/L'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -563,7 +548,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // ＧＰＴ
                       child: TextField(
                         controller: gPtController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -572,7 +556,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: 'ＧＰＴ',
-                            labelStyle: textStyle,
                             suffix: Text(' U/L'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -585,9 +568,8 @@ class NoteDetailState extends State<NoteDetail> {
                       // ガンマ
                       child: TextField(
                         controller: gTpController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
-                        // keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
@@ -595,7 +577,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: 'ガンマGTP',
-                            labelStyle: textStyle,
                             suffix: Text(' U/L'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -614,7 +595,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // LDL
                       child: TextField(
                         controller: lDlController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -623,7 +603,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: 'ＬＤＬ',
-                            labelStyle: textStyle,
                             suffix: Text(' mg/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -636,7 +615,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // ＨＤＬ
                       child: TextField(
                         controller: hDlController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -645,7 +623,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: 'ＨＤＬ',
-                            labelStyle: textStyle,
                             suffix: Text(' mg/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -658,7 +635,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 中性脂肪
                       child: TextField(
                         controller: nFatController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -667,7 +643,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                             labelText: '中性脂肪',
-                            labelStyle: textStyle,
                             suffix: Text(' mg/dL'),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0))),
@@ -687,16 +662,17 @@ class NoteDetailState extends State<NoteDetail> {
                       // 空腹時血糖
                       child: TextField(
                         controller: bGluController,
-                        style: textStyle,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         textAlign: TextAlign.right,
-                        onChanged: (String value) {
+                        onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateBloodglucose();
                         },
                         decoration: InputDecoration(
                           labelText: '空腹時血糖',
-                          labelStyle: textStyle,
                           suffix: Text(' mg/dL'),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -710,7 +686,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // A1c
                       child: TextField(
                         controller: hA1cController,
-                        style: textStyle,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -719,7 +694,6 @@ class NoteDetailState extends State<NoteDetail> {
                         },
                         decoration: InputDecoration(
                           labelText: 'hA1c',
-                          labelStyle: textStyle,
                           suffix: Text(' %'),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -755,12 +729,11 @@ class NoteDetailState extends State<NoteDetail> {
                       child: TextField(
                         controller: urineController,
                         textAlign: TextAlign.center,
-                        style: textStyle,
-                        onTap: () {
+                        /*onTap: () {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           showPicker3();
-                        },
-                        onChanged: (value) {
+                        },*/
+                        onSubmitted: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateUrine();
@@ -782,20 +755,18 @@ class NoteDetailState extends State<NoteDetail> {
                       // 尿検査　尿糖　sugar
                       child: TextField(
                         controller: sugarController,
-                        style: textStyle,
                         textAlign: TextAlign.center,
-                        onTap: () {
+                        /*onTap: () {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           showPicker4();
-                        },
-                        onChanged: (value) {
+                        },*/
+                        onSubmitted: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
                           updateSugar();
                         },
                         decoration: InputDecoration(
                           labelText: '尿糖',
-                          labelStyle: textStyle,
                           //suffix: Text(' mg/dL'),
                           //icon: Icon(Icons.hearing),
                           border: OutlineInputBorder(
@@ -894,111 +865,111 @@ class NoteDetailState extends State<NoteDetail> {
 
   // Update the title of Note object
   void updateHeight() {
-    note.height = heightController.text;
+    note.height_1 = heightController.text;
   }
 
   // Update the title of Note object
   void updateWeight() {
-    note.weight = weightController.text;
+    note.weight_2 = weightController.text;
   }
 
   // Update the right_eyes of Note object
   void updateREye() {
-    note.right_eye = rEyeController.text;
+    note.right_eye_4 = rEyeController.text;
   }
 
   // Update the left_eyes of Note object
   void updateLEye() {
-    note.left_eye = lEyeController.text;
+    note.left_eye_5 = lEyeController.text;
   }
 
   void updateHearing_r_1000() {
-    note.hearing_right_1000 = hR1000Controller.text;
+    note.hearing_right_1000_6 = hR1000Controller.text;
   }
 
   void updateHearing_l_1000() {
-    note.hearing_left_1000 = hL1000Controller.text;
+    note.hearing_left_1000_7 = hL1000Controller.text;
   }
 
   void updateHearing_r_4000() {
-    note.hearing_right_4000 = hR4000Controller.text;
+    note.hearing_right_4000_8 = hR4000Controller.text;
   }
 
   void updateHearing_l_4000() {
-    note.hearing_left_4000 = hL4000Controller.text;
+    note.hearing_left_4000_9 = hL4000Controller.text;
   }
 
   void updateXray() {
-    note.x_ray = xRayController.text;
+    note.x_ray_10 = xRayController.text;
   }
 
   void updateRedblood() {
-    note.red_blood = rBController.text;
+    note.red_blood_13 = rBController.text;
   }
 
   void updateHemo() {
-    note.hemoglobin = hEmoController.text;
+    note.hemoglobin_14 = hEmoController.text;
   }
 
   void updateGot() {
-    note.got = gOtController.text;
+    note.got_15 = gOtController.text;
   }
 
   void updateGpt() {
-    note.gpt = gPtController.text;
+    note.gpt_16 = gPtController.text;
   }
 
   void updateGtp() {
-    note.gtp = gTpController.text;
+    note.gtp_17 = gTpController.text;
   }
 
   void updateLdl() {
-    note.ldl = lDlController.text;
+    note.ldl_18 = lDlController.text;
   }
 
   void updateHdl() {
-    note.hdl = hDlController.text;
+    note.hdl_19 = hDlController.text;
   }
 
   void updateNeutralfat() {
-    note.neutral_fat = nFatController.text;
+    note.neutral_fat_20 = nFatController.text;
   }
 
   void updateBloodglucose() {
-    note.blood_glucose = bGluController.text;
+    note.blood_glucose_21 = bGluController.text;
   }
 
   void updateHA1c() {
-    note.hA1c = hA1cController.text;
+    note.hA1c_22 = hA1cController.text;
   }
 
   void updateEcg() {
-    note.ecg = eCgController.text;
+    note.ecg_23 = eCgController.text;
   }
 
   void updateUrine() {
-    note.urine = urineController.text;
+    note.urine_25 = urineController.text;
   }
 
   void updateSugar() {
-    note.sugar = sugarController.text;
+    note.sugar_26 = sugarController.text;
   }
 
   // Update the low_blood_pressure of Note object
   void updateLBp() {
-    note.low_blood_pressuer = lBpController.text;
+    note.low_blood_pressure_11 = lBpController.text;
   }
 
   // Update the high_blood_pressure of Note object
   void updateHBp() {
-    note.high_blood_pressuer = hBpController.text;
+    note.high_blood_pressure_12 = hBpController.text;
   }
 
   // Update the on_the_day of Note object
   void updateOTD() {
-    note.on_the_day = onTheDayController.text;
+    note.on_the_day_24 = onTheDayController.text;
   }
-
+/*
   void showPicker0() {
     final list = [
       '2.0',
@@ -1187,6 +1158,8 @@ class NoteDetailState extends State<NoteDetail> {
     });
   }
 
+ */
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime selected = await showDatePicker(
         context: context,
@@ -1194,8 +1167,8 @@ class NoteDetailState extends State<NoteDetail> {
         firstDate: DateTime(2015),
         lastDate: new DateTime.now().add(new Duration(days: 720)));
     if (selected != null) {
-      note.on_the_day = DateFormat.yMMMd().format(selected);
-      setState(() => onTheDayController.text = note.on_the_day);
+      note.on_the_day_24 = DateFormat.yMMMd().format(selected);
+      setState(() => onTheDayController.text = note.on_the_day_24);
       debugPrint('$onTheDayController.text');
     }
   }
