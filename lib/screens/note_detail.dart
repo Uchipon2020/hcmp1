@@ -376,7 +376,6 @@ class NoteDetailState extends State<NoteDetail> {
                       child: TextField(
                         controller: lBpController,
                         textAlign: TextAlign.right,
-                        keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ],
@@ -400,7 +399,6 @@ class NoteDetailState extends State<NoteDetail> {
                       // 7 Element　血圧（High）
                       child: TextField(
                         controller: hBpController,
-                        keyboardType: TextInputType.number,
                         textAlign: TextAlign.right,
                         onChanged: (value) {
                           debugPrint(
@@ -569,7 +567,6 @@ class NoteDetailState extends State<NoteDetail> {
                       child: TextField(
                         controller: gTpController,
                         textAlign: TextAlign.right,
-                        keyboardType: TextInputType.number,
                         onChanged: (value) {
                           debugPrint(
                               'Something changed in Description Text Field');
