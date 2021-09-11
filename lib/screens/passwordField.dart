@@ -9,12 +9,12 @@ class PassWordField extends StatefulWidget {
     this.onSaved,
     this.validator,
     this.onFieldSubmitted,
-    this.lavelText,
+    this.labelText,
   });
 
-  final Key fieldKey;
-  final String hintText;
-  final String lavelText;
+  final Key? fieldKey;
+  final String? hintText;
+  final String labelText;
   final String helperText;
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
@@ -26,6 +26,7 @@ class PassWordField extends StatefulWidget {
 
 class _PassWordFieldState extends State<PassWordField> {
   bool _obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -35,6 +36,21 @@ class _PassWordFieldState extends State<PassWordField> {
       onSaved: widget.onSaved,
       validator: widget.validator,
       onFieldSubmitted: widget.onFieldSubmitted,
+      decoration: InputDecoration(
+        border: const UnderlineInputBorder(),
+          filled: true,
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          helperText: widget.helperText,
+          suffixIcon: GestureDetector(
+            onTap: (){
+              setState((){
+                _obscureText = !_obscureText;
+          });
+          },
+            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+          ),
+        ),
     );
   }
 }
