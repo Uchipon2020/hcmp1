@@ -95,15 +95,12 @@ class NoteDetailState extends State<NoteDetail> {
       },
       child: Scaffold(
         // GestureDetector(
-
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
         },*/
-
         //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
-
         appBar: AppBar(
           title: Text(appBarTitle),
           leading: IconButton(

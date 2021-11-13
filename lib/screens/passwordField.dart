@@ -12,8 +12,8 @@ class PassWordField extends StatefulWidget {
     this.labelText,
   });
 
-  final Key? fieldKey;
-  final String? hintText;
+  final Key fieldKey;
+  final String hintText;
   final String labelText;
   final String helperText;
   final FormFieldSetter<String> onSaved;
@@ -38,19 +38,19 @@ class _PassWordFieldState extends State<PassWordField> {
       onFieldSubmitted: widget.onFieldSubmitted,
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
-          filled: true,
-          hintText: widget.hintText,
-          labelText: widget.labelText,
-          helperText: widget.helperText,
-          suffixIcon: GestureDetector(
-            onTap: (){
-              setState((){
-                _obscureText = !_obscureText;
-          });
+        filled: true,
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        helperText: widget.helperText,
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
           },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-          ),
+          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
         ),
+      ),
     );
   }
 }
