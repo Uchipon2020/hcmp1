@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367094634211",
+    "project_id": "helthcaremania",
+    "storage_bucket": "helthcaremania.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367094634211:android:5f1a24e5ad96866cde57d6",
+        "android_client_info": {
+          "package_name": "com.mine.helth_care_mania_prottype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367094634211-v6k9ouq449tcc12jg8bme67mh587al0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHvAdcu5fK1bJrJVTlhhg_-BVNSu2Rldw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367094634211-v6k9ouq449tcc12jg8bme67mh587al0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
