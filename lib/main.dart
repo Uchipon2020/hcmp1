@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_care_mania_prottype/screens/note_list.dart';
+
+import 'sign_in_screen.dart';
 //import 'package:flutter_stetho/flutter_stetho.dart';
 
 void main() {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.orange
       ),
-      home: NoteList(),
+      home: SignInScreen(),
     );
   }
 }

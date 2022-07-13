@@ -1036,13 +1036,13 @@ class NoteDetailState extends State<NoteDetail> {
 
   void _showAlertDialog(String title, String message) {
 
-    AlertDialog alertDialog = AlertDialog(
+    AlertDialog alertDialog =
+    AlertDialog(
       title: Text(title),
       content: Text(message),
-    );
-    showDialog(
-        context: context,
-        builder: (_) => alertDialog
+      /*  context: context,
+          builder:(_) => alertDialog),
+     */
     );
   }
 
