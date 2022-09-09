@@ -92,7 +92,7 @@ class NoteDetailState extends State<NoteDetail> {
             currentFocus.focusedChild.unfocus();
           }
         },
-
+//
         //GestureDetector(
         /*WillPopScope(
         onWillPop: () {
