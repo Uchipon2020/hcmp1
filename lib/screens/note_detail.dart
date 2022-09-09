@@ -100,7 +100,7 @@ class NoteDetailState extends State<NoteDetail> {
           moveToLastScreen();
         },*/
         //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
-
+//修正
         child: Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
