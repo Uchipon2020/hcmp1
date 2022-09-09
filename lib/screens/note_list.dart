@@ -17,17 +17,17 @@ class NoteList extends StatefulWidget {
 }
 
 class NoteListState extends State<NoteList> {
-
+//定義しただけ
   DatabaseHelper databaseHelper = DatabaseHelper();
   List<Note> noteList;
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
-
+//初回必ず発動。すべてのデータ読み込み
     if (noteList == null) {
       noteList = <Note>[];
-      updateListView();
+      updateListView();// =>70
     }
 
     return Scaffold(
@@ -51,11 +51,11 @@ class NoteListState extends State<NoteList> {
       ),
     );
   }
-
+//10
   ListView getNoteListView() {
 
-    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    String type;
+    //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    //String type;
 
     return ListView.builder(
       itemCount: count,
@@ -63,19 +63,18 @@ class NoteListState extends State<NoteList> {
         return Card(
           color: Colors.white,
           elevation: 5.0,
-          child: ListTile(
 
+          child: ListTile(
             leading: CircleAvatar(
               backgroundColor: getPriorityColor(this.noteList[position].priority),
               child: getPriorityIcon(this.noteList[position].priority),
             ),
 
             title: Text('受診日 : ' + this.noteList[position].on_the_day),
-
             subtitle: Text('更新日' + this.noteList[position].date),
 
            trailing: GestureDetector(
-              child: Icon(Icons.auto_stories, color: Colors.grey,),
+              child: Icon(Icons.account_balance_wallet, color: Colors.grey,),
               onTap: () {
                 //_delete(context, noteList[position]);
                 debugPrint("ListTile Tapped");
@@ -83,21 +82,18 @@ class NoteListState extends State<NoteList> {
               },
             ),
 
-            
-
-
-           /* onTap: () {
+          onTap: () {
               debugPrint("ListTile Tapped");
               navigateToDetail(this.noteList[position],'参照・訂正');
-            },*/
-
+            },
           ),
         );
       },
     );
   }
 
-  // Returns the priority color
+  // 20 Return
+  // s the priority color
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
@@ -114,7 +110,7 @@ class NoteListState extends State<NoteList> {
     }
   }
 
-  // Returns the priority icon
+  // 30 Returns the priority icon
   Icon getPriorityIcon(int priority) {
     switch (priority) {
       case 1:
@@ -128,7 +124,7 @@ class NoteListState extends State<NoteList> {
         return Icon(Icons.keyboard_arrow_right);
     }
   }
-
+//40
   void _delete(BuildContext context, Note note) async {
 
     int result = await databaseHelper.deleteNote(note.id);
@@ -137,13 +133,13 @@ class NoteListState extends State<NoteList> {
       updateListView();
     }
   }
-
+//50
   void _showSnackBar(BuildContext context, String message) {
 
     final snackBar = SnackBar(content: Text(message));
     Scaffold.of(context).showSnackBar(snackBar);
   }
-
+//60
   void navigateToDetail(Note note, String height) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NoteDetail(note, height);
@@ -153,13 +149,14 @@ class NoteListState extends State<NoteList> {
       updateListView();
     }
   }
-
+//70
   void updateListView() {
-
+// 配列の設定 dbFuture Databaseという型はいきなり使える？
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
-    dbFuture.then((database) {
 
+    dbFuture.then((database) {
       Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
+
       noteListFuture.then((noteList) {
         setState(() {
           this.noteList = noteList;

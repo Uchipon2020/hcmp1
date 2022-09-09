@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 // ignore: implementation_imports
 import 'package:flutter/src/material/icon_button.dart';
 import 'package:flutter/widgets.dart';
@@ -36,7 +35,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController lEyeController = TextEditingController();
   TextEditingController lBpController = TextEditingController();
   TextEditingController hBpController = TextEditingController();
-  //TextEditingController onTheDayController = TextEditingController();
+  TextEditingController onTheDayController = TextEditingController();
   TextEditingController hR1000Controller = TextEditingController();
   TextEditingController hL1000Controller = TextEditingController();
   TextEditingController hR4000Controller = TextEditingController();
@@ -53,6 +52,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController bGluController = TextEditingController();
   TextEditingController hA1cController = TextEditingController();
   TextEditingController eCgController = TextEditingController();
+
 
   NoteDetailState(this.note, this.appBarTitle);
 
@@ -143,13 +143,14 @@ class NoteDetailState extends State<NoteDetail> {
                       IconButton(
                         onPressed: () {
                           _selectDate(context);
-                          setState((){
+                          setState(() {
                             updateOTD();
                           });
                         },
                         icon: Icon(Icons.calendar_today_outlined),
                       ),
-                      Text('$datenow',
+                      Text(
+                        '$datenow',
                         style: textStyle,
                         textAlign: TextAlign.center,
                       ),
@@ -161,7 +162,7 @@ class NoteDetailState extends State<NoteDetail> {
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                   child: TextField(
-                    controller: heightController,
+                    //controller: heightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
@@ -183,7 +184,7 @@ class NoteDetailState extends State<NoteDetail> {
                 Padding(
                   padding: EdgeInsets.only(top: 2.5, bottom: 10.0),
                   child: TextField(
-                    controller: weightController,
+                    //controller: weightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
@@ -209,7 +210,7 @@ class NoteDetailState extends State<NoteDetail> {
                       Expanded(
                         // 3 Element　（右）視力入力
                         child: TextField(
-                          controller: rEyeController,
+                          // controller: rEyeController,
                           style: textStyle,
                           keyboardType: TextInputType.number,
                           onChanged: (value) {
@@ -252,9 +253,7 @@ class NoteDetailState extends State<NoteDetail> {
                     ],
                   ),
                 ),
-
-                //聴力1000Hz
-
+                //聴力1000H
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                   child: Row(
