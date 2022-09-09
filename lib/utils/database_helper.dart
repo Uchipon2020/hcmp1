@@ -6,16 +6,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
-  static Database _database; // Singleton Database
+
+  static DatabaseHelper _databaseHelper;    // Singleton DatabaseHelper
+  static Database _database;                // Singleton Database
 
   String noteTable = 'note_table';
   String colId = 'id';
   String colHeight = 'height';
   String colWeight = 'weight';
-  //String colWaist = 'waist';
+  String colWaist = 'waist';
   // ignore: non_constant_identifier_names
-  String colR_Eye = 'right_eye';
+  String colR_Eye  ='right_eye';
   // ignore: non_constant_identifier_names
   String colL_Eye = 'left_eye';
   // ignore: non_constant_identifier_names
@@ -45,25 +46,24 @@ class DatabaseHelper {
   // ignore: non_constant_identifier_names
   String colBlood_glucose = 'blood_glucose';
   String colHA1c = 'hA1c';
-  String colSugar = 'sugar';
-  String colUrine = 'urine';
   String colEcg = 'ecg';
   // ignore: non_constant_identifier_names
-  String colOn_the_day = 'on_the_day';
+  String colOn_the_day ='on_the_day';
   String colPriority = 'priority';
   String colDate = 'date';
 
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
   factory DatabaseHelper() {
+
     if (_databaseHelper == null) {
-      _databaseHelper = DatabaseHelper
-          ._createInstance(); // This is executed only once, singleton object
+      _databaseHelper = DatabaseHelper._createInstance(); // This is executed only once, singleton object
     }
     return _databaseHelper;
   }
 
   Future<Database> get database async {
+
     if (_database == null) {
       _database = await initializeDatabase();
     }
@@ -76,23 +76,18 @@ class DatabaseHelper {
     String path = directory.path + 'notes.db';
 
     // Open/create the database at a given path
-    var notesDatabase =
-        await openDatabase(path, version: 1, onCreate: _createDb);
+    var notesDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
     return notesDatabase;
   }
 
   void _createDb(Database db, int newVersion) async {
-    await db.execute('CREATE TABLE $noteTable('
-        ' $colId INTEGER PRIMARY KEY AUTOINCREMENT, '
-        ' $colHeight TEXT, $colWeight TEXT,'
-        ' $colR_Eye TEXT, $colL_Eye TEXT,'
-        ' $colHearing_right_1000 TEXT, $colHearing_left_1000 TEXT,'
-        ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT,'
-        ' $colX_ray TEXT, '
-        ' $colL_Bp TEXT, $colH_Bp TEXT,'
-        ' $colRed_blood TEXT, $colHemoglobin TEXT,'
+
+    await db.execute('CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colHeight TEXT, '
+        ' $colWeight TEXT, $colR_Eye TEXT, $colL_Eye TEXT, $colHearing_right_1000 TExt, $colHearing_left_1000 Text,'
+        ' $colHearing_right_4000 TEXT, $colHearing_left_4000 TEXT, $colX_ray TEXT, '
+        ' $colL_Bp TEXT, $colH_Bp TEXT, $colRed_blood TEXT, $colHemoglobin TEXT,'
         ' $colGot TEXT, $colGpt TEXT, $colGtp TEXT, $colLdl TEXT, $colHdl TEXT, $colNeutral_fat TEXT, '
-        ' $colBlood_glucose TEXT, $colHA1c TEXT, $colUrine TEXT, $colSugar TEXT, $colEcg TEXT, '
+        ' $colBlood_glucose TEXT, $colHA1c TEXT, $colEcg TEXT, '
         ' $colOn_the_day TEXT, $colPriority INTEGER, $colDate TEXT)');
   }
 
@@ -115,33 +110,30 @@ class DatabaseHelper {
   // Update Operation: Update a Note object and save it to database
   Future<int> updateNote(Note note) async {
     var db = await this.database;
-    var result = await db.update(noteTable, note.toMap(),
-        where: '$colId = ?', whereArgs: [note.id]);
+    var result = await db.update(noteTable, note.toMap(), where: '$colId = ?', whereArgs: [note.id]);
     return result;
   }
 
   // Delete Operation: Delete a Note object from database
   Future<int> deleteNote(int id) async {
     var db = await this.database;
-    int result =
-        await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
+    int result = await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
     return result;
   }
 
   // Get number of Note objects in database
   Future<int> getCount() async {
     Database db = await this.database;
-    List<Map<String, dynamic>> x =
-        await db.rawQuery('SELECT COUNT (*) from $noteTable');
+    List<Map<String, dynamic>> x = await db.rawQuery('SELECT COUNT (*) from $noteTable');
     int result = Sqflite.firstIntValue(x);
     return result;
   }
 
   // Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
   Future<List<Note>> getNoteList() async {
+
     var noteMapList = await getNoteMapList(); // Get 'Map List' from database
-    int count =
-        noteMapList.length; // Count the number of map entries in db table
+    int count = noteMapList.length;         // Count the number of map entries in db table
 
     // ignore: deprecated_member_use
     List<Note> noteList = <Note>[];
@@ -152,4 +144,5 @@ class DatabaseHelper {
 
     return noteList;
   }
+
 }

@@ -6,44 +6,56 @@ import 'package:health_care_mania_prottype/screens/note_detail.dart';
 import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
+
 class NoteList extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
+
     return NoteListState();
   }
 }
 
 class NoteListState extends State<NoteList> {
+
   DatabaseHelper databaseHelper = DatabaseHelper();
   List<Note> noteList;
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
+
     if (noteList == null) {
       noteList = <Note>[];
       updateListView();
     }
 
     return Scaffold(
+
       appBar: AppBar(
         title: Text('MY HEALTHCARE DATA'),
       ),
+
       body: getNoteListView(),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
-          navigateToDetail(Note(1, ''), '新規登録');
+          navigateToDetail(Note(1,''), '新規登録');
         },
+
         tooltip: '新規登録',
+
         child: Icon(Icons.add),
+
       ),
     );
   }
 
   ListView getNoteListView() {
-    //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    //String type;
+
+    TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
+    String type;
 
     return ListView.builder(
       itemCount: count,
@@ -52,27 +64,33 @@ class NoteListState extends State<NoteList> {
           color: Colors.white,
           elevation: 5.0,
           child: ListTile(
+
             leading: CircleAvatar(
-              backgroundColor:
-                  getPriorityColor(this.noteList[position].priority),
+              backgroundColor: getPriorityColor(this.noteList[position].priority),
               child: getPriorityIcon(this.noteList[position].priority),
             ),
-            title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
+
+            title: Text('受診日 : ' + this.noteList[position].on_the_day),
+
             subtitle: Text('更新日' + this.noteList[position].date),
 
-            /*trailing: GestureDetector(
+           trailing: GestureDetector(
               child: Icon(Icons.auto_stories, color: Colors.grey,),
               onTap: () {
                 //_delete(context, noteList[position]);
                 debugPrint("ListTile Tapped");
                 navigateToDetail(this.noteList[position],'参照・訂正');
               },
-            ),*/
+            ),
 
-            onTap: () {
+            
+
+
+           /* onTap: () {
               debugPrint("ListTile Tapped");
-              navigateToDetail(this.noteList[position], '参照・訂正');
-            },
+              navigateToDetail(this.noteList[position],'参照・訂正');
+            },*/
+
           ),
         );
       },
@@ -83,11 +101,11 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
-        //type = "定期健康診断";
+        //type = "定期";
         return Colors.red;
         break;
       case 2:
-        //type = "人間ドック";
+        //type = "その他";
         return Colors.yellow;
         break;
 
@@ -112,6 +130,7 @@ class NoteListState extends State<NoteList> {
   }
 
   void _delete(BuildContext context, Note note) async {
+
     int result = await databaseHelper.deleteNote(note.id);
     if (result != 0) {
       _showSnackBar(context, '削除完了');
@@ -120,13 +139,13 @@ class NoteListState extends State<NoteList> {
   }
 
   void _showSnackBar(BuildContext context, String message) {
+
     final snackBar = SnackBar(content: Text(message));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
   void navigateToDetail(Note note, String height) async {
-    bool result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+    bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NoteDetail(note, height);
     }));
 
@@ -136,8 +155,10 @@ class NoteListState extends State<NoteList> {
   }
 
   void updateListView() {
+
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
     dbFuture.then((database) {
+
       Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
       noteListFuture.then((noteList) {
         setState(() {
