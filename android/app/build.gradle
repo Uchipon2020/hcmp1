@@ -59,7 +59,7 @@ if (flutterVersionCode == null) {
 
         buildTypes {
             release {
-              signingConfig signingConfigs.debug
+              signingConfig signingConfigs.release
                //ndk{
                  //  debugSymblLevel 'SYMBOL_TABLE'
                // }

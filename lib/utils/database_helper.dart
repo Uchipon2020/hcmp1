@@ -69,7 +69,7 @@ class DatabaseHelper {
     }
     return _database;
   }
-//100 一連のDATABASE作成。Pathの作り方が他と違う？
+
   Future<Database> initializeDatabase() async {
     // Get the directory path for both Android and iOS to store database.
     Directory directory = await getApplicationDocumentsDirectory();
@@ -131,14 +131,17 @@ class DatabaseHelper {
 
   // Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
   Future<List<Note>> getNoteList() async {
+
     var noteMapList = await getNoteMapList(); // Get 'Map List' from database
     int count = noteMapList.length;         // Count the number of map entries in db table
+
     // ignore: deprecated_member_use
     List<Note> noteList = <Note>[];
     // For loop to create a 'Note List' from a 'Map List'
     for (int i = 0; i < count; i++) {
       noteList.add(Note.fromMapObject(noteMapList[i]));
     }
+
     return noteList;
   }
 

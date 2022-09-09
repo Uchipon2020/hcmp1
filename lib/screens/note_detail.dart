@@ -9,6 +9,7 @@ import 'package:health_care_mania_prottype/utils/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
+
   final String appBarTitle;
   final Note note;
 
@@ -16,18 +17,20 @@ class NoteDetail extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+
     return NoteDetailState(this.note, this.appBarTitle);
   }
 }
 
 class NoteDetailState extends State<NoteDetail> {
+
   static var _priorities = ['定期', 'その他'];
 
   DatabaseHelper helper = DatabaseHelper();
 
   String appBarTitle;
   Note note;
-  dynamic datenow = '';
+  dynamic datenow =  '';
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -58,6 +61,7 @@ class NoteDetailState extends State<NoteDetail> {
 
   @override
   Widget build(BuildContext context) {
+
     TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
 
     heightController.text = note.height;
@@ -66,7 +70,7 @@ class NoteDetailState extends State<NoteDetail> {
     lEyeController.text = note.left_eye;
     lBpController.text = note.low_blood_pressure;
     hBpController.text = note.high_blood_pressure;
-    datenow = note.on_the_day;
+    onTheDayController.text = note.on_the_day;
     hR1000Controller.text = note.hearing_right_1000;
     hL1000Controller.text = note.hearing_left_1000;
     hR4000Controller.text = note.hearing_right_4000;
@@ -85,36 +89,38 @@ class NoteDetailState extends State<NoteDetail> {
     eCgController.text = note.ecg;
 
     return Listener(
-        onPointerDown: (_) {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus &&
-              currentFocus.focusedChild != null) {
-            currentFocus.focusedChild.unfocus();
-          }
-        },
-//
-        //GestureDetector(
+      onPointerDown: (_) {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+      currentFocus.focusedChild.unfocus();
+        }
+      },
+
+    //GestureDetector(
         /*WillPopScope(
         onWillPop: () {
           // Write some code to control things, when user press Back navigation button in device navigationBar
           moveToLastScreen();
         },*/
         //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
-//修正
-        child: Scaffold(
+
+        child:Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+            leading: IconButton(icon: Icon(
+                Icons.arrow_back),
                 onPressed: () {
                   // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
-                }),
+                }
+            ),
           ),
+
           body: Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
             child: ListView(
               children: <Widget>[
+
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
 
                 ListTile(
@@ -125,44 +131,44 @@ class NoteDetailState extends State<NoteDetail> {
                           child: Text(dropDownStringItem),
                         );
                       }).toList(),
+
                       style: textStyle,
+
                       value: getPriorityAsString(note.priority),
+
                       onChanged: (valueSelectedByUser) {
                         setState(() {
                           debugPrint('User selected $valueSelectedByUser');
                           updatePriorityAsInt(valueSelectedByUser);
                         });
-                      }),
+                      }
+                  ),
                 ),
+
+
 
                 // 8 Element　受診日
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                   child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          _selectDate(context);
-                          setState(() {
+                      children: <Widget>[
+                          IconButton(onPressed: (){
+                            _selectDate(context);
+                            onTheDayController.text = datenow;
                             updateOTD();
-                          });
-                        },
-                        icon: Icon(Icons.calendar_today_outlined),
-                      ),
-                      Text(
-                        '$datenow',
-                        style: textStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                            }, icon: Icon(Icons.calendar_today_outlined),),
+                        Text(datenow.toString(),
+                        ),
+                      ],
                   ),
                 ),
+
 
                 // Second Element　身長入力
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                   child: TextField(
-                    //controller: heightController,
+                    controller: heightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
@@ -176,15 +182,19 @@ class NoteDetailState extends State<NoteDetail> {
                         suffix: Text(' cm'),
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+
+                        )
+                    ),
                   ),
                 ),
+
 
                 // Third Element　体重入力
                 Padding(
                   padding: EdgeInsets.only(top: 2.5, bottom: 10.0),
                   child: TextField(
-                    //controller: weightController,
+                    controller: weightController,
                     style: textStyle,
                     textAlign: TextAlign.right,
                     keyboardType: TextInputType.number,
@@ -198,9 +208,12 @@ class NoteDetailState extends State<NoteDetail> {
                         suffix: Text(' kg'),
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
+
 
                 //視力横並び表示-------------------
                 Padding(
@@ -210,7 +223,7 @@ class NoteDetailState extends State<NoteDetail> {
                       Expanded(
                         // 3 Element　（右）視力入力
                         child: TextField(
-                          // controller: rEyeController,
+                          controller: rEyeController,
                           style: textStyle,
                           keyboardType: TextInputType.number,
                           onChanged: (value) {
@@ -218,18 +231,19 @@ class NoteDetailState extends State<NoteDetail> {
                                 'Something changed in Description Text Field');
                             updateREye();
                           },
+
                           decoration: InputDecoration(
                             labelText: '右視力',
                             icon: Icon(Icons.remove_red_eye),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　（左）視力入力
                         child: TextField(
@@ -246,14 +260,17 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.remove_red_eye),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
-                //聴力1000H
+                  ),),
+
+                //聴力1000Hz
+
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 2.5),
                   child: Row(
@@ -275,13 +292,13 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　聴力1000　左
                         child: TextField(
@@ -298,13 +315,14 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
 
                 //聴力4000Hz
 
@@ -329,13 +347,13 @@ class NoteDetailState extends State<NoteDetail> {
                             icon: Icon(Icons.hearing),
                             labelStyle: textStyle,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 5 Element　聴力4000　左
                         child: TextField(
@@ -352,13 +370,14 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             icon: Icon(Icons.hearing),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  ),
-                ),
+                  ),),
+
 
                 //血圧横並び表示----------------
                 Padding(
@@ -383,12 +402,14 @@ class NoteDetailState extends State<NoteDetail> {
                               suffix: Text(' mmHg'),
                               icon: Icon(Icons.arrow_downward),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 7 Element　血圧（High）
                         child: TextField(
@@ -407,12 +428,15 @@ class NoteDetailState extends State<NoteDetail> {
                               suffix: Text(' mmHg'),
                               icon: Icon(Icons.arrow_upward),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
 
                 // x線検査
                 Padding(
@@ -430,9 +454,12 @@ class NoteDetailState extends State<NoteDetail> {
                         icon: Icon(Icons.content_paste),
                         labelStyle: textStyle,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
+
 
                 // 心電図検査
 
@@ -451,7 +478,9 @@ class NoteDetailState extends State<NoteDetail> {
                         labelStyle: textStyle,
                         icon: Icon(Icons.accessibility),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                            borderRadius: BorderRadius.circular(5.0)
+                        )
+                    ),
                   ),
                 ),
                 /*
@@ -479,12 +508,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' 万/μL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 7 Element　血色素量
                         child: TextField(
@@ -502,12 +533,15 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' g/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
 
                 //肝機能検査　横並び３つ----------------
                 Padding(
@@ -531,12 +565,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ＧＰＴ
                         child: TextField(
@@ -554,12 +590,13 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ガンマ
                         child: TextField(
@@ -577,12 +614,17 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' U/L'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
+
+
                     ],
                   ),
                 ),
+
 
                 //ＬＤＬとＨＤＬ----------------
                 Padding(
@@ -606,12 +648,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ＨＤＬ
                         child: TextField(
@@ -629,12 +673,14 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // 中性脂肪
                         child: TextField(
@@ -652,7 +698,9 @@ class NoteDetailState extends State<NoteDetail> {
                               labelStyle: textStyle,
                               suffix: Text(' mg/dL'),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              )
+                          ),
                         ),
                       ),
                     ],
@@ -677,18 +725,19 @@ class NoteDetailState extends State<NoteDetail> {
                                 'Something changed in Description Text Field');
                             updateBloodglucose();
                           },
+
                           decoration: InputDecoration(
                             labelText: '空腹時血糖',
                             labelStyle: textStyle,
                             suffix: Text(' mg/dL'),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+                      Container(width: 5.0,),
+
                       Expanded(
                         // A1c
                         child: TextField(
@@ -706,13 +755,15 @@ class NoteDetailState extends State<NoteDetail> {
                             labelStyle: textStyle,
                             suffix: Text(' %'),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)
+                            ),
                           ),
                         ),
                       ),
+
                     ],
-                  ),
-                ),
+                  ),),
+
 
                 /* 5 Element　保存と削除　横並び表示
                 *
@@ -728,8 +779,12 @@ class NoteDetailState extends State<NoteDetail> {
                       Expanded(
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
+                          textColor: Theme
+                              .of(context)
+                              .primaryColorLight,
                           child: Text(
                             'Save',
                             textScaleFactor: 1.5,
@@ -742,14 +797,18 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
-                      Container(
-                        width: 5.0,
-                      ),
+
+                      Container(width: 5.0,),
+
                       Expanded(
                         // ignore: deprecated_member_use
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
-                          textColor: Theme.of(context).primaryColorLight,
+                          color: Theme
+                              .of(context)
+                              .primaryColorDark,
+                          textColor: Theme
+                              .of(context)
+                              .primaryColorLight,
                           child: Text(
                             'Delete',
                             textScaleFactor: 1.5,
@@ -762,13 +821,18 @@ class NoteDetailState extends State<NoteDetail> {
                           },
                         ),
                       ),
+
                     ],
                   ),
                 ),
+
               ],
             ),
           ),
-        ));
+
+    )
+
+    );
   }
 
   void moveToLastScreen() {
@@ -792,24 +856,26 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0]; // 'High'
+        priority = _priorities[0];  // 'High'
         break;
       case 2:
-        priority = _priorities[1]; // 'Low'
+        priority = _priorities[1];  // 'Low'
         break;
     }
     return priority;
   }
 
   // Update the title of Note object
-  void updateHeight() {
+  void updateHeight(){
     note.height = heightController.text;
   }
 
+
   // Update the title of Note object
-  void updateWeight() {
+  void updateWeight(){
     note.weight = weightController.text;
   }
+
 
   // Update the right_eyes of Note object
   void updateREye() {
@@ -821,69 +887,70 @@ class NoteDetailState extends State<NoteDetail> {
     note.left_eye = lEyeController.text;
   }
 
-  void updateHearing_r_1000() {
+  void updateHearing_r_1000(){
     note.hearing_right_1000 = hR1000Controller.text;
   }
 
-  void updateHearing_l_1000() {
+  void updateHearing_l_1000(){
     note.hearing_left_1000 = hL1000Controller.text;
   }
 
-  void updateHearing_r_4000() {
+  void updateHearing_r_4000(){
     note.hearing_right_4000 = hR4000Controller.text;
   }
 
-  void updateHearing_l_4000() {
+  void updateHearing_l_4000(){
     note.hearing_left_4000 = hL4000Controller.text;
   }
 
-  void updateXray() {
+  void updateXray(){
     note.x_ray = xRayController.text;
   }
 
-  void updateRedblood() {
+  void updateRedblood(){
     note.red_blood = rBController.text;
   }
 
-  void updateHemo() {
+  void updateHemo(){
     note.hemoglobin = hEmoController.text;
   }
 
-  void updateGot() {
+  void updateGot(){
     note.got = gOtController.text;
   }
 
-  void updateGpt() {
+  void updateGpt(){
     note.gpt = gPtController.text;
   }
 
-  void updateGtp() {
+  void updateGtp(){
     note.gtp = gTpController.text;
   }
 
-  void updateLdl() {
+  void updateLdl(){
     note.ldl = lDlController.text;
   }
 
-  void updateHdl() {
+  void updateHdl(){
     note.hdl = hDlController.text;
   }
 
-  void updateNeutralfat() {
+  void updateNeutralfat(){
     note.neutral_fat = nFatController.text;
   }
 
-  void updateBloodglucose() {
+  void updateBloodglucose(){
     note.blood_glucose = bGluController.text;
   }
 
-  void updateHA1c() {
+  void updateHA1c(){
     note.hA1c = hA1cController.text;
   }
 
-  void updateEcg() {
+  void updateEcg(){
     note.ecg = eCgController.text;
   }
+
 
   // Update the low_blood_pressure of Note object
   void updateLBp() {
@@ -896,47 +963,48 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   // Update the on_the_day of Note object
-  void updateOTD() {
-    note.on_the_day = datenow as String;
+ void updateOTD() {
+    note.on_the_day = onTheDayController.text;
   }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime selected = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015),
-        lastDate: new DateTime.now().add(new Duration(days: 720)));
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2015),
+      lastDate: new DateTime.now().add(new Duration(days:720)));
     if (selected != null) {
-      setState(() => datenow = selected);
-      debugPrint('$datenow');
+      setState(() => this.datenow = selected);
+      debugPrint(
+          '$datenow');
       //note.on_the_day = onTheDayController.text;
     }
   }
 
+
   // Save data to database
   void _save() async {
+
     moveToLastScreen();
 
     note.date = DateFormat.yMMMd().format(DateTime.now());
     int result;
-    if (note.id != null) {
-      // Case 1: Update operation
+    if (note.id != null) {  // Case 1: Update operation
       result = await helper.updateNote(note);
-    } else {
-      // Case 2: Insert Operation
+    } else { // Case 2: Insert Operation
       result = await helper.insertNote(note);
     }
 
-    if (result != 0) {
-      // Success
+    if (result != 0) {  // Success
       _showAlertDialog('状況', '保存完了！！');
-    } else {
-      // Failure
+    } else {  // Failure
       _showAlertDialog('状況', '問題発生・保存されませんでした');
     }
+
   }
 
   void _delete() async {
+
     moveToLastScreen();
 
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
@@ -956,14 +1024,20 @@ class NoteDetailState extends State<NoteDetail> {
   }
 
   void _showAlertDialog(String title, String message) {
+
     AlertDialog alertDialog = AlertDialog(
       title: Text(title),
       content: Text(message),
     );
-    showDialog(context: context, builder: (_) => alertDialog);
+    showDialog(
+        context: context,
+        builder: (_) => alertDialog
+    );
   }
-}
 
+
+
+}
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;
