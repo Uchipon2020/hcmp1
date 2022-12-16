@@ -1,10 +1,10 @@
+
 import 'package:flutter/material.dart';
-import 'package:health_care_mania_prottype/screens/note_list.dart';
+
+import 'package:health_care_mania_prottype/screens/model_list_screen.dart';
 //import 'package:flutter_stetho/flutter_stetho.dart';
 
-void main() {
- //Stetho.initialize();
-  runApp(MyApp());
+void main() async {runApp(MyApp());
 }
 
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Health Care Mania',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.orange
+          primarySwatch: Colors.amber
       ),
       home: NoteList(),
     );

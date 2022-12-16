@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "177968100594",
+    "project_id": "testapp-3b1ef",
+    "storage_bucket": "testapp-3b1ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177968100594:android:c92e36bd8c769abebb4c6b",
+        "android_client_info": {
+          "package_name": "com.example.testapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177968100594-1ffavg8dqkiqugv66qdo9iul0tj833o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE0sGTxTHzjDobTV__-hegsq6u22MWgEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177968100594-1ffavg8dqkiqugv66qdo9iul0tj833o6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177968100594:android:ac12dad38e288961bb4c6b",
+        "android_client_info": {
+          "package_name": "com.mine.helth_care_mania_prottype"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177968100594-1ffavg8dqkiqugv66qdo9iul0tj833o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE0sGTxTHzjDobTV__-hegsq6u22MWgEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177968100594-1ffavg8dqkiqugv66qdo9iul0tj833o6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>177968100594-2e2snila5ognubfn5u5bjqkft1g9enuv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.177968100594-2e2snila5ognubfn5u5bjqkft1g9enuv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB--zgS_6Roy_WV-rx9JhGSr--aRK77zm0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>177968100594</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.helthCareManiaProttype</string>
+	<key>PROJECT_ID</key>
+	<string>testapp-3b1ef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>testapp-3b1ef.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:177968100594:ios:3d9dd5456cd13ffebb4c6b</string>
+</dict>
+</plist>
