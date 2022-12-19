@@ -58,7 +58,7 @@ class NoteListState extends State<NoteList> {
                   getPriorityColor(this.noteList[position].priority),
               child: getPriorityIcon(this.noteList[position].priority),
             ),
-            title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
+            //title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
             subtitle: Text('更新日' + this.noteList[position].date),
 
             trailing: GestureDetector(

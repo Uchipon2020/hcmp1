@@ -24,6 +24,12 @@ class ItemDetailState extends State<ItemDetail> {
   String appBarTitle;
   Model note;
   dynamic dateNow;
+  dynamic dateFormat;
+  void initState(){
+    super.initState();
+    dateFormat = DateTime.now();
+    dateNow = DateFormat("yyyy年MM月dd日").format(dateFormat);}
+
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
@@ -78,6 +84,11 @@ class ItemDetailState extends State<ItemDetail> {
     bGluController.text = note.blood_glucose_21;
     hA1cController.text = note.hA1c_22;
     eCgController.text = note.ecg_23;
+    if (onTheDayController.text == null) {
+      onTheDayController.text =
+          DateFormat("yyyy年MM月dd日").format(dateFormat);
+    print('$dateFormat');
+    }
 
     return Listener(
         onPointerDown: (_) {
@@ -111,7 +122,6 @@ class ItemDetailState extends State<ItemDetail> {
             child: ListView(
               children: <Widget>[
                 // First element　定期健康診断か人間ドックかプルダウンで選ぶ
-
                 ListTile(
                   title: DropdownButton(
                       items: _priorities.map((String dropDownStringItem) {
@@ -137,25 +147,37 @@ class ItemDetailState extends State<ItemDetail> {
                         });
                       }),
                 ),
-
                 // 24 Element　受診日
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          _selectDate(context);
-                          onTheDayController.text = dateNow;
-                          updateOTD();
-                        },
-                        icon: Icon(Icons.calendar_today_outlined),
-                      ),
-                      Text(dateNow.toString()),
-                    ],
-                  ),
-                ),
-
+               Padding(
+                    padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
+                        child:TextField(
+                          controller: onTheDayController,
+                          style: textStyle,
+                          textAlign: TextAlign.right,
+                          onTap: () {
+                            _selectDate(context);
+                            debugPrint('Something changed in Title Text Field');
+                            onTheDayController.text = dateNow;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                            debugPrint('Something changed in Description Text Field');
+                            onTheDayController.text = dateNow;
+                            updateOTD();
+                            });
+                          },
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            labelText: '受診日',
+                            labelStyle: textStyle,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            icon: Icon(Icons.calendar_today_outlined),
+                          ),
+                        ),
+                         //Text("$dateNow"),
+                    ),
                 // Second Element　身長入力
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -724,7 +746,6 @@ class ItemDetailState extends State<ItemDetail> {
                   ),
                 ),
 
-
                 /* 5 Element　保存と削除　横並び表示
                ---------------------------------------------- */
                 Padding(
@@ -917,12 +938,15 @@ class ItemDetailState extends State<ItemDetail> {
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime selected = await showDatePicker(
+        locale: const Locale("ja"),
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2015),
+        initialDate: dateNow,
+        firstDate: DateTime(1970),
         lastDate: new DateTime.now().add(new Duration(days: 720)));
     if (selected != null) {
-      setState(() => this.dateNow = selected);
+      setState(
+        () => this.dateNow = DateFormat("yyyy年MM月dd日").format(selected).toString(),
+      );
       debugPrint('$dateNow');
       //note.on_the_day = onTheDayController.text;
     }
