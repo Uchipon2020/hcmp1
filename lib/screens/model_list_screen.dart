@@ -23,6 +23,7 @@ class NoteListState extends State<NoteList> {
   Widget build(BuildContext context) {
     if (noteList == null) {
       noteList = <Model>[];
+      debugPrint('初期リセットビルド通過');
       updateListView();
     }
 
@@ -44,7 +45,6 @@ class NoteListState extends State<NoteList> {
 
   ListView getNoteListView() {
     //TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
-    //String type;
 
     return ListView.builder(
       itemCount: count,
@@ -60,7 +60,6 @@ class NoteListState extends State<NoteList> {
             ),
             //title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
             subtitle: Text('更新日' + this.noteList[position].date),
-
             trailing: GestureDetector(
               child: Icon(Icons.auto_stories, color: Colors.grey,),
               onTap: () {
@@ -89,7 +88,7 @@ class NoteListState extends State<NoteList> {
         break;
       case 2:
         //type = "人間ドック";
-        return Colors.orange;
+        return Colors.blue;
         break;
       case 3:
         return Colors.yellow;
@@ -107,13 +106,13 @@ class NoteListState extends State<NoteList> {
         return Icon(Icons.play_arrow);
         break;
       case 2:
-        return Icon(Icons.keyboard_arrow_right);
+        return Icon(Icons.keyboard_double_arrow_right);
         break;
       case 3:
-        return Icon(Icons.keyboard_arrow_left);
+        return Icon(Icons.keyboard_double_arrow_right);
 
       default:
-        return Icon(Icons.keyboard_arrow_right);
+        return Icon(Icons.keyboard_double_arrow_right);
     }
   }
 

@@ -278,7 +278,7 @@ class Model {
   }
 
   set priority(int newPriority) {
-    if (newPriority >= 1 && newPriority <= 2) {
+    if (newPriority >= 1 && newPriority <= 3) {
       this._priority = newPriority;
     }
   }
@@ -355,4 +355,10 @@ class Model {
     this._priority = map['priority'];
     this._date = map['date'];
   }
+
+  @override
+  String toString() {
+    return 'Model{_id: $_id, _date: $_date, _priority: $_priority, _1_height: $_1_height, _2_weight: $_2_weight, _3_waist: $_3_waist, _4_right_eye: $_4_right_eye, _5_left_eye: $_5_left_eye, _6_hearing_right_1000: $_6_hearing_right_1000, _7_hearing_left_1000: $_7_hearing_left_1000, _8_hearing_right_4000: $_8_hearing_right_4000, _9_hearing_left_4000: $_9_hearing_left_4000, _10_x_ray: $_10_x_ray, _11_low_blood_pressure: $_11_low_blood_pressure, _12_high_blood_pressure: $_12_high_blood_pressure, _13_red_blood: $_13_red_blood, _14_hemoglobin: $_14_hemoglobin, _15_got: $_15_got, _16_gpt: $_16_gpt, _17_gtp: $_17_gtp, _18_ldl: $_18_ldl, _19_hdl: $_19_hdl, _20_neutral_fat: $_20_neutral_fat, _21_blood_glucose: $_21_blood_glucose, _22_hA1c: $_22_hA1c, _23_ecg: $_23_ecg, _24_on_the_day: $_24_on_the_day, _25_urine: $_25_urine, _26_sugar: $_26_sugar}';
+  }
+
 }

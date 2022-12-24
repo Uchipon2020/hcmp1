@@ -156,12 +156,12 @@ class ItemDetailState extends State<ItemDetail> {
                           textAlign: TextAlign.right,
                           onTap: () {
                             _selectDate(context);
-                            debugPrint('Something changed in Title Text Field');
-                            onTheDayController.text = dateNow;
+                            debugPrint('オンタップでカレンダーが表示されているはず');
+                            //onTheDayController.text = dateNow;
                           },
                           onChanged: (value) {
                             setState(() {
-                            debugPrint('Something changed in Description Text Field');
+                            debugPrint('保存しに行っているはずです。');
                             onTheDayController.text = dateNow;
                             updateOTD();
                             });
@@ -932,7 +932,7 @@ class ItemDetailState extends State<ItemDetail> {
   // Update the on_the_day of Note object
   void updateOTD() {
     note.on_the_day_24 = onTheDayController.text;
-    print(onTheDayController.text);
+    print(onTheDayController.text + 'アップデートメソッドの中のテキスト');
     print(note.on_the_day_24);
   }
 
