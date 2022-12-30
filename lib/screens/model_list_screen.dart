@@ -58,15 +58,15 @@ class NoteListState extends State<NoteList> {
                   getPriorityColor(this.noteList[position].priority),
               child: getPriorityIcon(this.noteList[position].priority),
             ),
-            //title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
+            title: Text('受診日 : ' + this.noteList[position].on_the_day_24),
             subtitle: Text('更新日' + this.noteList[position].date),
             trailing: GestureDetector(
-              child: Icon(Icons.auto_stories, color: Colors.grey,),
-              onTap: () {
+              child: Icon(Icons.account_balance_wallet_outlined, color: Colors.grey,),
+             /* onTap: () {
                 _delete(context, noteList[position]);
                 debugPrint("ListTile Tapped");
                 navigateToDetail(this.noteList[position],'参照・訂正');
-              },
+              },*/
             ),
 
            onTap: () {
