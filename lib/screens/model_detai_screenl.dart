@@ -157,13 +157,15 @@ class ItemDetailState extends State<ItemDetail> {
                           onTap: () {
                             _selectDate(context);
                             debugPrint('オンタップでカレンダーが表示されているはず');
-                            //onTheDayController.text = dateNow;
+                            onTheDayController.text = dateNow;
+                            //updateOTD();
                           },
+
                           onChanged: (value) {
                             setState(() {
                             debugPrint('保存しに行っているはずです。');
                             onTheDayController.text = dateNow;
-                            updateOTD();
+                            //updateOTD();
                             });
                           },
                           textInputAction: TextInputAction.next,
@@ -940,7 +942,7 @@ class ItemDetailState extends State<ItemDetail> {
     final DateTime selected = await showDatePicker(
         locale: const Locale("ja"),
         context: context,
-        initialDate: dateNow,
+        initialDate: DateTime.now(),
         firstDate: DateTime(1970),
         lastDate: new DateTime.now().add(new Duration(days: 720)));
     if (selected != null) {
@@ -949,6 +951,8 @@ class ItemDetailState extends State<ItemDetail> {
       );
       debugPrint('$dateNow');
       //note.on_the_day = onTheDayController.text;
+      onTheDayController.text = dateNow;
+      updateOTD();
     }
   }
 
@@ -957,6 +961,7 @@ class ItemDetailState extends State<ItemDetail> {
     moveToLastScreen();
 
     note.date = DateFormat.yMMMd().format(DateTime.now());
+    debugPrint(note.on_the_day_24);
     int result;
     if (note.id != null) {
       // Case 1: Update operation
