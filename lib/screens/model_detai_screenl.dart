@@ -143,6 +143,7 @@ class ItemDetailState extends State<ItemDetail> {
                Padding(
                     padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
                         child:TextField(
+                          focusNode: AlwaysDisabledFocusNode(),
                           controller: onTheDayController,
                           style: textStyle,
                           textAlign: TextAlign.right,
