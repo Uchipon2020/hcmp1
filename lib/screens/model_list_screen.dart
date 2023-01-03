@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -63,11 +62,6 @@ class NoteListState extends State<NoteList> {
             subtitle: Text('更新日' + this.noteList[position].date),
             trailing: GestureDetector(
               child: Icon(Icons.account_balance_wallet_outlined, color: Colors.grey,),
-             /* onTap: () {
-                _delete(context, noteList[position]);
-                debugPrint("ListTile Tapped");
-                navigateToDetail(this.noteList[position],'参照・訂正');
-              },*/
             ),
 
            onTap: () {
@@ -115,19 +109,6 @@ class NoteListState extends State<NoteList> {
       default:
         return Icon(Icons.keyboard_double_arrow_right);
     }
-  }
-
-  void _delete(BuildContext context, Model note) async {
-    int result = await databaseHelper.deleteNote(note.id);
-    if (result != 0) {
-      _showSnackBar(context, '削除完了');
-      updateListView();
-    }
-  }
-
-  void _showSnackBar(BuildContext context, String message) {
-    final snackBar = SnackBar(content: Text(message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void navigateToDetail(Model note, String height) async {

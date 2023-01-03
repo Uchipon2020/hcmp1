@@ -99,14 +99,6 @@ class ItemDetailState extends State<ItemDetail> {
           }
         },
 
-        //GestureDetector(
-        /*WillPopScope(
-        onWillPop: () {
-          // Write some code to control things, when user press Back navigation button in device navigationBar
-          moveToLastScreen();
-        },*/
-        //前の画面に戻らせないプログラムwill pop Scopeらしいが、エラーjのラインが出て、効果もよくわからないため、保留
-
         child: Scaffold(
           appBar: AppBar(
             title: Text(appBarTitle),
@@ -158,14 +150,11 @@ class ItemDetailState extends State<ItemDetail> {
                             _selectDate(context);
                             debugPrint('オンタップでカレンダーが表示されているはず');
                             onTheDayController.text = dateNow;
-                            //updateOTD();
                           },
 
                           onChanged: (value) {
                             setState(() {
-                            debugPrint('保存しに行っているはずです。');
                             onTheDayController.text = dateNow;
-                            //updateOTD();
                             });
                           },
                           textInputAction: TextInputAction.next,
@@ -479,13 +468,21 @@ class ItemDetailState extends State<ItemDetail> {
 
                 /*コンテナ＋Columnで血液検査をまとめる。
                 //赤血球数・血色素量----------------
-                 ------------------------------------- */
+                 -----------------------------------------------------------------------------------------------------
+                 -----------------------------------------------------------------------------------------------------
+                 */
                 Container(
-                  margin: EdgeInsets.all(5.0),
+                  //margin: EdgeInsets.all(1.0),
+
+                  padding: EdgeInsets.all(7.0),
+                decoration: BoxDecoration(
+                    color: Color(0xFFFCE4EC),
+                  borderRadius: BorderRadius.circular(5.0)),
+
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 2.5),
+                        padding: EdgeInsets.only(bottom: 2.5),
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -693,7 +690,7 @@ class ItemDetailState extends State<ItemDetail> {
                       ),
                       //血糖検査
                       Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                        padding: EdgeInsets.only(top: 15.0),
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -981,8 +978,6 @@ class ItemDetailState extends State<ItemDetail> {
   }
 
   void _delete() async {
-    moveToLastScreen();
-
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
     // the detail page by pressing the FAB of NoteList page.
     if (note.id == null) {
