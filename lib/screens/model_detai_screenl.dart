@@ -483,7 +483,7 @@ class ItemDetailState extends State<ItemDetail> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 2.5),
+                        padding: EdgeInsets.only(top:2.5,bottom: 2.5),
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -691,7 +691,7 @@ class ItemDetailState extends State<ItemDetail> {
                       ),
                       //血糖検査
                       Padding(
-                        padding: EdgeInsets.only(top: 15.0),
+                        padding: EdgeInsets.only(top: 15.0,bottom: 2.5),
                         child: Row(
                           children: <Widget>[
                             Expanded(

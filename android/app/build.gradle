@@ -16,10 +16,11 @@ if (flutterVersionCode == null) {
     flutterVersionCode = '1'
 }
 
-//def keystoreProperties = new Properties()
-//def keystorePropertiesFile = rootProject.file('key.properties')
-//if (keystorePropertiesFile.exists()) {
-    //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
     def flutterVersionName = localProperties.getProperty('flutter.versionName')
     if (flutterVersionName == null) {
@@ -34,19 +35,35 @@ apply plugin: 'com.google.gms.google-services'
     apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
     android {
-        compileSdkVersion 31
+       // compileSdkVersion 31
+
+       // sourceSets {
+       //     main.java.srcDirs += 'src/main/kotlin'
+       // }
+
+       // ndkVersion  "22.1.7171670"
+        compileSdkVersion flutter.compileSdkVersion
+        ndkVersion flutter.ndkVersion
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
 
         sourceSets {
             main.java.srcDirs += 'src/main/kotlin'
         }
 
-       // ndkVersion  "22.1.7171670"
-
-                defaultConfig {
+        defaultConfig {
             // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
             applicationId "com.mine.helth_care_mania_prottype"
-            minSdkVersion 16
-            targetSdkVersion 30
+            minSdkVersion 22
+            //targetSdkVersion 30
+            targetSdkVersion flutter.targetSdkVersion
             versionCode flutterVersionCode.toInteger()
             versionName flutterVersionName
         }
@@ -62,7 +79,10 @@ apply plugin: 'com.google.gms.google-services'
 
         buildTypes {
             release {
-              signingConfig signingConfigs.release
+                // TODO: Add your own signing config for the release build.
+                // Signing with the debug keys for now, so `flutter run --release` works.
+                signingConfig signingConfigs.debug
+              //signingConfig signingConfigs.release
                //ndk{
                  //  debugSymblLevel 'SYMBOL_TABLE'
                // }
